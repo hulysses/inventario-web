@@ -5,6 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useDispatch } from 'react-redux'; 
+import { login } from '../../store/slice/userSlice'; 
 
 const formSchema = z.object({
     emailAdress: z.string()
@@ -23,7 +25,35 @@ export const Login = () => {
         }
     });
 
-    const handleSubmit = () => { };
+    const dispatch = useDispatch();
+
+    const handleSubmit = async (data: z.infer<typeof formSchema>) => {
+        try {
+            const response = await fetch('http://localhost:3000/', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: data.emailAdress,
+                    password: data.password
+                })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result.message);
+
+                dispatch(login({ email: data.emailAdress }));
+
+            } else {
+                const errorData = await response.json();
+                console.error(errorData.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+        }
+    };
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-center p-5 sm:p-10 md:p-24">
@@ -38,8 +68,8 @@ export const Login = () => {
                         <FormField
                             control={form.control}
                             name="emailAdress"
-                            render={({ field }) => {
-                                return <FormItem>
+                            render={({ field }) => (
+                                <FormItem>
                                     <FormLabel className="font-bold">E-mail</FormLabel>
                                     <FormControl>
                                         <Input
@@ -50,13 +80,13 @@ export const Login = () => {
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
-                            }}
+                            )}
                         />
                         <FormField
                             control={form.control}
                             name="password"
-                            render={({ field }) => {
-                                return <FormItem className="mt-5">
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
                                     <FormLabel className="font-bold">Senha</FormLabel>
                                     <FormControl>
                                         <Input
@@ -67,7 +97,7 @@ export const Login = () => {
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
-                            }}
+                            )}
                         />
                         <Button
                             type="submit"
@@ -79,4 +109,4 @@ export const Login = () => {
             </div>
         </main>
     );
-}
+};
