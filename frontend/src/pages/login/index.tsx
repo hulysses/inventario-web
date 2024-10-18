@@ -110,5 +110,3 @@ export const Login = () => {
         </main>
     );
 };
-
-//Leigos
