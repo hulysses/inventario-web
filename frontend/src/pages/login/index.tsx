@@ -5,8 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useDispatch } from 'react-redux'; 
-import { login } from '../../store/slice/userSlice'; 
+import { useNavigate } from 'react-router-dom';
 
 const formSchema = z.object({
     emailAdress: z.string()
@@ -25,7 +24,7 @@ export const Login = () => {
         }
     });
 
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = async (data: z.infer<typeof formSchema>) => {
         try {
@@ -44,8 +43,7 @@ export const Login = () => {
                 const result = await response.json();
                 console.log(result.message);
 
-                dispatch(login({ email: data.emailAdress }));
-
+                navigate('/home');
             } else {
                 const errorData = await response.json();
                 console.error(errorData.error);

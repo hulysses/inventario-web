@@ -1,13 +1,14 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Login } from "./pages/login";
-import { Provider } from 'react-redux';
-import store from './store/store';
+import { Home } from "./pages/home";
 
 export function App() {
   return (
-    <>
-      <Provider store={store}>
-        <Login />
-      </Provider>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </Router>
+  );
 }
