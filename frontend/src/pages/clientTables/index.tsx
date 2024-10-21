@@ -74,11 +74,9 @@ export const ClientTable = () => {
                                         className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                                     >
                                         {/* <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"> */}
-                                        <img className="w-16 sm:w-16 md:w-16 " src={Logo} alt="Logo Khiv" />
+                                        <img className="w-16 sm:w-16 md:w-16" src={Logo} alt="Logo Khiv" />
                                         {/* </div> */}
                                         <div className="flex flex-col gap-0.5 leading-none">
-                                            <span className="font-semibold"></span>
-                                            <span className="">v{selectedVersion}</span>
                                         </div>
                                         <ChevronsUpDown className="ml-auto" />
                                     </SidebarMenuButton>
