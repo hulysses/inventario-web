@@ -5,8 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useDispatch } from 'react-redux'; 
-import { login } from '../../store/slice/userSlice'; 
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/slice/userSlice';
+import axios from 'axios';
 
 const formSchema = z.object({
     emailAdress: z.string()
@@ -29,26 +30,16 @@ export const Login = () => {
 
     const handleSubmit = async (data: z.infer<typeof formSchema>) => {
         try {
-            const response = await fetch('http://localhost:3000/', { 
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: data.emailAdress,
-                    password: data.password
-                })
+            const response = await axios.post('http://localhost:3000/', {
+                email: data.emailAdress,
+                password: data.password
             });
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log(result.message);
+            if (response) {
+                console.log(response);
+                console.log(response.data)
 
                 dispatch(login({ email: data.emailAdress }));
-
-            } else {
-                const errorData = await response.json();
-                console.error(errorData.error);
             }
         } catch (error) {
             console.error('Erro na requisição:', error);
