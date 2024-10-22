@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Login } from "./pages/login";
 import { Home } from "./pages/home";
 import { useEffect, useState } from 'react';
-import { Layout } from './Layout';
+import { AppSidebar } from './components/app-sidebar';
 
 export function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -20,7 +20,7 @@ export function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route element={isLoggedIn ? <Layout /> : <Navigate to="/" />}>
+        <Route element={isLoggedIn ? <AppSidebar /> : <Navigate to="/" />}>
           <Route path="/home" element={<Home />} />
         </Route>
       </Routes>
