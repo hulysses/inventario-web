@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Login } from "./pages/login";
 import { Home } from "./pages/home";
 import { useEffect, useState } from 'react';
-import { AppSidebar } from './components/app-sidebar';
-import { ClientTable } from "@/pages/clientTables";
+import { AppSidebar } from './components/sidebar/menuSideBar';
+import { ClientTable } from "@/pages/user";
 
 export function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);

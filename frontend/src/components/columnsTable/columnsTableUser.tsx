@@ -1,13 +1,11 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+
 export type Payment = {
-    id: number
-    createdAt: Date
-    nome: string
+    id: number,
+    createdAt: Date,
+    nome: string,
     email: string
-    senha: string
 }
 
 export const columns: ColumnDef<Payment>[] = [
@@ -49,9 +47,5 @@ export const columns: ColumnDef<Payment>[] = [
     {
         accessorKey: "email",
         header: "E-mail",
-    },
-    {
-        accessorKey: "senha",
-        header: "Senha",
-    },
+    }
 ]

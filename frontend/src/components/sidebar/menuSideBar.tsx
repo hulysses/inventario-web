@@ -1,13 +1,12 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Users, Home, SmilePlus, ShoppingBasket, ShoppingCart, Truck, ArrowLeftRight, LogOut } from "lucide-react";
-import Logo from '../assets/logo/logoBranca.svg';
-import LogoSimplificada from '../assets/logo/logoSimplificada.svg';
-import { Separator } from './ui/separator';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from './ui/breadcrumb';
+import Logo from '../../assets/logo/logoBranca.svg';
+import LogoSimplificada from '../../assets/logo/logoSimplificada.svg';
+import { Separator } from '../ui/separator';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import {
     Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent,
-    SidebarHeader,
-    SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
+    SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
     SidebarProvider, SidebarTrigger,
 } from "@/components/ui/sidebar";
 
@@ -19,7 +18,7 @@ const items = [
     },
     {
         title: "Usuários",
-        url: "/homes",
+        url: "/users",
         icon: Users,
     },
     {
@@ -60,7 +59,7 @@ export function AppSidebar() {
     return (
         <SidebarProvider>
             <Sidebar collapsible="icon" className='bg-white'>
-            <SidebarHeader className="h-[140px] bg-blue flex items-center justify-center transition-all duration-500 ease-in-out group-data-[collapsible=icon]:h-[47px] overflow-hidden">
+                <SidebarHeader className="h-[140px] bg-blue flex items-center justify-center transition-all duration-500 ease-in-out group-data-[collapsible=icon]:h-[47px] overflow-hidden">
                     <div className="w-full h-full flex items-center justify-center transition-all duration-500 ease-in-out group-data-[collapsible=icon]:w-[80px] group-data-[collapsible=icon]:h-[80px]">
                         <img
                             src={Logo}
