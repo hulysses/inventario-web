@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Users, Home, SmilePlus, ShoppingBasket, ShoppingCart, Truck, ArrowLeftRight, LogOut, icons } from "lucide-react";
+import { Users, Home, SmilePlus, ShoppingBasket, ShoppingCart, Truck, ArrowLeftRight, LogOut } from "lucide-react";
 import Logo from '../assets/logo/logoBranca.svg';
 import LogoSimplificada from '../assets/logo/logoSimplificada.svg';
 import { Separator } from './ui/separator';
