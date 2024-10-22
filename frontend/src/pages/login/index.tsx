@@ -5,7 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
 
 const formSchema = z.object({
     emailAddress: z.string()
@@ -32,18 +34,15 @@ export const Login = ({ setIsLoggedIn }: LoginProps) => {
 
     const handleSubmit = async (data: z.infer<typeof formSchema>) => {
         try {
-            const response = await fetch('http://localhost:3000/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: data.emailAddress,
-                    password: data.password
-                })
+            const response = await axios.post('http://localhost:3000/', {
+                email: data.emailAdress,
+                password: data.password
             });
 
-            if (response.ok) {
+             if (response.ok) {
+                console.log(response);
+                console.log(response.data)
+                  
                 const { user } = await response.json();
                 localStorage.setItem('authToken', user.id);
                 setIsLoggedIn(true);
