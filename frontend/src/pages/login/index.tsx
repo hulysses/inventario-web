@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
 const formSchema = z.object({
     emailAddress: z.string()
         .nonempty("O campo e-mail é obrigatório.")
@@ -18,7 +17,7 @@ const formSchema = z.object({
 });
 
 interface LoginProps {
-    setIsLoggedIn: (value: boolean) => void; 
+    setIsLoggedIn: (value: boolean) => void;
 }
 
 export const Login = ({ setIsLoggedIn }: LoginProps) => {
@@ -35,24 +34,24 @@ export const Login = ({ setIsLoggedIn }: LoginProps) => {
     const handleSubmit = async (data: z.infer<typeof formSchema>) => {
         try {
             const response = await axios.post('http://localhost:3000/', {
-                email: data.emailAdress,
+                email: data.emailAddress,
                 password: data.password
             });
 
-             if (response.ok) {
-                console.log(response);
-                console.log(response.data)
-                  
-                const { user } = await response.json();
-                localStorage.setItem('authToken', user.id);
-                setIsLoggedIn(true);
-                navigate('/home');
+            console.log(response);
+            console.log(response.data)
+
+            const { user } = await response.data;
+            localStorage.setItem('authToken', user.id);
+            setIsLoggedIn(true);
+
+            navigate('/home');
+        } catch (error: any) {
+            if (error.response) {
+                console.error('Erro na resposta da API:', error.response.data);
             } else {
-                const errorData = await response.json();
-                console.error(errorData.error);
+                console.error('Erro na requisição:', error.message);
             }
-        } catch (error) {
-            console.error('Erro na requisição:', error);
         }
     };
 
