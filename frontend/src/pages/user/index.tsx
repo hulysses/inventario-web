@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { DataTable } from "../../components/data-table";
-import { columns, Payment } from "../../components/columnsTable/columnsTableUser";
+import { DataTable } from "../../components/table/data-table";
+import { columns, Payment } from "../../components/table/columnsTable/columnsTableUser";
 
 const payments: Payment[] = [
     {

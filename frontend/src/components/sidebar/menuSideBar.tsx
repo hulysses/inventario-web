@@ -1,4 +1,5 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Users, Home, SmilePlus, ShoppingBasket, ShoppingCart, Truck, ArrowLeftRight, LogOut } from "lucide-react";
 import Logo from '../../assets/logo/logoBranca.svg';
 import LogoSimplificada from '../../assets/logo/logoSimplificada.svg';
@@ -23,37 +24,51 @@ const items = [
     },
     {
         title: "Clientes",
-        url: "#",
+        url: "/clients",
         icon: SmilePlus,
     },
     {
         title: "Fornecedores",
-        url: "#",
+        url: "/suppliers",
         icon: Truck,
     },
     {
         title: "Produtos",
-        url: "#",
+        url: "/products",
         icon: ShoppingBasket,
     },
     {
         title: "Pedidos",
-        url: "#",
+        url: "/orders",
         icon: ShoppingCart,
     },
     {
         title: "Transações",
-        url: "#",
+        url: "/transactions",
         icon: ArrowLeftRight,
     },
 ];
 
 export function AppSidebar() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [currentPage, setCurrentPage] = useState("Home");
+
+    useEffect(() => {
+        const currentItem = items.find(item => item.url === location.pathname);
+        if (currentItem) {
+            setCurrentPage(currentItem.title);
+        }
+    }, [location]);
 
     const handleLogout = () => {
         localStorage.removeItem('authToken');
         navigate('/');
+    }
+
+    const handleNavigation = (url: string, title: string) => {
+        navigate(url);
+        setCurrentPage(title);
     }
 
     return (
@@ -82,7 +97,7 @@ export function AppSidebar() {
                                         <SidebarMenuButton asChild>
                                             <button
                                                 className="text-xl text-blue flex items-center"
-                                                onClick={() => navigate(item.url)} >
+                                                onClick={() => handleNavigation(item.url, item.title)} >
                                                 <item.icon />
                                                 <span>{item.title}</span>
                                             </button>
@@ -117,7 +132,7 @@ export function AppSidebar() {
                                     </BreadcrumbItem>
                                     <BreadcrumbSeparator className="hidden md:block" />
                                     <BreadcrumbItem>
-                                        <BreadcrumbPage>Home</BreadcrumbPage>
+                                        <BreadcrumbPage>{currentPage}</BreadcrumbPage>
                                     </BreadcrumbItem>
                                 </BreadcrumbList>
                             </Breadcrumb>
