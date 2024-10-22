@@ -5,28 +5,32 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useDispatch } from 'react-redux';
-import { login } from '../../store/slice/userSlice';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const formSchema = z.object({
-    emailAdress: z.string()
+    emailAddress: z.string()
         .nonempty("O campo e-mail é obrigatório.")
         .email("Por favor, insira um e-mail válido."),
     password: z.string()
         .nonempty("O campo senha é obrigatório.")
 });
 
-export const Login = () => {
+interface LoginProps {
+    setIsLoggedIn: (value: boolean) => void; 
+}
+
+export const Login = ({ setIsLoggedIn }: LoginProps) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            emailAdress: '',
+            emailAddress: '',
             password: ''
         }
     });
 
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = async (data: z.infer<typeof formSchema>) => {
         try {
@@ -35,11 +39,17 @@ export const Login = () => {
                 password: data.password
             });
 
-            if (response) {
+             if (response.ok) {
                 console.log(response);
                 console.log(response.data)
-
-                dispatch(login({ email: data.emailAdress }));
+                  
+                const { user } = await response.json();
+                localStorage.setItem('authToken', user.id);
+                setIsLoggedIn(true);
+                navigate('/home');
+            } else {
+                const errorData = await response.json();
+                console.error(errorData.error);
             }
         } catch (error) {
             console.error('Erro na requisição:', error);
@@ -58,7 +68,7 @@ export const Login = () => {
                         className="w-full">
                         <FormField
                             control={form.control}
-                            name="emailAdress"
+                            name="emailAddress"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="font-bold">E-mail</FormLabel>

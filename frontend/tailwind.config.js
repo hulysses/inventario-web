@@ -16,6 +16,7 @@ module.exports = {
     		colors: {
     			whiteF: '#F2F2F2',
     			orange: '#FF7125',
+				  blue: '#023E8A',
     			orangeHover: '#FF8240',
     			background: 'hsl(var(--background))',
     			foreground: 'hsl(var(--foreground))',
@@ -68,6 +69,10 @@ module.exports = {
     				ring: 'hsl(var(--sidebar-ring))'
     			}
     		},
+			height: {
+				'140': '140px',
+				'300': '300px'
+			},
     		maxWidth: {
     			'400': '400px'
     		}

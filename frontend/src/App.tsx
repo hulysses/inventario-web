@@ -1,21 +1,31 @@
-
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Login } from "./pages/login";
-import { Provider } from 'react-redux';
-import store from './store/store';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Home } from "./pages/home";
+import { useEffect, useState } from 'react';
+import { AppSidebar } from './components/app-sidebar';
 import { ClientTable } from "@/pages/clientTables";
 
 export function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    setIsLoggedIn(!!token);
+  }, []);
+
+  if (isLoggedIn === null) {
+    return <div>Loading...</div>; 
+  }
 
   return (
-    <Provider store={store}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="clientTable" element={<ClientTable />} />
-        </Routes>
-      </Router>
-    </Provider>
-  )
-
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route element={isLoggedIn ? <AppSidebar /> : <Navigate to="/" />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/users" element={<ClientTable />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
