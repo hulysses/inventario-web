@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "../../components/table/data-table";
 import { columns } from "../../components/table/columnsTable/columnsTableUser";
 import { format } from 'date-fns';
-import { Client } from "@/@types/Client";
+import { Client } from "@/types/Client";
 
 import {
     Sheet,
@@ -122,7 +122,7 @@ export const ClientTable = () => {
                 </Sheet>
             </div>
 
-            <DataTable columns={columns} data={data} />
+            <DataTable columns={columns} data={data} details={true} />
         </div>
     )
 }

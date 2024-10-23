@@ -1,32 +1,9 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Client } from "@/@types/Client"
+import { Client } from "@/types/Client"
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export const columns: ColumnDef<Client>[] = [
-    {
-        id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-            />
-
-        ),
-        enableSorting: true,
-        enableHiding: true,
-    },
-
     {
         accessorKey: "nome",
         header: "Nome",
@@ -48,7 +25,23 @@ export const columns: ColumnDef<Client>[] = [
         header: "Data Criado",
     },
     {
-        accessorKey: "mais_informacoes",
-        header: "",
+        header: ({ }) => {
+            return (
+                <p className="text-base font-semibold text-white">
+                    Visão detalhada
+                </p>
+            )
+        },
+        id: "details",
+        cell: ({ }) => {
+            return (
+
+                <Button className="pl-0" variant="ghost" >
+                    Mais detalhes
+                    <ArrowRight className="ml-3 w-5" />
+                </Button >
+
+            )
+        }
     },
 ]
