@@ -4,7 +4,6 @@ import {
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import React from "react";
-import { DrawerClient } from "../drawerClient";
 
 import { Button } from "../ui/button";
 import { TableFilter } from "./table-filter";
@@ -86,7 +85,6 @@ export function DataTable<TData, TValue>({
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
-                                    <DrawerClient />
                                 </TableRow>
                             ))
                         ) : (

@@ -40,7 +40,7 @@ export const DrawerClient = () => {
 
     return (
         <Drawer>
-            <DrawerTrigger type="button" className="flex border-solid rounded-md border-2 border-gray-200 pl-3 pt-3 pr-3 pb-2 mr-5">Mais detalhes <ArrowRight className="ml-1" /></DrawerTrigger>
+            <DrawerTrigger type="button" className="flex rounded-md border-gray-200 pl-3 pt-3 pr-3 pb-2 mr-5">Mais detalhes <ArrowRight className="ml-1" /></DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle>Histórico de Pedidos</DrawerTitle>

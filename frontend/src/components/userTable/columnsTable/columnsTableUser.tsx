@@ -2,6 +2,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Client } from "@/types/Client"
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { DrawerClient } from "@/components/drawerClient";
 
 export const columns: ColumnDef<Client>[] = [
     {
@@ -36,10 +37,7 @@ export const columns: ColumnDef<Client>[] = [
         cell: ({ }) => {
             return (
 
-                <Button className="pl-0" variant="ghost" >
-                    Mais detalhes
-                    <ArrowRight className="ml-3 w-5" />
-                </Button >
+                <DrawerClient />
 
             )
         }
