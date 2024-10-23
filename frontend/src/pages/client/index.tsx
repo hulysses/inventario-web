@@ -60,7 +60,6 @@ export const ClientTable = () => {
                     <input type="text" placeholder="Filtrar" className="border rounded px-2 py-1" />
                 </div>
 
-
                 <Sheet>
                     <SheetTrigger type="button" className="border rounded-sm
                     px-2 py-1 mt-20 ml-16 bg-orange hover:bg-orangeHover text-white">Adicionar cliente</SheetTrigger>

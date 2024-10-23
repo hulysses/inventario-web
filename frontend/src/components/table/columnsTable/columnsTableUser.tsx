@@ -45,15 +45,15 @@ export const columns: ColumnDef<Client>[] = [
     },
     {
         accessorKey: "contato",
-        header: "contato",
+        header: "Contato",
     },
     {
         accessorKey: "endereco",
-        header: "endereco",
+        header: "Endereço",
     },
     {
         accessorKey: "createdAt",
-        header: "createdAt",
+        header: "Data Criado",
     },
     {
         accessorKey: "mais_informacoes",
