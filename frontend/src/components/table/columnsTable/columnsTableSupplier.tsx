@@ -97,7 +97,7 @@ export const columns: ColumnDef<Supplier>[] = [
         },
     },
     {
-        header: ({ column }) => {
+        header: ({ }) => {
             return (
                 <p className="text-base font-semibold text-white">
                     Ações
