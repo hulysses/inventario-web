@@ -1,81 +1,51 @@
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, EllipsisVertical } from "lucide-react"
+import { Checkbox } from "@/components/ui/checkbox"
 
-export type User = {
+export type Payment = {
     id: number,
+    createdAt: Date,
     nome: string,
     email: string
 }
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<Payment>[] = [
     {
-        accessorKey: "id",
-        header: ({ column }) => {
-            return (
-                <Button
-                    className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    ID
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
+        id: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                aria-label="Select all"
+            />
+        ),
+        cell: ({ row }) => (
+            <Checkbox
+                checked={row.getIsSelected()}
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                aria-label="Select row"
+            />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+    },
+
+    {
+        accessorKey: "image",
+        header: "Imagem",
     },
     {
         accessorKey: "nome",
-        header: ({ column }) => {
-            return (
-                <Button
-                    className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Nome
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
+        header: "Nome",
+    },
+    {
+        accessorKey: "createdAt",
+        header: "Data Criado",
     },
     {
         accessorKey: "email",
-        header: ({ column }) => {
-            return (
-                <Button
-                    className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    E-mail
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-    },
-    {
-        header: ({ column }) => {
-            return (
-                <p className="text-base font-semibold text-white">
-                    Ações
-                </p>
-            )
-        },
-        id: "actions",
-        cell: ({ }) => {
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <EllipsisVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem>Editar</DropdownMenuItem>
-                        <DropdownMenuItem>Excluir</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )
-        },
+        header: "E-mail",
     }
 ]
