@@ -4,9 +4,9 @@ import {
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import React from "react";
+
 import { Button } from "../ui/button";
 import { TableFilter } from "./table-filter";
-
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[],
@@ -69,6 +69,7 @@ export function DataTable<TData, TValue>({
                                         </TableHead>
                                     )
                                 })}
+
                             </TableRow>
                         ))}
                     </TableHeader>
@@ -84,7 +85,6 @@ export function DataTable<TData, TValue>({
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
-                                    
                                 </TableRow>
                             ))
                         ) : (
