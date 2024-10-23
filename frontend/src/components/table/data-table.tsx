@@ -1,6 +1,8 @@
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable, VisibilityState } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import React from "react";
+import { Button } from "../ui/button";
+import { ArrowRight } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -56,6 +58,10 @@ export function DataTable<TData, TValue>({
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </TableCell>
                                 ))}
+                                <Button type="button" className="border-solid border-2 border-gray-200" variant={'ghost'}>
+                                    Mais detalhes
+                                    <ArrowRight className="ml-3 w-5" />
+                                </Button>
                             </TableRow>
                         ))
                     ) : (
@@ -67,6 +73,6 @@ export function DataTable<TData, TValue>({
                     )}
                 </TableBody>
             </Table>
-        </div>
+        </div >
     )
 }
