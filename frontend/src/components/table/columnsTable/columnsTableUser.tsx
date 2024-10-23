@@ -1,14 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Client } from "@/@types/Client"
 
-export type Payment = {
-    id: number,
-    createdAt: Date,
-    nome: string,
-    email: string
-}
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Client>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -27,25 +21,34 @@ export const columns: ColumnDef<Payment>[] = [
                 onCheckedChange={(value) => row.toggleSelected(!!value)}
                 aria-label="Select row"
             />
+
         ),
-        enableSorting: false,
-        enableHiding: false,
+        enableSorting: true,
+        enableHiding: true,
     },
 
     {
-        accessorKey: "image",
-        header: "Imagem",
-    },
-    {
         accessorKey: "nome",
         header: "Nome",
+    },
+    {
+        accessorKey: "cpf_cnpj",
+        header: "CPF/CNPJ",
+    },
+    {
+        accessorKey: "contato",
+        header: "Contato",
+    },
+    {
+        accessorKey: "endereco",
+        header: "Endereço",
     },
     {
         accessorKey: "createdAt",
         header: "Data Criado",
     },
     {
-        accessorKey: "email",
-        header: "E-mail",
-    }
+        accessorKey: "mais_informacoes",
+        header: "",
+    },
 ]

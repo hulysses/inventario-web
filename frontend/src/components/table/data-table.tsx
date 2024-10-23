@@ -5,7 +5,11 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import React from "react";
 import { Button } from "../ui/button";
+<<<<<<< HEAD
 import { TableFilter } from "./table-filter";
+=======
+import { ArrowRight } from "lucide-react";
+>>>>>>> main
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[],
@@ -46,6 +50,7 @@ export function DataTable<TData, TValue>({
                     {filters.map((column) => (
                         <TableFilter key={column} table={table} column={column} placeholder={`Filtrar ${column}...`} />
                     ))}
+<<<<<<< HEAD
                 </div>
             )}
             <div className="overflow-hidden rounded-md border border-gray-200">
@@ -115,5 +120,36 @@ export function DataTable<TData, TValue>({
                 </Button>
             </div>
         </div>
+=======
+                </TableHeader>
+                <TableBody>
+                    {table.getRowModel().rows?.length ? (
+                        table.getRowModel().rows.map((row) => (
+                            <TableRow
+                                key={row.id}
+                                data-state={row.getIsSelected() && "selected"}
+                            >
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
+                                ))}
+                                <Button type="button" className="border-solid border-2 border-gray-200" variant={'ghost'}>
+                                    Mais detalhes
+                                    <ArrowRight className="ml-3 w-5" />
+                                </Button>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={columns.length} className="h-24 text-center">
+                                No results.
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+        </div >
+>>>>>>> main
     )
 }

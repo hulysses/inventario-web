@@ -1,4 +1,7 @@
-![Logo Khiv](frontend/src/assets/logo/logo.svg)
+<div align="center">
+  <img src="frontend/src/assets/logo/logo.svg" alt="Logo Khiv" />
+</div>
+
 # Khiv - Sistema de Inventário
 ## Sobre o Projeto
 
@@ -20,7 +23,7 @@ Khiv é um sistema de inventário web desenvolvido para gerenciamento de estoque
 
 ## Instalação
 1. Clone o repositório:
-    - git clone [https://github.com/hulysses/inventario-web.git]
+    - git clone https://github.com/hulysses/inventario-web.git
 2. Instale as dependências (Frontend):
     - cd frontend
     - npm install
