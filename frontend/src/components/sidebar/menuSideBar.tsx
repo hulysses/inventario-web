@@ -96,7 +96,7 @@ export function AppSidebar() {
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton asChild>
                                             <button
-                                                className="text-xl text-blue flex items-center"
+                                                className="text-xl flex items-center"
                                                 onClick={() => handleNavigation(item.url, item.title)} >
                                                 <item.icon />
                                                 <span>{item.title}</span>

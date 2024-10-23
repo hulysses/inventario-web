@@ -1,8 +1,9 @@
 import { DataTable } from "../../components/userTable/data-table";
 import { columns } from "../../components/userTable/columnsTable/columnsTableUser";
 import { format } from 'date-fns';
-import { Client } from "@/@types/Client";
 // import { Button } from "@/components/ui/button";
+import { Client } from "../../types/Client";
+
 
 // import {
 //     Sheet,
