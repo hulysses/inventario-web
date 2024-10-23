@@ -1,7 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Client } from "@/types/Client"
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import { DrawerClient } from "@/components/drawerClient";
 
 export const columns: ColumnDef<Client>[] = [

@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { ClientDetails } from "@/@types/ClientDetails"
+import { ClientDetails } from "@/types/ClientDetails"
 
 export const columns: ColumnDef<ClientDetails>[] = [
     {

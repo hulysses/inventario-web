@@ -12,7 +12,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 
-import { ClientDetails } from "@/@types/ClientDetails";
+import { ClientDetails } from "@/types/ClientDetails";
 import { DataTable } from "../userDetailsTable/data-table";
 import { columns } from "../userDetailsTable/columnsTable/columnsTableUser";
 
