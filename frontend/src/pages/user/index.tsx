@@ -1,24 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { DataTable } from "../../components/table/data-table";
-import { columns, Payment } from "../../components/table/columnsTable/columnsTableUser";
+import { columns, User } from "../../components/table/columnsTable/columnsTableUser";
 
-const payments: Payment[] = [
+const users: User[] = [
     {
-        id: 72852,
+        id: 1,
         nome: "Roberto",
-        createdAt: new Date('2024-10-21'),
         email: "robertonandes@example.com"
     },
     {
-        id: 7285241,
+        id: 2,
         nome: "Eduarda",
-        createdAt: new Date('2024-10-21'),
         email: "eduardaguido@example.com"
     },
 ]
 
 function getData() {
-    return payments;
+    return users;
 }
 
 export const ClientTable = () => {
@@ -26,8 +24,8 @@ export const ClientTable = () => {
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 bg-white mx-7 mb-7 rounded-xl">
-            <h1 className="font-bold text-2xl">Gerenciamento de usuários</h1>
-            <h3 className="font-light text-gray-500">Gerencie seus usuários, podendo alterar, excluir ou criar novos!</h3>
+            <h1 className="font-bold text-2xl text-blue">Gerenciamento de usuários</h1>
+            <h3 className="font-light text-gray-500">Gerencie seus usuários, podendo editar, excluir ou criar novos!</h3>
 
             <div className="flex items-center space-x-4">
                 <h1 className="font-bold text-2xl mt-20 -ml-0 flex mx-auto">Usuários <p className="ml-5 text-gray-400">2</p></h1>
