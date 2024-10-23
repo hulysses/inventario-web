@@ -1,19 +1,6 @@
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable, VisibilityState } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import React from "react";
-import { Button } from "../ui/button";
-import { ArrowRight } from "lucide-react";
-
-import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-} from "@/components/ui/drawer"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]

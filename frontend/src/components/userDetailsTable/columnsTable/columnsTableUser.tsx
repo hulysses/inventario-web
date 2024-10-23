@@ -1,8 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Client } from "@/@types/Client"
+import { ClientDetails } from "@/@types/ClientDetails"
 
-export const columns: ColumnDef<Client>[] = [
+export const columns: ColumnDef<ClientDetails>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -27,27 +27,19 @@ export const columns: ColumnDef<Client>[] = [
     },
 
     {
-        accessorKey: "nome",
-        header: "Nome",
+        accessorKey: "data_compraId",
+        header: "Data de Compra",
     },
     {
-        accessorKey: "cpf_cnpj",
-        header: "CPF/CNPJ",
+        accessorKey: "statusId",
+        header: "Status",
     },
     {
-        accessorKey: "contato",
-        header: "Contato",
+        accessorKey: "fornecedorId",
+        header: "Fornecedor",
     },
     {
-        accessorKey: "endereco",
-        header: "Endereço",
-    },
-    {
-        accessorKey: "createdAt",
-        header: "Data Criado",
-    },
-    {
-        accessorKey: "mais_informacoes",
-        header: "",
+        accessorKey: "precoId",
+        header: "Preço",
     },
 ]
