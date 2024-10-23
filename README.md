@@ -25,7 +25,7 @@ Khiv é um sistema de inventário web desenvolvido para gerenciamento de estoque
     - cd frontend
     - npm install
 3. Inicie o servidor:
-    - npm run dev (Frontend)
+    - npm run dev 
 4. Instale as dependências (Backend):
     - cd backend
     - npm install
