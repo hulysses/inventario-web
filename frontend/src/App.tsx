@@ -3,7 +3,7 @@ import { Login } from "./pages/login";
 import { Home } from "./pages/home";
 import { useEffect, useState } from 'react';
 import { AppSidebar } from './components/sidebar/menuSideBar';
-import { ClientTable } from "@/pages/user";
+import { ClientTable } from "@/pages/client";
 
 export function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -14,7 +14,7 @@ export function App() {
   }, []);
 
   if (isLoggedIn === null) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
@@ -23,7 +23,7 @@ export function App() {
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route element={isLoggedIn ? <AppSidebar /> : <Navigate to="/" />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/users" element={<ClientTable />} />
+          <Route path="/clients" element={<ClientTable />} />
         </Route>
       </Routes>
     </Router>
