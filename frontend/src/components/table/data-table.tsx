@@ -5,7 +5,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import React from "react";
 import { Button } from "../ui/button";
-import { TableFilter } from "../userTable/table-filter"; 
+import { TableFilter } from "./table-filter"; 
 
 
 interface DataTableProps<TData, TValue> {

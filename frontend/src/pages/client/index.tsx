@@ -1,5 +1,5 @@
-import { DataTable } from "../../components/userTable/data-table";
-import { columns } from "../../components/userTable/columnsTable/columnsTableUser";
+import { DataTable } from "../../components/table/data-table";
+import { columns } from "../../components/table/columnsTable/columnsTableClient";
 import { format } from 'date-fns';
 // import { Button } from "@/components/ui/button";
 import { Client } from "../../types/Client";
