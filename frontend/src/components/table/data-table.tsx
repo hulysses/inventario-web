@@ -5,19 +5,21 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import React from "react";
 import { Button } from "../ui/button";
-import { TableFilter } from "./table-filter"; 
+import { TableFilter } from "./table-filter";
 
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[],
     data: TData[],
-    filters?: string[]
+    filters?: string[],
+    actionComponent?: React.ReactNode
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
-    filters = []
+    filters = [],
+    actionComponent
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -42,13 +44,20 @@ export function DataTable<TData, TValue>({
 
     return (
         <div >
-            {filters.length > 0 && (
-                <div className="flex items-center py-4 space-x-4">
-                    {filters.map((column) => (
-                        <TableFilter key={column} table={table} column={column} placeholder={`Filtrar ${column}...`} />
-                    ))}
-                </div>
-            )}
+            <div className="flex items-center justify-end py-4 space-x-4">
+                {filters.length > 0 && (
+                    <div className="flex space-x-4">
+                        {filters.map((column) => (
+                            <TableFilter key={column} table={table} column={column} placeholder={`Filtrar ${column}...`} />
+                        ))}
+                    </div>
+                )}
+                {actionComponent && (
+                    <div>
+                        {actionComponent}
+                    </div>
+                )}
+            </div>
             <div className="overflow-hidden rounded-md border border-gray-200">
                 <Table>
                     <TableHeader>
@@ -84,7 +93,7 @@ export function DataTable<TData, TValue>({
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
-                                    
+
                                 </TableRow>
                             ))
                         ) : (

@@ -2,6 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, EllipsisVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Sheets } from "@/components/sheet";
 
 export type Supplier = {
     id: number,
@@ -106,6 +107,12 @@ export const columns: ColumnDef<Supplier>[] = [
         },
         id: "actions",
         cell: ({ }) => {
+            const fields = [
+                { name: 'fornecedor', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
+                { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ' },
+                { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone' },
+                { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
+            ];
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -115,7 +122,11 @@ export const columns: ColumnDef<Supplier>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem>Editar</DropdownMenuItem>
+                        <Sheets
+                            text="Editar"
+                            title='Editar fornecedor'
+                            fields={fields}
+                        />
                         <DropdownMenuItem>Excluir</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
