@@ -1,20 +1,12 @@
 import { Button } from "../ui/button";
-import { ArrowRight } from "lucide-react";
-
-import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-} from "@/components/ui/drawer"
-
 import { ClientDetails } from "@/types/ClientDetails";
-import { DataTable } from "../userDetailsTable/data-table";
-import { columns } from "../userDetailsTable/columnsTable/columnsTableUser";
+import { DataTable } from "../table/data-table";
+import { columns } from "../table/columnsTable/columnsTableClientHist";
+import { ArrowRight } from "lucide-react";
+import {
+    Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter,
+    DrawerHeader, DrawerTitle, DrawerTrigger
+} from "@/components/ui/drawer"
 
 const clientDetails: ClientDetails[] = [
     {
@@ -29,6 +21,12 @@ const clientDetails: ClientDetails[] = [
         fornecedorId: 1,
         precoId: 'R$221.45'
     },
+    {
+        data_compraId: 1,
+        statusId: 1,
+        fornecedorId: 1,
+        precoId: 'R$221.45'
+    }
 ]
 
 function getClientDetails() {
@@ -45,13 +43,11 @@ export const DrawerClient = () => {
                 <DrawerHeader>
                     <DrawerTitle>Histórico de Pedidos</DrawerTitle>
                     <DrawerDescription>Apenas visualização</DrawerDescription>
-
-                    <DataTable columns={columns} data={data}></DataTable>
-
+                    <DataTable columns={columns} data={data} />
                 </DrawerHeader>
                 <DrawerFooter>
                     <DrawerClose>
-                        <Button type="submit" className="hover:bg-orangeHover bg-orange">Confirmar</Button>
+                        <Button type="submit" className="hover:bg-orangeHover bg-orange">Fechar</Button>
                     </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>
