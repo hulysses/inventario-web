@@ -1,6 +1,3 @@
-import {
-    Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger
-} from "@/components/ui/sheet";
 import { Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import * as z from 'zod';
@@ -10,6 +7,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import { InputField } from "@/types/Field";
 import { SheetProps } from "@/types/SheetProps";
+import {
+    Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger
+} from "@/components/ui/sheet";
 
 const createValidationSchema = (fields: InputField[]) => {
     const schemaObject: Record<string, any> = {};

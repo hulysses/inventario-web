@@ -1,19 +1,12 @@
 import {
-    ColumnDef, flexRender, getPaginationRowModel, getCoreRowModel, useReactTable,
-    VisibilityState, SortingState, getSortedRowModel, ColumnFiltersState, getFilteredRowModel
+    flexRender, getPaginationRowModel, getCoreRowModel, useReactTable, VisibilityState, 
+    SortingState, getSortedRowModel, ColumnFiltersState, getFilteredRowModel
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import React from "react";
 import { Button } from "../ui/button";
 import { TableFilter } from "./table-filter";
-
-
-interface DataTableProps<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[],
-    data: TData[],
-    filters?: string[],
-    actionComponent?: React.ReactNode
-}
+import { DataTableProps } from "@/types/DataTableProps";
 
 export function DataTable<TData, TValue>({
     columns,

@@ -1,11 +1,5 @@
-import { Table } from "@tanstack/react-table"
-import { Input } from "@/components/ui/input"
-
-interface FilterProps<TData> {
-  table: Table<TData>
-  column: string
-  placeholder?: string
-}
+import { Input } from "@/components/ui/input";
+import { FilterProps } from "@/types/FilterProps";
 
 export function TableFilter<TData>({ table, column, placeholder }: FilterProps<TData>) {
   return (
