@@ -2,7 +2,7 @@ import { db } from '../db.js';
 
 export const createSupllierTable = () => {
     const sql = `
-        CREATE TABLE IF NOT EXISTS supllier (
+        CREATE TABLE IF NOT EXISTS supplier (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT,
             cnpj TEXT UNIQUE,

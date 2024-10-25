@@ -7,6 +7,7 @@ export const insertSupplier = (nome, cnpj, contato, endereco) => {
 
         return true;
     } catch (error) {
+        console.log("Erro ao inserir fornecedor:", error.message);
         return false;
     }
 };
