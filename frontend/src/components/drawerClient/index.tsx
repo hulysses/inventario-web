@@ -12,28 +12,9 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 
-import { ClientDetails } from "@/types/ClientDetails";
 import { DataTable } from "../userDetailsTable/data-table";
 import { columns } from "../userDetailsTable/columnsTable/columnsTableUser";
-
-const clientDetails: ClientDetails[] = [
-    {
-        data_compraId: 1,
-        statusId: 1,
-        fornecedorId: 1,
-        precoId: 'R$221.45'
-    },
-    {
-        data_compraId: 1,
-        statusId: 1,
-        fornecedorId: 1,
-        precoId: 'R$221.45'
-    },
-]
-
-function getClientDetails() {
-    return clientDetails;
-}
+import { getClientDetails } from "@/services/ClientDetails";
 
 export const DrawerClient = () => {
     const data = getClientDetails();

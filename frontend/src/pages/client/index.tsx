@@ -1,58 +1,10 @@
 import { DataTable } from "../../components/userTable/data-table";
 import { columns } from "../../components/userTable/columnsTable/columnsTableUser";
-import { format } from 'date-fns';
-// import { Button } from "@/components/ui/button";
-import { Client } from "../../types/Client";
 
-
-// import {
-//     Sheet,
-//     SheetContent,
-//     SheetDescription,
-//     SheetHeader,
-//     SheetTitle,
-//     SheetTrigger,
-// } from "@/components/ui/sheet"
-// import { Label } from "@/components/ui/label";
-// import { Input } from "@/components/ui/input";
 import { Filter, Search } from "lucide-react";
 import { SidebarSheet } from "@/components/sidebarSheet";
 
-const dataAtual = new Date();
-const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
-
-// To do: Formatação de CPF/CNPJ e Contato (Telefone)
-
-const clients: Client[] = [
-    {
-        id: 72852,
-        nome: "Roberto",
-        cpf_cnpj: "182732873-11",
-        contato: "(45)9 9999 9999",
-        endereco: "Rua Dois 23",
-        createdAt: dataFormatada,
-    },
-    {
-        id: 7285241,
-        nome: "Eduarda",
-        cpf_cnpj: "182732873-11",
-        contato: "(45)9 9999 9999",
-        endereco: "Rua Dois 23",
-        createdAt: dataFormatada,
-    },
-    {
-        id: 7285241,
-        nome: "Eduarda",
-        cpf_cnpj: "182732873-11",
-        contato: "(45)9 9999 9999",
-        endereco: "Rua Dois 23",
-        createdAt: dataFormatada,
-    },
-]
-
-function getData() {
-    return clients;
-}
+import { getData, clients } from "@/services/Client";
 
 export const ClientTable = () => {
     const clientQuantity = clients.length;
