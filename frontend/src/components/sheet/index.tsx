@@ -1,20 +1,28 @@
-import { Plus } from "lucide-react";
-import { Button } from "../ui/button";
 import * as z from 'zod';
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Plus } from "lucide-react";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { useForm } from "react-hook-form";
 import { InputField } from "@/types/Field";
 import { SheetProps } from "@/types/SheetProps";
-import {
-    Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger
-} from "@/components/ui/sheet";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { validarCNPJ } from '@/helpers/registerHelper';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+
+const cnpjSchema = z.string().refine((cnpj) => validarCNPJ(cnpj), {
+    message: "CNPJ inválido",
+});
 
 const createValidationSchema = (fields: InputField[]) => {
-    const schemaObject: Record<string, any> = {};
+    const schemaObject: Record<string, z.ZodTypeAny> = {};
+
     fields.forEach((field) => {
-        schemaObject[field.name] = z.string().nonempty(`O campo ${field.label} é obrigatório.`);
+        if (field.name === 'cnpj') {
+            schemaObject[field.name] = cnpjSchema;
+        } else {
+            schemaObject[field.name] = z.string().nonempty(`O campo ${field.label} é obrigatório.`);
+        }
     });
     return z.object(schemaObject);
 };
