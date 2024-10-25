@@ -1,4 +1,4 @@
-import { db } from '../db.js';
+import { db } from '../db.ts';
 
 export const createUserTable = () => {
     const sql = `
