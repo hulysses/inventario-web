@@ -1,45 +1,11 @@
-import { DataTable } from "../../components/table/data-table";
-import { columns } from "../../components/table/columnsTable/columnsTableClient";
-import { format } from 'date-fns';
-import { Client } from "../../types/Client";
+import { DataTable } from "@/components/table/data-table"
+import { columns } from "@/components/table/columnsTable/columnsTableClient";
+
 import { Filter, Search } from "lucide-react";
 import { SidebarSheet } from "@/components/sidebarSheet";
 
-const dataAtual = new Date();
-const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
-const clients: Client[] = [
-    {
-        id: 72852,
-        nome: "Roberto",
-        cpf_cnpj: "182732873-11",
-        contato: "(45)9 9999 9999",
-        endereco: "Rua Dois 23",
-        createdAt: dataFormatada,
-    },
-    {
-        id: 7285241,
-        nome: "Eduarda",
-        cpf_cnpj: "182732873-11",
-        contato: "(45)9 9999 9999",
-        endereco: "Rua Dois 23",
-        createdAt: dataFormatada,
-    },
-    {
-        id: 7285241,
-        nome: "Eduarda",
-        cpf_cnpj: "182732873-11",
-        contato: "(45)9 9999 9999",
-        endereco: "Rua Dois 23",
-        createdAt: dataFormatada,
-    },
-]
+import { getData, clients } from "@/services/Client";
 
-// To do: Formatação de CPF/CNPJ e Contato (Telefone)
-
-
-function getData() {
-    return clients;
-}
 
 export const ClientTable = () => {
     const clientQuantity = clients.length;
