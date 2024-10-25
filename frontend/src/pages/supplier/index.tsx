@@ -1,5 +1,6 @@
 import { DataTable } from '../../components/table/data-table';
-import { columns, Supplier } from '../../components/table/columnsTable/columnsTableSupplier';
+import { columns } from '../../components/table/columnsTable/columnsTableSupplier';
+import { Supplier } from '@/types/Supplier';
 import { Sheets } from '@/components/sheet';
 
 const supplier: Supplier[] = [

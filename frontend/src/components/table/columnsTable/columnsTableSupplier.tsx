@@ -3,14 +3,7 @@ import { ArrowUpDown, EllipsisVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sheets } from "@/components/sheet";
-
-export type Supplier = {
-    id: number,
-    nome: string,
-    cnpj: string,
-    contato: string,
-    endereco: string
-};
+import { Supplier } from "@/types/Supplier";
 
 export const columns: ColumnDef<Supplier>[] = [
     {
