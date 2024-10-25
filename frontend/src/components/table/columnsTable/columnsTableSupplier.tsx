@@ -1,15 +1,11 @@
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, EllipsisVertical } from "lucide-react";
+import { Sheets } from "@/components/sheet";
+import { Supplier } from "@/types/Supplier";
 import { Button } from "@/components/ui/button";
+import { ColumnDef } from "@tanstack/react-table";
+import { formatarCNPJ } from "@/helpers/registerHelper";
+import { formatarTelefone } from "@/helpers/registerHelper";
+import { ArrowUpDown, EllipsisVertical } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-
-export type Supplier = {
-    id: number,
-    nome: string,
-    cnpj: string,
-    contato: string,
-    endereco: string
-};
 
 export const columns: ColumnDef<Supplier>[] = [
     {
@@ -54,11 +50,7 @@ export const columns: ColumnDef<Supplier>[] = [
             )
         },
         cell: ({ row }) => {
-            const cleanCNPJ = row.original.cnpj.replace(/\D/g, '');
-            if (cleanCNPJ.length !== 14) {
-                return row.original.cnpj;
-            }
-            return cleanCNPJ.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
+            return formatarCNPJ(row.original.cnpj);
         }
     },
     {
@@ -75,11 +67,7 @@ export const columns: ColumnDef<Supplier>[] = [
             )
         },
         cell: ({ row }) => {
-            const cleanPhone = row.original.contato.replace(/\D/g, '');
-            if (cleanPhone.length !== 11) {
-                return row.original.contato;
-            }
-            return cleanPhone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+            return formatarTelefone(row.original.contato);
         }
     },
     {
@@ -106,6 +94,12 @@ export const columns: ColumnDef<Supplier>[] = [
         },
         id: "actions",
         cell: ({ }) => {
+            const fields = [
+                { name: 'fornecedor', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
+                { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ' },
+                { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone' },
+                { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
+            ];
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -115,7 +109,11 @@ export const columns: ColumnDef<Supplier>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem>Editar</DropdownMenuItem>
+                        <Sheets
+                            text="Editar"
+                            title='Editar fornecedor'
+                            fields={fields}
+                        />
                         <DropdownMenuItem>Excluir</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

@@ -1,4 +1,4 @@
-import Logo from '../../assets/logo/logo.svg';
+import Logo from '../../assets/logo/logoPadrao.svg';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

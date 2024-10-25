@@ -1,5 +1,7 @@
-import { DataTable } from '../../components/userTable/data-table';
-import { columns, Supplier } from '../../components/userTable/columnsTable/columnsTableSupplier';
+import { DataTable } from '../../components/table/data-table';
+import { columns } from '../../components/table/columnsTable/columnsTableSupplier';
+import { Supplier } from '@/types/Supplier';
+import { Sheets } from '@/components/sheet';
 
 const supplier: Supplier[] = [
     {
@@ -20,6 +22,12 @@ const supplier: Supplier[] = [
 
 export const Suppliers = () => {
     const data = supplier;
+    const fields = [
+        { name: 'fornecedor', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
+        { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ' },
+        { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone' },
+        { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
+    ];
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 bg-white mx-7 mb-7 rounded-xl">
@@ -29,6 +37,13 @@ export const Suppliers = () => {
                 columns={columns}
                 data={data}
                 filters={['nome', 'contato']}
+                actionComponent={
+                    <Sheets
+                        buttonText='Novo fornecedor'
+                        title='Cadastro de fornecedor'
+                        fields={fields}
+                    />
+                }
             />
         </div>
     )

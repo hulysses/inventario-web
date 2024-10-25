@@ -34,9 +34,7 @@ export const columns: ColumnDef<Client>[] = [
         id: "details",
         cell: ({ }) => {
             return (
-
                 <DrawerClient />
-
             )
         }
     },

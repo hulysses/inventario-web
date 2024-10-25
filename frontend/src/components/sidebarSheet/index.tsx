@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 export const SidebarSheet = () => {
     return (
         <Sheet>
-            <SheetTrigger type="button" className="border rounded-sm
+            <SheetTrigger type="button" className="rounded-sm
                     px-2 py-1 mt-20 ml-16 bg-orange hover:bg-orangeHover text-white">Adicionar cliente</SheetTrigger>
             <SheetContent>
                 <SheetHeader>

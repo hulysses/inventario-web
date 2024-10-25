@@ -1,19 +1,12 @@
 import { Button } from "../ui/button";
+import { DataTable } from "../table/data-table";
+import { columns } from "../table/columnsTable/columnsTableClientHist";
 import { ArrowRight } from "lucide-react";
-
 import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
+    Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter,
+    DrawerHeader, DrawerTitle, DrawerTrigger
 } from "@/components/ui/drawer"
 
-import { DataTable } from "../userDetailsTable/data-table";
-import { columns } from "../userDetailsTable/columnsTable/columnsTableUser";
 import { getClientDetails } from "@/services/ClientDetails";
 
 export const DrawerClient = () => {
@@ -26,13 +19,11 @@ export const DrawerClient = () => {
                 <DrawerHeader>
                     <DrawerTitle>Histórico de Pedidos</DrawerTitle>
                     <DrawerDescription>Apenas visualização</DrawerDescription>
-
-                    <DataTable columns={columns} data={data}></DataTable>
-
+                    <DataTable columns={columns} data={data} />
                 </DrawerHeader>
                 <DrawerFooter>
                     <DrawerClose>
-                        <Button type="submit" className="hover:bg-orangeHover bg-orange">Confirmar</Button>
+                        <Button type="submit" className="hover:bg-orangeHover bg-orange">Fechar</Button>
                     </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>
