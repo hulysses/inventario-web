@@ -24,8 +24,8 @@ export const Suppliers = () => {
     const data = supplier;
     const fields = [
         { name: 'fornecedor', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
-        { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ' },
-        { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone' },
+        { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ', length: 18 },
+        { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone', length: 15},
         { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
     ];
 

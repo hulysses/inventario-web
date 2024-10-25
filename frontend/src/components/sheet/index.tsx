@@ -78,6 +78,7 @@ export function Sheets({ buttonText, text, title, fields }: SheetProps) {
                                                 type={field.type}
                                                 placeholder={field.placeholder}
                                                 className="border"
+                                                maxLength={field.length}
                                             />
                                         </FormControl>
                                         <FormMessage />
