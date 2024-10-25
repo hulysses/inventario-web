@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="frontend/src/assets/logo/logo.svg" alt="Logo Khiv" />
+  <img src="frontend/src/assets/logo/logoPadrao.svg.svg" alt="Logo Khiv" />
 </div>
 
 # Khiv - Sistema de Inventário
