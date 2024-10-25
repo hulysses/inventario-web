@@ -1,8 +1,6 @@
-import { findUserByEmail } from '../database/services/userService.ts';
-import { Login } from '../types/login.ts';
-import { Response } from 'express';
+import { findUserByEmail } from '../database/services/userService.js';
 
-export const getUserByEmail = (req: Login, res: Response): void => {
+export const getUserByEmail = (req, res) => {
   const { email, password } = req.body;
 
   const user = findUserByEmail(email);

@@ -1,8 +1,6 @@
-import { Response } from 'express';
-import { Supplier } from '../types/supplier';
-import { insertSupplier } from "../database/services/supplierService";
+import { insertSupplier } from "../database/services/supplierService.js";
 
-export const registerSupplier = (req: Supplier, res: Response): void => {
+export const registerSupplier = (req, res) => {
     const { nome, cnpj, contato, endereco } = req.body;
 
     if (insertSupplier(nome, cnpj, contato, endereco)) {

@@ -1,6 +1,6 @@
-import { db } from '../db.ts';
+import { db } from '../db.js';
 
-export const insertSupplier = (nome: string, cnpj: string, contato: string, endereco: string) => {
+export const insertSupplier = (nome, cnpj, contato, endereco) => {
     try {
         const sql = 'INSERT INTO supplier (nome, cnpj, contato, endereco) VALUES (?, ?, ?, ?)';
         db.prepare(sql).run(nome, cnpj, contato, endereco);

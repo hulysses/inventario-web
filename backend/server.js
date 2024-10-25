@@ -1,8 +1,8 @@
 import cors from 'cors';
 import express from 'express';
-import loginRoutes from './routes/loginRoutes.ts';
-import supplierRoutes from  './routes/supplierRoutes.ts';
-import { runMigrations } from './database/migrations/index.ts';
+import loginRoutes from './routes/loginRoutes.js';
+import supplierRoutes from  './routes/supplierRoutes.js';
+import { runMigrations } from './database/migrations/index.js';
 
 runMigrations();
 
