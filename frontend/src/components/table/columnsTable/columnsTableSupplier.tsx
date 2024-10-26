@@ -1,4 +1,5 @@
 import { Sheets } from "@/components/sheet";
+import { useSuppliers } from "../../../hooks/useSuppliers";
 import { Supplier } from "@/types/Supplier";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
@@ -7,7 +8,10 @@ import { formatarTelefone } from "@/helpers/registerHelper";
 import { ArrowUpDown, EllipsisVertical } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
+const { fields } = useSuppliers();
+
 export const columns: ColumnDef<Supplier>[] = [
+
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -94,13 +98,8 @@ export const columns: ColumnDef<Supplier>[] = [
         },
         id: "actions",
         cell: ({ row }) => {
-            const data = row.original; 
-            const fields = [
-                { name: 'nome', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
-                { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ' },
-                { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone' },
-                { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
-            ];
+            const data = row.original;
+
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
