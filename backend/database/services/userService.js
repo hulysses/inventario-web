@@ -9,3 +9,5 @@ export const findUserByEmail = (email) => {
     const sql = 'SELECT * FROM users WHERE email = ?';
     return db.prepare(sql).get(email);
 };
+
+// insertUser("Suporte", "suporte@suporte.com", "suporte123")

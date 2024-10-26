@@ -19,6 +19,17 @@ export const listSupplier = () => {
         return suppliers;
     } catch (error) {
         console.error('Erro ao listar fornecedores:', error);
-        throw new Error('Erro ao listar fornecedores'); 
+        throw new Error('Erro ao listar fornecedores');
+    }
+}
+
+export const updateSupplier = (id, nome, cnpj, contato, endereco) => {
+    try {
+        const sql = 'UPDATE supplier SET nome = ?, cnpj = ?, contato = ?, endereco =  ? WHERE id = ?';
+        db.prepare(sql).run(nome, cnpj, contato, endereco, id);
+        return true;
+    } catch (error) {
+        console.log("Erro ao atualizar fornecedor:", error.message);
+        return false;
     }
 }
