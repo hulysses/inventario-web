@@ -2,10 +2,9 @@ import { DataTable } from "@/components/table/data-table"
 import { columns } from "@/components/table/columnsTable/columnsTableClient";
 
 import { Filter, Search } from "lucide-react";
-import { SidebarSheet } from "@/components/sidebarSheet";
+import SidebarSheet from "@/components/sidebarSheet";
 
 import { getData, clients } from "@/services/Client";
-
 
 export const ClientTable = () => {
     const clientQuantity = clients.length;
