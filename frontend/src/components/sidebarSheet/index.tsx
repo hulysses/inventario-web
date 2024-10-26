@@ -85,7 +85,7 @@ export default function SidebarSheet() {
                         <Toaster />
 
                         {clientAdded !== null && (
-                            <div>
+                            <div className="text-white">
                                 {clientAdded
                                     ? toast("Usuário inserido com sucesso.")
                                     : toast("Falha ao inserir usuário.")
