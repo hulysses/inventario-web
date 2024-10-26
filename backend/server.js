@@ -11,6 +11,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/', loginRoutes);
-app.use('/supplier', supplierRoutes);
+app.use('/suppliers', supplierRoutes);
 
 app.listen(3000);

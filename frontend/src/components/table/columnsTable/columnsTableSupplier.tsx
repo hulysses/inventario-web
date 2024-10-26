@@ -93,9 +93,10 @@ export const columns: ColumnDef<Supplier>[] = [
             )
         },
         id: "actions",
-        cell: ({ }) => {
+        cell: ({ row }) => {
+            const data = row.original; 
             const fields = [
-                { name: 'fornecedor', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
+                { name: 'nome', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
                 { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ' },
                 { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone' },
                 { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
@@ -113,6 +114,7 @@ export const columns: ColumnDef<Supplier>[] = [
                             text="Editar"
                             title='Editar fornecedor'
                             fields={fields}
+                            initialData={data}
                         />
                         <DropdownMenuItem>Excluir</DropdownMenuItem>
                     </DropdownMenuContent>
