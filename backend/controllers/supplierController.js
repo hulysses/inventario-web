@@ -1,4 +1,4 @@
-import { insertSupplier, listSupplier, updateSupplier } from "../database/services/supplierService.js";
+import { insertSupplier, listSupplier, updateSupplier, deleteSupplier } from "../database/services/supplierService.js";
 
 export const registerSupplier = (req, res) => {
     const { nome, cnpj, contato, endereco } = req.body;
@@ -30,5 +30,16 @@ export const updateSuppliers = (req, res) => {
     } catch (error) {
         console.error('Erro ao atualizar fornecedor:', error);
         res.status(500).json({ message: 'Erro ao atualizar fornecedor' });
+    }
+}
+
+export const deleteSuppliers = (req, res) => {
+    try {
+        const { id } = req.query;
+        deleteSupplier(id);
+        res.status(200).json({ message: 'Fornecedor deletado com sucesso' });
+    } catch (error) {
+        console.error('Erro ao deletar fornecedor:', error);
+        res.status(500).json({ message: 'Erro ao deletar fornecedor' });
     }
 }

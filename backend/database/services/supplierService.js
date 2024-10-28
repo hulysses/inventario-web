@@ -33,3 +33,14 @@ export const updateSupplier = (id, nome, cnpj, contato, endereco) => {
         return false;
     }
 }
+
+export const deleteSupplier = (id) => {
+    try {
+        const sql = 'DELETE FROM supplier WHERE id = ?';
+        db.prepare(sql).run(id);
+        return true;
+    } catch (error) {
+        console.log("Erro ao deletar fornecedor:", error.message);
+        return false;
+    }
+}
