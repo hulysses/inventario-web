@@ -6,6 +6,8 @@ export const useSuppliers = () => {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
   const [editingSupplier, setEditingSupplier] = useState<Supplier | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+  const [supplierToDelete, setSupplierToDelete] = useState<number | null>(null);
 
   const fields = [
     { name: 'nome', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
@@ -33,18 +35,43 @@ export const useSuppliers = () => {
     setIsSheetOpen(true);
   };
 
+  const confirmDelete = (supplierId: number) => {
+    setSupplierToDelete(supplierId);
+    setIsConfirmDialogOpen(true);
+  };
+
+  const deleteSupplier = async () => {
+    if (supplierToDelete === null) return;
+
+    try {
+      await axios.delete(`http://localhost:3000/suppliers?id=${supplierToDelete}`);
+      fetchSuppliers();
+      return true;
+    } catch (error) {
+      console.error("Erro ao deletar fornecedor:", error);
+      return false;
+    } finally {
+      setIsConfirmDialogOpen(false);
+      setSupplierToDelete(null);
+    }
+  };
+
   useEffect(() => {
     fetchSuppliers();
   }, []);
 
-  return { 
-    suppliers, 
-    fetchSuppliers, 
-    fields, 
-    editingSupplier, 
-    handleEdit, 
-    handleCreate, 
-    isSheetOpen, 
-    setIsSheetOpen 
+  return {
+    suppliers,
+    fetchSuppliers,
+    fields,
+    editingSupplier,
+    handleEdit,
+    handleCreate,
+    isSheetOpen,
+    setIsSheetOpen,
+    confirmDelete,
+    deleteSupplier,
+    isConfirmDialogOpen,
+    setIsConfirmDialogOpen
   };
 };

@@ -7,7 +7,7 @@ import { ArrowUpDown, EllipsisVertical } from "lucide-react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 
-export const columns = (handleEdit: (supplier: Supplier) => void): ColumnDef<Supplier>[] => [
+export const columns = (handleEdit: (supplier: Supplier) => void, deleteSupplier: (supplierId: number) => void): ColumnDef<Supplier>[] => [
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -107,7 +107,7 @@ export const columns = (handleEdit: (supplier: Supplier) => void): ColumnDef<Sup
                         <DropdownMenuItem onClick={() => handleEdit(data)} >
                             Editar
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleEdit(data)}>
+                        <DropdownMenuItem onClick={() => deleteSupplier(data.id)}>
                             Excluir
                         </DropdownMenuItem>
                     </DropdownMenuContent>
