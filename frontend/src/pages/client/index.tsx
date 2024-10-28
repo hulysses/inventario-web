@@ -5,11 +5,13 @@ import { Filter, Search } from "lucide-react";
 import { SidebarSheet } from "@/components/sidebarSheet";
 
 import { getData, clients } from "@/services/Client";
+import { useDataTable } from "@/hooks/useDataTable";
 
 
 export const ClientTable = () => {
     const clientQuantity = clients.length;
     const data = getData();
+    const { table } = useDataTable(columns, data);
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 bg-white mx-7 mb-7 rounded-xl">
@@ -27,7 +29,7 @@ export const ClientTable = () => {
                 </div>
                 <SidebarSheet />
             </div>
-            <DataTable columns={columns} data={data} />
+            <DataTable columns={columns}  table={table}/>
         </div>
     )
 }

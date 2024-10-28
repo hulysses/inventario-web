@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Supplier } from '@/types/Supplier';
+import { useState, useEffect } from 'react';
 
 export const useSuppliers = () => {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+  const [editingSupplier, setEditingSupplier] = useState<Supplier | null>(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
   const fields = [
     { name: 'nome', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
     { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ' },
@@ -20,9 +23,28 @@ export const useSuppliers = () => {
     }
   };
 
+  const handleEdit = (supplier: Supplier) => {
+    setEditingSupplier(supplier);
+    setIsSheetOpen(true);
+  };
+
+  const handleCreate = () => {
+    setEditingSupplier(null);
+    setIsSheetOpen(true);
+  };
+
   useEffect(() => {
     fetchSuppliers();
   }, []);
 
-  return { suppliers, fetchSuppliers, fields };
+  return { 
+    suppliers, 
+    fetchSuppliers, 
+    fields, 
+    editingSupplier, 
+    handleEdit, 
+    handleCreate, 
+    isSheetOpen, 
+    setIsSheetOpen 
+  };
 };

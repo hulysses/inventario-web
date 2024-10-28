@@ -1,17 +1,16 @@
-import { Sheets } from "@/components/sheet";
-import { useSuppliers } from "../../../hooks/useSuppliers";
 import { Supplier } from "@/types/Supplier";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { formatarCNPJ } from "@/helpers/registerHelper";
+import { useSuppliers } from "../../../hooks/useSuppliers";
 import { formatarTelefone } from "@/helpers/registerHelper";
 import { ArrowUpDown, EllipsisVertical } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
+import { DialogFooter, DialogHeader } from "@/components/ui/dialog";
+import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 
-const { fields } = useSuppliers();
-
-export const columns: ColumnDef<Supplier>[] = [
-
+export const columns = (handleEdit: (supplier: Supplier) => void): ColumnDef<Supplier>[] => [
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -101,23 +100,39 @@ export const columns: ColumnDef<Supplier>[] = [
             const data = row.original;
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <EllipsisVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <Sheets
-                            text="Editar"
-                            title='Editar fornecedor'
-                            fields={fields}
-                            initialData={data}
-                        />
-                        <DropdownMenuItem>Excluir</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <EllipsisVertical className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => {handleEdit(data)}}>
+                                Editar
+                            </DropdownMenuItem>
+                            {/* <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button variant="outline">Excluir</Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Excluir</DialogTitle>
+                                        <DialogDescription>
+                                            <div className="flex items-center text-green-600">
+                                                Deseja prosseguir com a exclusão?
+                                            </div>
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <DialogFooter>
+                                        <Button type="submit">Save changes</Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog> */}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             )
         },
     },

@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { FilterProps } from "@/types/FilterProps";
 
-export function TableFilter<TData>({ table, column, placeholder }: FilterProps<TData>) {
+export function TableFilter({ table, column, placeholder }: FilterProps) {
   return (
     <Input
       placeholder={placeholder || `${column}`}

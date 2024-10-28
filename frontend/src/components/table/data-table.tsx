@@ -1,37 +1,14 @@
-
-import { Button } from "../ui/button";
-import { TableFilter } from "./table-filter";
-import { DataTableProps } from "@/types/DataTableProps";
-import { useDataTable } from "@/hooks/useDataTable";
+import { Button } from "@/components/ui/button"
 import { flexRender } from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { DataTableProps } from "@/types/DataTableProps";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData>({
     columns,
-    data,
-    filters = [],
-    actionComponent,
-}: DataTableProps<TData, TValue>) {
-    const { table } = useDataTable(columns, data);
-
+    table
+}: DataTableProps<TData>) {
     return (
         <div>
-            <div className="flex items-center justify-end py-4 space-x-4">
-                {filters.length > 0 && (
-                    <div className="flex space-x-4">
-                        {filters.map((column) => (
-                            <TableFilter
-                                key={column}
-                                table={table}
-                                column={column}
-                                placeholder={`Filtrar ${column}...`}
-                            />
-                        ))}
-                    </div>
-                )}
-                {actionComponent && <div>{actionComponent}</div>}
-            </div>
-
             <div className="overflow-hidden rounded-md border border-gray-200">
                 <Table>
                     <TableHeader>
@@ -39,17 +16,24 @@ export function DataTable<TData, TValue>({
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
                                     <TableHead key={header.id} className="bg-blue text-white">
-                                        {!header.isPlaceholder && flexRender(header.column.columnDef.header, header.getContext())}
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
                                     </TableHead>
                                 ))}
                             </TableRow>
                         ))}
                     </TableHeader>
-
                     <TableBody>
-                        {table.getRowModel().rows.length ? (
+                        {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                <TableRow
+                                    key={row.id}
+                                    data-state={row.getIsSelected() && "selected"}
+                                >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -67,7 +51,6 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Button
                     variant="outline"
@@ -88,5 +71,5 @@ export function DataTable<TData, TValue>({
                 </Button>
             </div>
         </div>
-    );
+    )
 }

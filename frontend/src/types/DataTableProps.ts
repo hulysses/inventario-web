@@ -1,8 +1,6 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { Table as TableInstance } from "@tanstack/react-table";
 
-export interface DataTableProps<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[],
-    data: TData[],
-    filters?: string[],
-    actionComponent?: React.ReactNode
+export interface DataTableProps<TData> {
+    columns: any[],
+    table: TableInstance<TData>
 }
