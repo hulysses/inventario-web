@@ -1,12 +1,12 @@
-import Logo from '../../assets/logo/logoPadrao.svg';
+import axios from 'axios';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
+import { Input } from '@/components/ui/input';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import Logo from '../../assets/logo/logoPadrao.svg';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const formSchema = z.object({
     emailAddress: z.string()
@@ -37,9 +37,6 @@ export const Login = ({ setIsLoggedIn }: LoginProps) => {
                 email: data.emailAddress,
                 password: data.password
             });
-
-            console.log(response);
-            console.log(response.data)
 
             const { user } = await response.data;
             localStorage.setItem('authToken', user.id);

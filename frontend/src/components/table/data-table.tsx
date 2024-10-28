@@ -1,76 +1,29 @@
-import {
-    flexRender, getPaginationRowModel, getCoreRowModel, useReactTable, VisibilityState, 
-    SortingState, getSortedRowModel, ColumnFiltersState, getFilteredRowModel
-} from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
-import React from "react";
-import { Button } from "../ui/button";
-import { TableFilter } from "./table-filter";
+import { Button } from "@/components/ui/button"
+import { flexRender } from "@tanstack/react-table";
 import { DataTableProps } from "@/types/DataTableProps";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData>({
     columns,
-    data,
-    filters = [],
-    actionComponent
-}: DataTableProps<TData, TValue>) {
-    const [sorting, setSorting] = React.useState<SortingState>([]);
-    const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-
-    const table = useReactTable({
-        data,
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-        onColumnVisibilityChange: setColumnVisibility,
-        state: {
-            columnVisibility,
-            sorting,
-            columnFilters
-        },
-        getPaginationRowModel: getPaginationRowModel(),
-        onSortingChange: setSorting,
-        getSortedRowModel: getSortedRowModel(),
-        onColumnFiltersChange: setColumnFilters,
-        getFilteredRowModel: getFilteredRowModel(),
-    })
-
+    table
+}: DataTableProps<TData>) {
     return (
-        <div >
-            <div className="flex items-center justify-end py-4 space-x-4">
-                {filters.length > 0 && (
-                    <div className="flex space-x-4">
-                        {filters.map((column) => (
-                            <TableFilter key={column} table={table} column={column} placeholder={`Filtrar ${column}...`} />
-                        ))}
-                    </div>
-                )}
-                {actionComponent && (
-                    <div>
-                        {actionComponent}
-                    </div>
-                )}
-            </div>
+        <div>
             <div className="overflow-hidden rounded-md border border-gray-200">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead
-                                            key={header.id}
-                                            className="bg-blue text-white"
-                                        >
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
-                                    )
-                                })}
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id} className="bg-blue text-white">
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+                                    </TableHead>
+                                ))}
                             </TableRow>
                         ))}
                     </TableHeader>
@@ -86,7 +39,6 @@ export function DataTable<TData, TValue>({
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
-
                                 </TableRow>
                             ))
                         ) : (

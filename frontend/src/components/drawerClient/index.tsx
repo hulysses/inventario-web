@@ -1,16 +1,14 @@
 import { Button } from "../ui/button";
-import { DataTable } from "../table/data-table";
-import { columns } from "../table/columnsTable/columnsTableClientHist";
 import { ArrowRight } from "lucide-react";
-import {
-    Drawer, DrawerClose, DrawerContent, DrawerFooter,
-    DrawerHeader, DrawerTitle, DrawerTrigger
-} from "@/components/ui/drawer"
-
+import { DataTable } from "../table/data-table";
+import { useDataTable } from "@/hooks/useDataTable";
 import { getClientDetails } from "@/services/ClientDetails";
+import { columns } from "../table/columnsTable/columnsTableClientHist";
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter,DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
 
 export const DrawerClient = () => {
     const data = getClientDetails();
+    const { table } = useDataTable(columns, data);
 
     return (
         <Drawer>
@@ -19,7 +17,7 @@ export const DrawerClient = () => {
                 <DrawerHeader>
                     <DrawerTitle>Histórico de Pedidos</DrawerTitle>
 
-                    <DataTable columns={columns} data={data} />
+                    <DataTable columns={columns} table={table} />
                 </DrawerHeader>
                 <DrawerFooter>
                     <DrawerClose>

@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertClient } from '../database/models/client.js';
+import { insertClient } from '../database/services/clientService.js';
 
 const router = express.Router();
 

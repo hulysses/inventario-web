@@ -1,4 +1,4 @@
-import { findUserByEmail } from '../database/models/user.js';
+import { findUserByEmail } from '../database/services/userService.js';
 
 export const getUserByEmail = (req, res) => {
   const { email, password } = req.body;
