@@ -6,7 +6,8 @@ export const createUserTable = () => {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT,
             email TEXT UNIQUE,
-            senha TEXT
+            senha TEXT,
+            administrador BOOLEAN DEFAULT 0
         )
     `;
     db.prepare(sql).run();
