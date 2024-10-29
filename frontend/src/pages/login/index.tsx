@@ -1,6 +1,8 @@
 import axios from 'axios';
 import * as z from 'zod';
+import { toast, Toaster } from "sonner";
 import { useForm } from 'react-hook-form';
+import { LoginProps } from '@/types/Login';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -16,11 +18,8 @@ const formSchema = z.object({
         .nonempty("O campo senha é obrigatório.")
 });
 
-interface LoginProps {
-    setIsLoggedIn: (value: boolean) => void;
-}
-
 export const Login = ({ setIsLoggedIn }: LoginProps) => {
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -38,15 +37,16 @@ export const Login = ({ setIsLoggedIn }: LoginProps) => {
                 password: data.password
             });
 
-            const { user } = await response.data;
+            const { user } = response.data;
             localStorage.setItem('authToken', user.id);
             setIsLoggedIn(true);
-
             navigate('/home');
         } catch (error: any) {
             if (error.response) {
+                toast.error('Erro: Usuário ou senha inválidos.');
                 console.error('Erro na resposta da API:', error.response.data);
             } else {
+                toast.error('Erro na conexão. Tente novamente mais tarde.');
                 console.error('Erro na requisição:', error.message);
             }
         }
@@ -98,12 +98,14 @@ export const Login = ({ setIsLoggedIn }: LoginProps) => {
                         />
                         <Button
                             type="submit"
-                            className="bg-orange hover:bg-orangeHover font-bold w-full mt-5">
+                            className="bg-orange hover:bg-orangeHover font-bold w-full mt-5"
+                        >
                             Entrar
                         </Button>
                     </form>
                 </Form>
             </div>
+            <Toaster />
         </main>
     );
 };
