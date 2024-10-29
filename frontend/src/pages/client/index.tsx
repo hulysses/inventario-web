@@ -91,8 +91,5 @@ export const ClientTable = () => {
                 description="Tem certeza que deseja excluir este cliente? Esta ação não pode ser desfeita."
             />
         </div>
-        //         </div >
-        // <DataTable columns={columns(handleEdit, confirmDelete)} table={table} />
-        //     </div >
     )
 }
