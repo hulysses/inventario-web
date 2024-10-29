@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import loginRoutes from './routes/loginRoutes.js';
 import clientRoutes from './routes/clientRoutes.js';
-import supplierRoutes from  './routes/supplierRoutes.js';
+import supplierRoutes from './routes/supplierRoutes.js';
 import { runMigrations } from './database/migrations/index.js';
 
 runMigrations();
@@ -16,3 +16,4 @@ app.use('/', clientRoutes);
 app.use('/suppliers', supplierRoutes);
 
 app.listen(3000);
+console.log("Servidor rodando.")
