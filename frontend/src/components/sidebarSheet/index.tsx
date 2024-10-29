@@ -84,7 +84,7 @@ export default function SidebarSheet() {
 
                         <Toaster />
 
-                        {clientAdded !== null && (
+                        {/* {clientAdded !== null && (
                             <div className="text-white">
                                 {clientAdded
                                     ? toast("Usuário inserido com sucesso.")
@@ -92,7 +92,7 @@ export default function SidebarSheet() {
                                 }
                             </div>
                         )}
-                        <Toaster />
+                        <Toaster /> */}
 
                     </div>
                 </SheetHeader>

@@ -7,7 +7,8 @@ export const createClientTable = () => {
             nome TEXT,
             cpf_cnpj TEXT,
             contato TEXT,
-            endereco TEXT
+            endereco TEXT,
+            createdAt TEXT
         )
     `;
     db.prepare(sql).run();

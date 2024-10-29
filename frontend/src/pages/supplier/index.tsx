@@ -49,7 +49,7 @@ export function Suppliers() {
           />
         ))}
         <Button onClick={handleCreate} className="bg-orange hover:bg-orangeHover text-white font-semibold mx-auto">
-          <Plus className='w-4 mr-1'/>
+          <Plus className='w-4 mr-1' />
           Novo fornecedor
         </Button>
       </div>
