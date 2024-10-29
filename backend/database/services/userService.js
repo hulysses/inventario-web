@@ -10,4 +10,4 @@ export const findUserByEmail = (email) => {
     return db.prepare(sql).get(email);
 };
 
-insertUser("Suporte", "suporte@suporte.com", "suporte123", 1);
+// insertUser("Suporte", "suporte@suporte.com", "suporte123", 1);
