@@ -1,9 +1,9 @@
 import { deleteClientS, insertClientS, listClientS, updateClientS } from "../database/services/clientService.js";
 
-export const registerClient = (req, res) => {
+export const registerClients = (req, res) => {
     const { nome, cpf_cnpj, contato, endereco } = req.body;
 
-    if (insertClientS(nome, cpf_cnpj, contato, endereco)) {
+    if (insertClientS(nome, cpf_cnpj, contato, endereco,)) {
         res.status(201).json({ message: 'Cliente cadastrado com sucesso' });
     } else {
         res.status(400).json({ message: 'Erro ao cadastrar cliente.' });

@@ -1,11 +1,11 @@
 import express from 'express';
 
-import { deleteClients, listClients, registerClient, updateClients } from '../controllers/clientController.js';
+import { deleteClients, listClients, registerClients, updateClients } from '../controllers/clientController.js';
 
 const router = express.Router();
 
-router.post('/clients', registerClient);
 router.get('/clients', listClients);
+router.post('/clients', registerClients);
 router.put('/clients', updateClients);
 router.delete('/clients', deleteClients);
 

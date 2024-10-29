@@ -1,8 +1,15 @@
 import { db } from '../db.js';
 
 export const insertClientS = (nome, cpf_cnpj, contato, endereco) => {
-    const sql = 'INSERT INTO clients (nome, cpf_cnpj, contato, endereco) VALUES (?, ?, ?, ?)';
-    db.prepare(sql).run(nome, cpf_cnpj, contato, endereco);
+    try {
+        const sql = 'INSERT INTO clients (nome, cpf_cnpj, contato, endereco) VALUES (?, ?, ?, ?)';
+        db.prepare(sql).run(nome, cpf_cnpj, contato, endereco);
+
+        return true;
+    } catch (error) {
+        console.log("Erro ao inserir cliente:", error.message);
+        return false;
+    }
 };
 
 export const listClientS = () => {
