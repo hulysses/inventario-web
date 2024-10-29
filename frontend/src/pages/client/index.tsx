@@ -60,7 +60,7 @@ export const ClientTable = () => {
 
                 <Button onClick={handleCreate} className="bg-orange hover:bg-orangeHover text-white font-semibold mt-20">
                     <Plus className='w-4 mr-1' />
-                    Novo fornecedor
+                    Novo cliente
                 </Button>
             </div>
             <DataTable
