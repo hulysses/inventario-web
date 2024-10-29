@@ -36,7 +36,7 @@ export const columns = (handleEdit: (client: Client) => void, deleteSupplier: (c
         },
     },
     {
-        accessorKey: "cnpj",
+        accessorKey: "cpf_cnpj",
         header: ({ column }) => {
             return (
                 <Button
@@ -131,4 +131,5 @@ export const columns = (handleEdit: (client: Client) => void, deleteSupplier: (c
             )
         },
     },
+
 ]

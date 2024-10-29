@@ -18,11 +18,11 @@ export function Sheets({
     onOpenChange
 }: SheetProps) {
     const { form, submitFormData } = useFormData(
-        fields, 
-        initialData, 
-        apiEndpoint as string, 
+        fields,
+        initialData,
+        apiEndpoint as string,
         method as 'post' | 'put',
-        onDialogOpen, 
+        onDialogOpen,
         onCadastroSucesso
     );
 
@@ -42,7 +42,7 @@ export function Sheets({
                 </SheetHeader>
                 <Form {...form}>
                     <form
-                        onSubmit={form.handleSubmit(submitFormData)} 
+                        onSubmit={form.handleSubmit(submitFormData)}
                         className="space-y-4 mt-4">
                         {fields.map((field, index) => (
                             <FormField

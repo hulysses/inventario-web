@@ -33,7 +33,7 @@ export const useClients = () => {
     const handleCreate = () => {
         setEditingClient(null);
         setIsSheetOpen(true);
-    }
+    };
 
     const confirmDelete = (clientId: number) => {
         setClientToDelete(clientId);

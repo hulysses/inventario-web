@@ -4,5 +4,4 @@ export type Client = {
     cpf_cnpj: string,
     contato: string,
     endereco: string
-    createdAt: string
 }
