@@ -4,10 +4,9 @@ import { DrawerClient } from "@/components/drawerClient";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, EllipsisVertical } from "lucide-react";
 import { formatarCNPJ, formatarTelefone } from "@/helpers/registerHelper";
-import { Sheets } from "@/components/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-export const columns: ColumnDef<Client>[] = [
+export const columns = (handleEdit: (client: Client) => void, deleteSupplier: (clientId: number) => void): ColumnDef<Client>[] => [
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -37,7 +36,7 @@ export const columns: ColumnDef<Client>[] = [
         },
     },
     {
-        accessorKey: "cnpj",
+        accessorKey: "cpf_cnpj",
         header: ({ column }) => {
             return (
                 <Button
@@ -110,33 +109,27 @@ export const columns: ColumnDef<Client>[] = [
             )
         },
         id: "actions",
-        cell: ({ }) => {
-            const fields = [
-                { name: 'cliente', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
-                { name: 'cpf_cnpj', label: 'CPF/CNPJ', type: 'text', placeholder: 'Digite o CPF/CNPJ' },
-                { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone' },
-                { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
-            ];
+        cell: ({ row }) => {
+            const data = row.original;
+
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
                             <EllipsisVertical className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <Sheets
-                            text="Editar"
-                            title='Editar cliente'
-                            fields={fields}
-                        />
-                        <DropdownMenuItem>Excluir</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleEdit(data)} >
+                            Editar
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => deleteSupplier(data.id)}>
+                            Excluir
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
         },
     },
-
 
 ]
