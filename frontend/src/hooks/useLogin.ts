@@ -1,4 +1,3 @@
-// hooks/useLoginForm.ts
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
@@ -13,7 +12,11 @@ const formSchema = z.object({
         .nonempty("O campo senha é obrigatório.")
 });
 
-export const useLoginForm = (setIsLoggedIn: (loggedIn: boolean) => void, navigate: (path: string) => void) => {
+export const useLoginForm = (
+    setIsLoggedIn: (loggedIn: boolean) => void, 
+    navigate: (path: string) => void, 
+    setIsAdmin: (isAdmin: boolean) => void
+) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -31,8 +34,10 @@ export const useLoginForm = (setIsLoggedIn: (loggedIn: boolean) => void, navigat
 
             const { user } = response.data;
             localStorage.setItem('authToken', user.id);
-            localStorage.setItem('user', user);
+            localStorage.setItem('isAdmin', JSON.stringify(user.isAdmin));
+
             setIsLoggedIn(true);
+            setIsAdmin(user.isAdmin); 
             navigate('/home');
         } catch (error: any) {
             if (error.response) {

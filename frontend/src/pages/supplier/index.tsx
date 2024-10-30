@@ -26,6 +26,7 @@ export function Suppliers() {
   } = useSuppliers();
   const { table } = useDataTable(columns(handleEdit, confirmDelete), suppliers);
   const filters = ['nome', 'contato'];
+  const isAdmin = localStorage.getItem('isAdmin') === '1';
 
   const handleConfirmDelete = async () => {
     try {
@@ -49,7 +50,7 @@ export function Suppliers() {
             placeholder={`Filtrar ${column}...`}
           />
         ))}
-        <Button onClick={handleCreate} className="bg-orange hover:bg-orangeHover text-white font-semibold mx-auto">
+        <Button disabled={!isAdmin} onClick={handleCreate} className="bg-orange hover:bg-orangeHover text-white font-semibold mx-auto">
           <Plus className='w-4 mr-1' />
           Novo fornecedor
         </Button>

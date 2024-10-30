@@ -11,17 +11,17 @@ import {
     SidebarProvider, SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-const items = [
+const getMenuItems = (isAdmin: boolean) => [
     {
         title: "Home",
         url: "/home",
         icon: Home,
     },
-    {
+    ...(isAdmin ? [{
         title: "Usuários",
         url: "/users",
         icon: Users,
-    },
+    }] : []),
     {
         title: "Clientes",
         url: "/clients",
@@ -53,13 +53,15 @@ export function AppSidebar() {
     const navigate = useNavigate();
     const location = useLocation();
     const [currentPage, setCurrentPage] = useState("Home");
+    const isAdmin = localStorage.getItem('isAdmin') === '1';
+    const items = getMenuItems(isAdmin);
 
     useEffect(() => {
         const currentItem = items.find(item => item.url === location.pathname);
         if (currentItem) {
             setCurrentPage(currentItem.title);
         }
-    }, [location]);
+    }, [location, items]);
 
     const handleLogout = () => {
         localStorage.removeItem('authToken');

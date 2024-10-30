@@ -1,4 +1,3 @@
-// components/Login.tsx
 import { useNavigate } from 'react-router-dom';
 import { LoginProps } from '@/types/Login';
 import { Input } from '@/components/ui/input';
@@ -8,9 +7,9 @@ import { Toaster } from "sonner";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useLoginForm } from '@/hooks/useLogin';
 
-export const Login = ({ setIsLoggedIn }: LoginProps) => {
+export const Login = ({ setIsLoggedIn, isAdmin }: LoginProps) => {
     const navigate = useNavigate();
-    const { form, handleSubmit } = useLoginForm(setIsLoggedIn, navigate);
+    const { form, handleSubmit } = useLoginForm(setIsLoggedIn, navigate, isAdmin);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-center p-5 sm:p-10 md:p-24">
