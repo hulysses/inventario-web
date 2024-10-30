@@ -12,11 +12,11 @@ export const useUsers = () => {
     const fields = [
         { name: 'nome', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
         { name: 'email', label: 'E-mail', type: 'text', placeholder: 'Digite o e-mail' },
-        { name: 'senha', label: 'Senha', type: 'text', placeholder: 'Digite a senha' },
+        { name: 'senha', label: 'Senha', type: 'password', placeholder: 'Digite a senha' },
         {
             name: 'isAdmin', label: 'É administrador?', type: 'radio', options: [
-                { value: '1', label: 'Sim' },
-                { value: '0', label: 'Não' }
+                { value: 1, label: 'Sim' },
+                { value: 0, label: 'Não' }
             ]
         }
     ];
