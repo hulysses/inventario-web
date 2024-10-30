@@ -1,3 +1,14 @@
+export function identificarCpfCnpj(cpf_cnpj: string): boolean {
+    const apenasNumeros = cpf_cnpj.replace(/[^\d]+/g, '');
+
+    if (apenasNumeros.length === 11) {
+        return validarCPF(cpf_cnpj);
+    } else if (apenasNumeros.length === 14) {
+        return validarCNPJ(cpf_cnpj);
+    }
+    return false;
+}
+
 export function validarCNPJ(cnpj: string): boolean {
     cnpj = cnpj.replace(/[^\d]+/g, '');
 
@@ -63,6 +74,15 @@ export function validarCPF(cpf: string): boolean {
     resto = (soma * 10) % 11;
     if (resto === 10 || resto === 11) resto = 0;
     return resto === +cpf.substring(10, 11);
+}
+
+export function validarEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (emailRegex.test(email)) {
+        return true;
+    }
+
+    return false;
 }
 
 export function formatarCNPJ(cnpj: string): string {

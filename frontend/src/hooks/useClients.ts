@@ -11,8 +11,8 @@ export const useClients = () => {
 
     const fields = [
         { name: 'nome', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
-        { name: 'cpf_cnpj', label: 'CPF/CNPJ', type: 'text', placeholder: 'Digite o CPF/CNPJ' },
-        { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone' },
+        { name: 'cpf_cnpj', label: 'CPF/CNPJ', type: 'text', placeholder: 'Digite o CPF/CNPJ', length: 18 },
+        { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone', length: 14 },
         { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
     ];
 

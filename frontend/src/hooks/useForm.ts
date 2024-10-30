@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { InputField } from "@/types/Field";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validarCNPJ } from '@/helpers/registerHelper';
+import { validarCNPJ, identificarCpfCnpj, validarEmail } from '@/helpers/registerHelper';
 
 export const useFormData = (
     fields: InputField[],
@@ -14,36 +14,44 @@ export const useFormData = (
     method: 'post' | 'put',
     onSuccess?: () => void
 ) => {
-    const createCNPJSchema = () => z.string().refine(validarCNPJ, {
-        message: "CNPJ inválido",
-    });
 
+    // Função para criar validação dos campos
     const createFormSchema = () => {
         const schemaObject: Record<string, z.ZodTypeAny> = {};
         fields.forEach((field) => {
-            if (field.name === 'cnpj') {
-                schemaObject[field.name] = createCNPJSchema();
-            } else if (field.name === 'isAdmin') {
-                schemaObject[field.name] = z
-                    .number()
-                    .transform((value) => value.toString())
-            } else {
-                schemaObject[field.name] = z.string().nonempty(`O campo ${field.label} é obrigatório.`);
+            switch (field.name) {
+                case 'cnpj':
+                    schemaObject[field.name] = z.string().refine(validarCNPJ, { message: "CNPJ inválido" });
+                    break;
+                case 'cpf_cnpj':
+                    schemaObject[field.name] = z.string().refine(identificarCpfCnpj, { message: "CPF/CNPJ inválido" });
+                    break;
+                case 'email':
+                    schemaObject[field.name] = z.string().refine(validarEmail, { message: "E-mail inválido" });
+                    break;
+                case 'isAdmin':
+                    schemaObject[field.name] = z.number().transform((value) => value.toString())
+                    break;
+                case 'endereco':
+                    schemaObject[field.name] = z.string();
+                    break;
+                default:
+                    schemaObject[field.name] = z.string().nonempty(`O campo ${field.label} é obrigatório.`);
             }
         });
         return z.object(schemaObject);
     };
 
-    const validationSchema = createFormSchema();
-
+    // Função para criar o formulário
     const form = useForm({
-        resolver: zodResolver(validationSchema),
+        resolver: zodResolver(createFormSchema()),
         defaultValues: fields.reduce((acc, field) => {
             acc[field.name] = initialData[field.name] || '';
             return acc;
         }, {} as Record<string, string>)
     });
 
+    //Hook para definir valores iniciais dos campos 
     useEffect(() => {
         if (initialData) {
             Object.keys(initialData).forEach((key) => {
@@ -52,6 +60,7 @@ export const useFormData = (
         }
     }, [initialData, form]);
 
+    // Função para submeter os dados do formulário ao backend
     const submitFormData = async (data: any) => {
         try {
             const response = method === 'post' ? await axios.post(apiEndpoint, data) : await axios.put(apiEndpoint, data);
@@ -64,6 +73,7 @@ export const useFormData = (
         }
     };
 
+    //Funçaão para resetar os dados  do formulário
     const resetForm = () => {
         form.reset(fields.reduce((acc, field) => {
             acc[field.name] = '';
