@@ -36,7 +36,6 @@ export const findUserByEmail = (email) => {
     return db.prepare(sql).get(email);
 };
 
-<<<<<<< HEAD
 export const deleteUser = (id) => {
     try {
         const sql = 'DELETE FROM users WHERE id = ?';
@@ -47,7 +46,4 @@ export const deleteUser = (id) => {
     }
 }
 
-//insertUser("Suporte", "suporte@suporte.com", "suporte123", 1);
-=======
 // insertUser("Suporte", "suporte@suporte.com", "suporte123", 1);
->>>>>>> main

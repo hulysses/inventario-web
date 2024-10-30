@@ -1,15 +1,13 @@
 import { DataTable } from "@/components/table/data-table"
 import { columns } from "@/components/table/columnsTable/columnsTableClient";
-
 import { useDataTable } from "@/hooks/useDataTable";
 import { TableFilter } from "@/components/table/table-filter";
 import { useClients } from "@/hooks/useClients";
-import { useDialog } from "@/hooks/useDialog";
 import { Button } from "@/components/ui/button";
-import { SuccessDialog } from "@/components/dialog/success";
 import { ConfirmationDialog } from "@/components/dialog/confirm";
 import { Plus } from "lucide-react";
 import { Sheets } from "@/components/sheet";
+import { toast, Toaster } from "sonner";
 
 export const ClientTable = () => {
 
@@ -27,17 +25,17 @@ export const ClientTable = () => {
         isConfirmDialogOpen,
         setIsConfirmDialogOpen
     } = useClients();
-
-    const { dialogOpen, setDialogOpen, cadastroSucesso, handleDialogOpen, handleCadastroSucesso } = useDialog();
-
     const clientQuantity = clients.length;
     const { table } = useDataTable(columns(handleEdit, confirmDelete), clients);
     const filters = ['nome', 'contato'];
 
     const handleConfirmDelete = async () => {
-        const success = await !!deleteClient();
-        handleCadastroSucesso(success, fetchClients);
-        setDialogOpen(true);
+        try {
+            await deleteClient();
+            toast('Cliente excluído com sucesso!');
+        } catch (error) {
+            toast('Erro ao excluir cliente.');
+        }
     };
 
     return (
@@ -75,13 +73,10 @@ export const ClientTable = () => {
                 initialData={editingClient || {}}
                 apiEndpoint={`http://localhost:3000/clients${editingClient ? `?id=${editingClient.id}` : ''}`}
                 method={editingClient ? 'put' : 'post'}
-                onDialogOpen={handleDialogOpen}
-                onCadastroSucesso={(sucesso) => handleCadastroSucesso(sucesso, fetchClients)}
-            />
-            <SuccessDialog
-                isOpen={dialogOpen}
-                onClose={() => setDialogOpen(false)}
-                isSuccess={cadastroSucesso}
+                onSuccess={() => {
+                    fetchClients();
+                    setIsSheetOpen(false);
+                }}
             />
             <ConfirmationDialog
                 isOpen={isConfirmDialogOpen}
@@ -90,6 +85,7 @@ export const ClientTable = () => {
                 title="Confirmar exclusão"
                 description="Tem certeza que deseja excluir este cliente? Esta ação não pode ser desfeita."
             />
+            <Toaster />
         </div>
     )
 }
