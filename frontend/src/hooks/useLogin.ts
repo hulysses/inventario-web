@@ -31,6 +31,7 @@ export const useLoginForm = (setIsLoggedIn: (loggedIn: boolean) => void, navigat
 
             const { user } = response.data;
             localStorage.setItem('authToken', user.id);
+            localStorage.setItem('user', user);
             setIsLoggedIn(true);
             navigate('/home');
         } catch (error: any) {
