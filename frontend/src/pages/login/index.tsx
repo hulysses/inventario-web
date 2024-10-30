@@ -1,56 +1,16 @@
-import axios from 'axios';
-import * as z from 'zod';
-import { toast, Toaster } from "sonner";
-import { useForm } from 'react-hook-form';
+// components/Login.tsx
+import { useNavigate } from 'react-router-dom';
 import { LoginProps } from '@/types/Login';
 import { Input } from '@/components/ui/input';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Logo from '../../assets/logo/logoPadrao.svg';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Toaster } from "sonner";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-
-const formSchema = z.object({
-    emailAddress: z.string()
-        .nonempty("O campo e-mail é obrigatório.")
-        .email("Por favor, insira um e-mail válido."),
-    password: z.string()
-        .nonempty("O campo senha é obrigatório.")
-});
+import { useLoginForm } from '@/hooks/useLogin';
 
 export const Login = ({ setIsLoggedIn }: LoginProps) => {
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            emailAddress: '',
-            password: ''
-        }
-    });
-
     const navigate = useNavigate();
-
-    const handleSubmit = async (data: z.infer<typeof formSchema>) => {
-        try {
-            const response = await axios.post('http://localhost:3000/', {
-                email: data.emailAddress,
-                password: data.password
-            });
-
-            const { user } = response.data;
-            localStorage.setItem('authToken', user.id);
-            setIsLoggedIn(true);
-            navigate('/home');
-        } catch (error: any) {
-            if (error.response) {
-                toast.error('Erro: Usuário ou senha inválidos.');
-                console.error('Erro na resposta da API:', error.response.data);
-            } else {
-                toast.error('Erro na conexão. Tente novamente mais tarde.');
-                console.error('Erro na requisição:', error.message);
-            }
-        }
-    };
+    const { form, handleSubmit } = useLoginForm(setIsLoggedIn, navigate);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-center p-5 sm:p-10 md:p-24">
