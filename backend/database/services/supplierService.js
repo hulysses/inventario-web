@@ -44,3 +44,8 @@ export const deleteSupplier = (id) => {
         return false;
     }
 }
+
+export const findByCnpj = (cnpj) => {
+    const sql = 'SELECT * FROM supplier WHERE cnpj = ?';
+    return db.prepare(sql).get(cnpj);
+};

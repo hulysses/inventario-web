@@ -1,7 +1,12 @@
-import { insertSupplier, listSupplier, updateSupplier, deleteSupplier } from "../database/services/supplierService.js";
+import { insertSupplier, listSupplier, updateSupplier, deleteSupplier, findByCnpj } from "../database/services/supplierService.js";
 
 export const registerSupplier = (req, res) => {
     const { nome, cnpj, contato, endereco } = req.body;
+
+    const supplier = findByCnpj(cnpj);
+    if (supplier) {
+      return res.status(400).json({ message: 'Já esxiste um fornecedor cadastrado com esse CNPJ.' });
+    }
 
     if (insertSupplier(nome, cnpj, contato, endereco)) {
         res.status(201).json({ message: 'Fornecedor cadastrado com sucesso' });
