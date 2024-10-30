@@ -5,6 +5,6 @@ import { createClientTable, dropClientTable } from './createClientTable.js';
 export const runMigrations = () => {
     createUserTable();
     createSupllierTable();
-    dropClientTable();
+    // dropClientTable();
     createClientTable();
 }

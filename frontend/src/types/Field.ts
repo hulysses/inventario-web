@@ -4,5 +4,5 @@ export interface InputField {
     type: string;
     placeholder?: string;
     length?: number;
-    options?: { value: string; label: string }[];
+    options?: { value: number; label: string }[];
 }

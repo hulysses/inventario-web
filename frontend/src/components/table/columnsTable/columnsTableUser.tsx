@@ -58,6 +58,7 @@ export const columns = (handleEdit: (user: User) => void, deleteSupplier: (userI
         id: "actions",
         cell: ({ row }) => {
             const data = row.original;
+            // data.isAdmin === 1 ? data.isAdmin = '1' : data.isAdmin = '0';
 
             return (
                 <DropdownMenu>

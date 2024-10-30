@@ -23,6 +23,10 @@ export const useFormData = (
         fields.forEach((field) => {
             if (field.name === 'cnpj') {
                 schemaObject[field.name] = createCNPJSchema();
+            } else if (field.name === 'isAdmin') {
+                schemaObject[field.name] = z
+                    .number()
+                    .transform((value) => value.toString())
             } else {
                 schemaObject[field.name] = z.string().nonempty(`O campo ${field.label} é obrigatório.`);
             }
@@ -60,5 +64,12 @@ export const useFormData = (
         }
     };
 
-    return { form, submitFormData };
+    const resetForm = () => {
+        form.reset(fields.reduce((acc, field) => {
+            acc[field.name] = '';
+            return acc;
+        }, {} as Record<string, string>));
+    };
+
+    return { form, submitFormData, resetForm };
 };

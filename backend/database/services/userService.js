@@ -1,20 +1,18 @@
 import { db } from '../db.js';
 
-export const insertUser = (nome, email, senha, administrador) => {
+export const insertUser = (nome, email, senha, isAdmin) => {
     try {
-        const sql = 'INSERT INTO users (nome, email, senha, administrador) VALUES (?, ?, ?, ?)';
-        db.prepare(sql).run(nome, email, senha, administrador);
-        return true;
+        const sql = 'INSERT INTO user (nome, email, senha, isAdmin) VALUES (?, ?, ?, ?)';
+        db.prepare(sql).run(nome, email, senha, isAdmin);
     } catch (error) {
-        console.error(error);
-        return false;
+        console.log('Erro ao inserir usuário', error.message);
     }
 };
 
-export const updateUser = (id, nome, email, senha, administrador) => {
+export const updateUser = (id, nome, email, senha, isAdmin) => {
     try {
-        const sql = 'UPDATE users SET nome = ?, email = ?, senha = ?, administrador =  ? WHERE id = ?';
-        db.prepare(sql).run(nome, email, senha, administrador, id)
+        const sql = 'UPDATE user SET nome = ?, email = ?, senha = ?, isAdmin =  ? WHERE id = ?';
+        db.prepare(sql).run(nome, email, senha, isAdmin, id)
     } catch (error) {
         console.log("Erro ao atualizar usuário:", error.message);
     }
@@ -22,7 +20,7 @@ export const updateUser = (id, nome, email, senha, administrador) => {
 
 export const listUser = () => {
     try {
-        const sql = 'SELECT * FROM users';
+        const sql = 'SELECT * FROM user';
         const users = db.prepare(sql).all();
         return users;
     } catch (error) {
@@ -32,13 +30,13 @@ export const listUser = () => {
 }
 
 export const findUserByEmail = (email) => {
-    const sql = 'SELECT * FROM users WHERE email = ?';
+    const sql = 'SELECT * FROM user WHERE email = ?';
     return db.prepare(sql).get(email);
 };
 
 export const deleteUser = (id) => {
     try {
-        const sql = 'DELETE FROM users WHERE id = ?';
+        const sql = 'DELETE FROM user WHERE id = ?';
         db.prepare(sql).run(id);
         return true;
     } catch (error) {

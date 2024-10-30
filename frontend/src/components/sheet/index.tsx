@@ -17,7 +17,7 @@ export function Sheets({
     onOpenChange,
     onSuccess
 }: SheetProps) {
-    const { form, submitFormData } = useFormData(
+    const { form, submitFormData, resetForm } = useFormData(
         fields,
         initialData,
         apiEndpoint as string,
@@ -28,14 +28,20 @@ export function Sheets({
     useEffect(() => {
         if (open && initialData) {
             Object.keys(initialData).forEach((key) => {
-                const value = key === 'isAdmin' ? initialData[key].toString() : initialData[key];
-                form.setValue(key, value);
+                form.setValue(key, initialData[key]);
             });
         }
     }, [open, initialData, form]);
 
+    const handleSheetOpenChange = (isOpen: boolean) => {
+        if (!isOpen) {
+            resetForm();
+        }
+        onOpenChange(isOpen);
+    };
+
     return (
-        <Sheet open={open} onOpenChange={onOpenChange}>
+        <Sheet open={open} onOpenChange={handleSheetOpenChange}>
             <SheetContent>
                 <SheetHeader>
                     <SheetTitle>{title}</SheetTitle>
