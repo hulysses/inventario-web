@@ -1,12 +1,10 @@
-import { Supplier } from "@/types/Supplier";
+import { User } from "@/types/User";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { formatarCNPJ } from "@/helpers/registerHelper";
-import { formatarTelefone } from "@/helpers/registerHelper";
 import { ArrowUpDown, EllipsisVertical } from "lucide-react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-export const columns = (handleEdit: (supplier: Supplier) => void, deleteSupplier: (supplierId: number) => void): ColumnDef<Supplier>[] => [
+export const columns = (handleEdit: (user: User) => void, deleteSupplier: (userId: number) => void): ColumnDef<User>[] => [
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -36,48 +34,14 @@ export const columns = (handleEdit: (supplier: Supplier) => void, deleteSupplier
         },
     },
     {
-        accessorKey: "cnpj",
+        accessorKey: "email",
         header: ({ column }) => {
             return (
                 <Button
                     className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    CNPJ
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-        cell: ({ row }) => {
-            return formatarCNPJ(row.original.cnpj);
-        }
-    },
-    {
-        accessorKey: "contato",
-        header: ({ column }) => {
-            return (
-                <Button
-                    className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Telefone
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-        cell: ({ row }) => {
-            return formatarTelefone(row.original.contato);
-        }
-    },
-    {
-        accessorKey: "endereco",
-        header: ({ column }) => {
-            return (
-                <Button
-                    className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Endereço
+                    E-mail
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )

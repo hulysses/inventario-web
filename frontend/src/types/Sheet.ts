@@ -6,8 +6,7 @@ export interface SheetProps {
     initialData?: Partial<any>,
     apiEndpoint?: string,
     method?: 'post' | 'put',
-    onDialogOpen?: (isOpen: boolean) => void,
-    onCadastroSucesso?: (sucesso: boolean) => void,
     open: boolean,
-    onOpenChange: (open: boolean) => void
+    onOpenChange: (open: boolean) => void,
+    onSuccess: () => void
 }

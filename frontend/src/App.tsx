@@ -1,10 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Login } from "./pages/login";
 import { Home } from "./pages/home";
+import { Users } from './pages/user';
+import { Login } from "./pages/login";
 import { useEffect, useState } from 'react';
-import { AppSidebar } from './components/sidebar/menuSideBar';
 import { Suppliers } from './pages/supplier';
 import { ClientTable } from "@/pages/client";
+import { AppSidebar } from './components/sidebar/menuSideBar';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 export function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -26,6 +27,7 @@ export function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/clients" element={<ClientTable />} />
+          <Route path="/users" element={<Users />} />
         </Route>
       </Routes>
     </Router>

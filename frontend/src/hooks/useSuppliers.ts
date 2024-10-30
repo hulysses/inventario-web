@@ -11,8 +11,8 @@ export const useSuppliers = () => {
 
   const fields = [
     { name: 'nome', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
-    { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ' },
-    { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone' },
+    { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ', length: 18 },
+    { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone',  length: 14 },
     { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
   ];
 
@@ -46,10 +46,8 @@ export const useSuppliers = () => {
     try {
       await axios.delete(`http://localhost:3000/suppliers?id=${supplierToDelete}`);
       fetchSuppliers();
-      return true;
     } catch (error) {
       console.error("Erro ao deletar fornecedor:", error);
-      return false;
     } finally {
       setIsConfirmDialogOpen(false);
       setSupplierToDelete(null);

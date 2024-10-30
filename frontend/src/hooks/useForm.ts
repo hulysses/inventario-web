@@ -1,21 +1,19 @@
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import * as z from 'zod';
-import { validarCNPJ } from '@/helpers/registerHelper';
+import axios from "axios";
+import { toast } from "sonner";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { InputField } from "@/types/Field";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { validarCNPJ } from '@/helpers/registerHelper';
 
 export const useFormData = (
-    fields: InputField[], 
-    initialData: Record<string, string>, 
-    apiEndpoint: string, 
-    method: 'post' | 'put', 
-    onDialogOpen: (open: boolean) => void, 
-    onCadastroSucesso: (sucesso: boolean) => void
+    fields: InputField[],
+    initialData: Record<string, string>,
+    apiEndpoint: string,
+    method: 'post' | 'put',
+    onSuccess?: () => void
 ) => {
-    const [sheetOpen, setSheetOpen] = useState(false); 
-
     const createCNPJSchema = () => z.string().refine(validarCNPJ, {
         message: "CNPJ inválido",
     });
@@ -23,7 +21,11 @@ export const useFormData = (
     const createFormSchema = () => {
         const schemaObject: Record<string, z.ZodTypeAny> = {};
         fields.forEach((field) => {
-            schemaObject[field.name] = field.name === 'cnpj' ? createCNPJSchema() : z.string().nonempty(`O campo ${field.label} é obrigatório.`);
+            if (field.name === 'cnpj') {
+                schemaObject[field.name] = createCNPJSchema();
+            } else {
+                schemaObject[field.name] = z.string().nonempty(`O campo ${field.label} é obrigatório.`);
+            }
         });
         return z.object(schemaObject);
     };
@@ -48,18 +50,15 @@ export const useFormData = (
 
     const submitFormData = async (data: any) => {
         try {
-            method === 'post' ? await axios.post(apiEndpoint, data) : await axios.put(apiEndpoint, data);
-            setSheetOpen(false);
+            const response = method === 'post' ? await axios.post(apiEndpoint, data) : await axios.put(apiEndpoint, data);
             form.reset();
-            onDialogOpen(true);
-            onCadastroSucesso(true);
+            onSuccess && onSuccess();
+            toast(response.data.message);
         } catch (error: any) {
-            setSheetOpen(true); 
-            onDialogOpen(true);
-            onCadastroSucesso(false);
+            toast(error.response.data.message);
             console.error('Erro na requisição:', error.response ? error.response.data : error.message);
         }
     };
 
-    return { form, submitFormData, sheetOpen, setSheetOpen };
+    return { form, submitFormData };
 };
