@@ -10,6 +10,7 @@ import { ConfirmationDialog } from '@/components/dialog/confirm';
 import { columns } from '@/components/table/columnsTable/columnsTableSupplier';
 
 export function Suppliers() {
+  //Hook que controla a tabela de fornecedores
   const {
     suppliers,
     fetchSuppliers,
@@ -25,10 +26,11 @@ export function Suppliers() {
     setIsConfirmDialogOpen
   } = useSuppliers();
   const supplierQuantity = suppliers.length;
-  const { table } = useDataTable(columns(handleEdit, confirmDelete), suppliers);
-  const filters = ['nome', 'contato'];
+  const { table } = useDataTable(columns(handleEdit, confirmDelete), suppliers); // Inicializa a tabela de dados
+  const filters = ['nome', 'contato']; //  Inicializa os filtros da tabela
   const isAdmin = localStorage.getItem('isAdmin') === '1';
 
+  // Função para confirmar a exclusão de um fornecedor
   const handleConfirmDelete = async () => {
     try {
       await deleteSupplier();
@@ -43,8 +45,8 @@ export function Suppliers() {
       <h1 className="font-bold text-2xl text-primary">Gerenciamento de fornecedores</h1>
       <h3 className="font-light text-muted-foreground">Gerencie seus fornecedores, podendo editar, excluir ou criar novos!</h3>
       <div className="flex items-center justify-end space-x-4 mt-7">
-      <h1 className="font-bold text-2xl -ml-0 flex mx-auto">Fornecedores <p className="ml-5 text-gray-400">{supplierQuantity}</p></h1>
-        {filters.map((column) => (
+        <h1 className="font-bold text-2xl -ml-0 flex mx-auto">Fornecedores <p className="ml-5 text-gray-400">{supplierQuantity}</p></h1>
+        {filters.map((column) => ( // Mapeia os filtros e os renderiza
           <TableFilter
             key={column}
             table={table}

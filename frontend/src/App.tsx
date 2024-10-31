@@ -8,9 +8,11 @@ import { AppSidebar } from './components/sidebar/menuSideBar';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 export function App() {
+  // Estados que verifica se o usuário está logado e se é adiministrador, respectivamente
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [isUserAdmin, setIsUserAdmin] = useState<boolean | null>(null);
 
+  //Hook para verificar se o usuário está logado e se é administrador e alterar os estados
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const isAdmin = JSON.parse(localStorage.getItem('isAdmin') || 'false');
@@ -31,7 +33,7 @@ export function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/clients" element={<ClientTable />} />
-          {isUserAdmin && <Route path="/users" element={<Users />} />} {/* Proteção de rota */}
+          {isUserAdmin && <Route path="/users" element={<Users />} />}
         </Route>
       </Routes>
     </Router>

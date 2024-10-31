@@ -1,77 +1,19 @@
-import Logo from '../../assets/logo/logoBranca.svg';
-import LogoSimplificada from '../../assets/logo/logoSimplificada.svg';
+import { Outlet } from 'react-router-dom';
 import { Separator } from '../ui/separator';
-import { useState, useEffect } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import Logo from '../../assets/logo/logoBranca.svg';
+import { useSidebar } from '../../hooks/useSidebar.ts';
+import LogoSimplificada from '../../assets/logo/logoSimplificada.svg';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
-import { Users, Home, SmilePlus, ShoppingBasket, ShoppingCart, Truck, ArrowLeftRight, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import {
     Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent,
     SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
     SidebarProvider, SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-const getMenuItems = (isAdmin: boolean) => [
-    {
-        title: "Home",
-        url: "/home",
-        icon: Home,
-    },
-    ...(isAdmin ? [{
-        title: "Usuários",
-        url: "/users",
-        icon: Users,
-    }] : []),
-    {
-        title: "Clientes",
-        url: "/clients",
-        icon: SmilePlus,
-    },
-    {
-        title: "Fornecedores",
-        url: "/suppliers",
-        icon: Truck,
-    },
-    {
-        title: "Produtos",
-        url: "/products",
-        icon: ShoppingBasket,
-    },
-    {
-        title: "Pedidos",
-        url: "/orders",
-        icon: ShoppingCart,
-    },
-    {
-        title: "Transações",
-        url: "/transactions",
-        icon: ArrowLeftRight,
-    },
-];
-
 export function AppSidebar() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const [currentPage, setCurrentPage] = useState("Home");
-    const isAdmin = localStorage.getItem('isAdmin') === '1';
-    const items = getMenuItems(isAdmin);
-
-    useEffect(() => {
-        const currentItem = items.find(item => item.url === location.pathname);
-        if (currentItem) {
-            setCurrentPage(currentItem.title);
-        }
-    }, [location, items]);
-
-    const handleLogout = () => {
-        localStorage.removeItem('authToken');
-        navigate('/');
-    }
-
-    const handleNavigation = (url: string, title: string) => {
-        navigate(url);
-        setCurrentPage(title);
-    }
+    //Hook para controlar o estado da sidebar
+    const { items, currentPage, handleNavigation, handleLogout } = useSidebar();
 
     return (
         <SidebarProvider>
@@ -81,25 +23,23 @@ export function AppSidebar() {
                         <img
                             src={Logo}
                             alt="Logo"
-                            className="max-w-full max-h-full object-contain transition-all duration-500 ease-in-out opacity-100 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:scale-75 absolute"
-                        />
+                            className="max-w-full max-h-full object-contain transition-all duration-500 ease-in-out opacity-100 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:scale-75 absolute" />
                         <img
                             src={LogoSimplificada}
                             alt="Logo Simplificada"
-                            className="max-w-8 object-contain transition-all duration-500 ease-in-out opacity-0 scale-150 group-data-[collapsible=icon]:opacity-100 group-data-[collapsible=icon]:scale-100 absolute"
-                        />
+                            className="max-w-8 object-contain transition-all duration-500 ease-in-out opacity-0 scale-150 group-data-[collapsible=icon]:opacity-100 group-data-[collapsible=icon]:scale-100 absolute" />
                     </div>
                 </SidebarHeader>
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarGroupContent>
                             <SidebarMenu className="gap-7">
-                                {items.map((item) => (
+                                {items.map((item) => ( // Mapeia os itens para criar os botões de navegação
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton asChild>
                                             <button
                                                 className="text-xl flex items-center"
-                                                onClick={() => handleNavigation(item.url, item.title)} >
+                                                onClick={() => handleNavigation(item.url, item.title)}> {/* Botão que navega para a URL correspondente */}
                                                 <item.icon />
                                                 <span>{item.title}</span>
                                             </button>
@@ -128,9 +68,7 @@ export function AppSidebar() {
                             <Breadcrumb>
                                 <BreadcrumbList>
                                     <BreadcrumbItem className="hidden md:block">
-                                        <button onClick={() => navigate('/home')}>
-                                            Khiv
-                                        </button>
+                                        <button onClick={() => handleNavigation('/home', 'Khiv')}>Khiv</button>
                                     </BreadcrumbItem>
                                     <BreadcrumbSeparator className="hidden md:block" />
                                     <BreadcrumbItem>

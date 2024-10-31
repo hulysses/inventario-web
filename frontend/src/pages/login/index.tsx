@@ -1,13 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+import { Toaster } from "sonner";
 import { LoginProps } from '@/types/Login';
 import { Input } from '@/components/ui/input';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import Logo from '../../assets/logo/logoPadrao.svg';
-import { Toaster } from "sonner";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useLoginForm } from '@/hooks/useLogin';
+import Logo from '../../assets/logo/logoPadrao.svg';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 export const Login = ({ setIsLoggedIn, isAdmin }: LoginProps) => {
+    //Hooks para gerenciar a navegação e controlar o comportamento do formulário, respectivamente
     const navigate = useNavigate();
     const { form, handleSubmit } = useLoginForm(setIsLoggedIn, navigate, isAdmin);
 
@@ -17,8 +18,10 @@ export const Login = ({ setIsLoggedIn, isAdmin }: LoginProps) => {
             <div className="bg-white p-7 rounded-sm shadow-md w-full max-w-400">
                 <h2 className="text-2xl font-bold text-blue-900">Login</h2>
                 <p className="text-sm text-gray-500 mb-5">Digite seus dados de acesso</p>
+                {/* Componente Form que utiliza as propriedades do formulário */}
                 <Form {...form}>
                     <form
+                        //Função de envio do formulário
                         onSubmit={form.handleSubmit(handleSubmit)}
                         className="w-full">
                         <FormField
@@ -64,6 +67,7 @@ export const Login = ({ setIsLoggedIn, isAdmin }: LoginProps) => {
                     </form>
                 </Form>
             </div>
+            {/* Componente para exibir notificações */}
             <Toaster />
         </main>
     );
