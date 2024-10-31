@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { FilterProps } from "@/types/FilterProps";
+import { FilterProps } from "@/types/Filter";
 
 export function TableFilter({ table, column, placeholder }: FilterProps) {
   return (

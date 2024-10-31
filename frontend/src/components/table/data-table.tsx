@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { flexRender } from "@tanstack/react-table";
-import { DataTableProps } from "@/types/DataTableProps";
+import { DataTableProps } from "@/types/DataTable";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export function DataTable<TData>({
