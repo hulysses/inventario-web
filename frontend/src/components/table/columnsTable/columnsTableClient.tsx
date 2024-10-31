@@ -110,12 +110,14 @@ export const columns = (handleEdit: (client: Client) => void, deleteSupplier: (c
         },
         id: "actions",
         cell: ({ row }) => {
+            
+            const isAdmin = localStorage.getItem('isAdmin') === '1';
             const data = row.original;
 
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
+                        <Button disabled={!isAdmin} variant="ghost" className="h-8 w-8 p-0">
                             <EllipsisVertical className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>

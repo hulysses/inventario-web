@@ -14,9 +14,11 @@ import {
 import { Orders } from "./pages/orders";
 
 export function App() {
+  // Estados que verifica se o usuário está logado e se é adiministrador, respectivamente
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [isUserAdmin, setIsUserAdmin] = useState<boolean | null>(null);
 
+  //Hook para verificar se o usuário está logado e se é administrador e alterar os estados
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     const isAdmin = JSON.parse(localStorage.getItem("isAdmin") || "false");
@@ -42,9 +44,13 @@ export function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/clients" element={<ClientTable />} />
+<<<<<<< HEAD
           <Route path="/orders" element={<Orders />} />
           {isUserAdmin && <Route path="/users" element={<Users />} />}{" "}
           {/* Proteção de rota */}
+=======
+          {isUserAdmin && <Route path="/users" element={<Users />} />}
+>>>>>>> 34eebe0590ff8acb379ef878e857b8ef209e2f07
         </Route>
       </Routes>
     </Router>
