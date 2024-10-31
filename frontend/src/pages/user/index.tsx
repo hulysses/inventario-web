@@ -24,6 +24,7 @@ export function Users() {
         deleteUser,
         setIsConfirmDialogOpen
     } = useUsers();
+    const userQuantity = users.length;
     const { table } = useDataTable(columns(handleEdit, confirmDelete), users);
     const filters = ['nome', 'email'];
 
@@ -40,7 +41,8 @@ export function Users() {
         <div className="flex flex-1 flex-col gap-4 p-4 bg-background mx-7 mb-7 rounded-xl">
             <h1 className="font-bold text-2xl text-primary">Gerenciamento de usuários</h1>
             <h3 className="font-light text-muted-foreground">Gerencie seus usuários, podendo editar, excluir ou criar novos!</h3>
-            <div className="flex items-center justify-end space-x-4">
+            <div className="flex items-center justify-end space-x-4 mt-7">
+            <h1 className="font-bold text-2xl -ml-0 flex mx-auto">Usuários <p className="ml-5 text-gray-400">{userQuantity}</p></h1>
                 {filters.map((column) => (
                     <TableFilter
                         key={column}

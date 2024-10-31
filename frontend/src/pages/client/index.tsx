@@ -1,16 +1,15 @@
-import { DataTable } from "@/components/table/data-table"
-import { columns } from "@/components/table/columnsTable/columnsTableClient";
-import { useDataTable } from "@/hooks/useDataTable";
-import { TableFilter } from "@/components/table/table-filter";
-import { useClients } from "@/hooks/useClients";
-import { Button } from "@/components/ui/button";
-import { ConfirmationDialog } from "@/components/dialog/confirm";
 import { Plus } from "lucide-react";
-import { Sheets } from "@/components/sheet";
 import { toast, Toaster } from "sonner";
+import { Sheets } from "@/components/sheet";
+import { Button } from "@/components/ui/button";
+import { useClients } from "@/hooks/useClients";
+import { useDataTable } from "@/hooks/useDataTable";
+import { DataTable } from "@/components/table/data-table"
+import { TableFilter } from "@/components/table/table-filter";
+import { ConfirmationDialog } from "@/components/dialog/confirm";
+import { columns } from "@/components/table/columnsTable/columnsTableClient";
 
 export const ClientTable = () => {
-
     const {
         clients,
         fetchClients,
@@ -27,7 +26,8 @@ export const ClientTable = () => {
     } = useClients();
     const clientQuantity = clients.length;
     const { table } = useDataTable(columns(handleEdit, confirmDelete), clients);
-    const filters = ['nome', 'contato'];
+    const filters = ['nome', 'cpf_cnpj'];
+    const isAdmin = localStorage.getItem('isAdmin') === '1';
 
     const handleConfirmDelete = async () => {
         try {
@@ -39,24 +39,20 @@ export const ClientTable = () => {
     };
 
     return (
-        <div className="flex flex-1 flex-col gap-4 p-4 bg-white mx-7 mb-7 rounded-xl">
-            <h1 className="font-bold text-2xl">Gerenciamento de clientes</h1>
-            <h3 className="font-light text-gray-500">Gerencie seus clientes, podendo alterar, excluir ou criar novos.</h3>
-            <div className="flex items-center space-x-4">
-
-                <h1 className="font-bold text-2xl mt-20 -ml-0 flex mx-auto">Clientes <p className="ml-5 text-gray-400">{clientQuantity}</p></h1>
-                <div className="grid grid-flow-col mt-20 gap-5">
-                    {filters.map((column) => (
-                        <TableFilter
-                            key={column}
-                            table={table}
-                            column={column}
-                            placeholder={`Filtrar ${column}...`}
-                        />
-                    ))}
-                </div>
-
-                <Button onClick={handleCreate} className="bg-orange hover:bg-orangeHover text-white font-semibold mt-20">
+        <div className="flex flex-1 flex-col gap-4 p-4 bg-background mx-7 mb-7 rounded-xl">
+            <h1 className="font-bold text-2xl text-primary">Gerenciamento de clientes</h1>
+            <h3 className="font-light text-muted-foreground">Gerencie seus clientes, podendo alterar, excluir ou criar novos.</h3>
+            <div className="flex items-center justify-end space-x-4 mt-7">
+                <h1 className="font-bold text-2xl -ml-0 flex mx-auto">Clientes <p className="ml-5 text-gray-400">{clientQuantity}</p></h1>
+                {filters.map((column) => (
+                    <TableFilter
+                        key={column}
+                        table={table}
+                        column={column}
+                        placeholder={`Filtrar ${column} ...`}
+                    />
+                ))}
+                <Button disabled={!isAdmin} onClick={handleCreate} className="bg-orange hover:bg-orangeHover text-white font-semibold mx-auto">
                     <Plus className='w-4 mr-1' />
                     Novo cliente
                 </Button>
