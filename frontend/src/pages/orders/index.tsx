@@ -63,7 +63,7 @@ export const Orders = () => {
           className="bg-orange hover:bg-orangeHover text-white font-semibold mt-20"
         >
           <Plus className="w-4 mr-1" />
-          Novo cliente
+          Novo pedido
         </Button>
       </div>
       <DataTable columns={columns(handleEdit, confirmDelete)} table={table} />

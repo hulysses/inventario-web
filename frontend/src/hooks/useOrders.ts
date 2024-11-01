@@ -10,9 +10,10 @@ export const useOrders = () => {
     const [orderToDelete, setOrderToDelete] = useState<number | null>(null);
 
     const fields = [
-        { name: 'nome', label: 'Cliente', type: 'text', placeholder: 'Selecione o cliente' },
-        { name: 'status', label: 'Status', type: 'text', placeholder: 'Selecione o status', length: 18 },
-        { name: 'total', label: 'Total', type: 'text', placeholder: 'Informe o preço', length: 14 },
+        { name: 'clienteId', label: 'Cliente', type: 'text', placeholder: 'Selecione o cliente' },
+        { name: 'data', label: 'Data', type: 'text', placeholder: 'Selecione a data' },
+        { name: 'status', label: 'Status', type: 'text', placeholder: 'Selecione o status' },
+        { name: 'total', label: 'Total', type: 'number', placeholder: 'Informe o preço', length: 14 },
     ];
 
     const fetchOrders = async () => {

@@ -96,3 +96,7 @@ export function formatarTelefone(tell: string): string {
 export function formatarData(data: Date) {
     // To do: função para formatar datas
 }
+
+export function formataValor(valor: Number) {
+    // To do: função para formatar valores
+}

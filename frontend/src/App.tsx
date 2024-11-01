@@ -44,13 +44,9 @@ export function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/clients" element={<ClientTable />} />
-<<<<<<< HEAD
           <Route path="/orders" element={<Orders />} />
           {isUserAdmin && <Route path="/users" element={<Users />} />}{" "}
           {/* Proteção de rota */}
-=======
-          {isUserAdmin && <Route path="/users" element={<Users />} />}
->>>>>>> 34eebe0590ff8acb379ef878e857b8ef209e2f07
         </Route>
       </Routes>
     </Router>
