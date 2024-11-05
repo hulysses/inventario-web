@@ -78,7 +78,7 @@ export function Users() {
                 onClose={() => setIsConfirmDialogOpen(false)}
                 onConfirm={handleConfirmDelete}
                 title="Confirmar exclusão"
-                description="Tem certeza que deseja excluir este fornecedor? Esta ação não pode ser desfeita."
+                description="Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita."
             />
             <Toaster />
         </div>

@@ -3,6 +3,7 @@ import { Users } from "./pages/user";
 import { Login } from "./pages/login";
 import { useEffect, useState } from "react";
 import { Suppliers } from "./pages/supplier";
+import { Products } from "./pages/product";
 import { ClientTable } from "@/pages/client";
 import { AppSidebar } from "./components/sidebar/menuSideBar";
 import {
@@ -44,9 +45,9 @@ export function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/clients" element={<ClientTable />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/orders" element={<Orders />} />
-          {isUserAdmin && <Route path="/users" element={<Users />} />}{" "}
-          {/* Proteção de rota */}
+          {isUserAdmin && <Route path="/users" element={<Users />} />}
         </Route>
       </Routes>
     </Router>
