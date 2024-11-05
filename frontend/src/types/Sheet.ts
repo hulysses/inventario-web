@@ -8,5 +8,8 @@ export interface SheetProps {
     method?: 'post' | 'put',
     open: boolean,
     onOpenChange: (open: boolean) => void,
-    onSuccess: () => void
+    onSuccess: () => void,
+    selectOptions?: {
+        [key: string]: Array<{ value: string, label: string }>;
+    },
 }
