@@ -36,11 +36,16 @@ export const useOrders = () => {
         }
     };
 
-    const ordersData = {
-        clienteId: clients.map(client => ({
-            value: client.id, label: client.id.toString(),
-        }))
-    }
+    fetchClients();
+
+    const orderData = {
+        clienteId: orders.map(order => ({
+            value: order.clienteId.toString(),
+            label: `Cliente ${order.clienteId} - Total: ${order.total}`
+        })),
+
+    };
+
 
     const handleEdit = (order: Order) => {
         setEditingOrder(order);
@@ -90,6 +95,6 @@ export const useOrders = () => {
         deleteOrder,
         isConfirmDialogOpen,
         setIsConfirmDialogOpen,
-        ordersData
+        orderData
     };
 }

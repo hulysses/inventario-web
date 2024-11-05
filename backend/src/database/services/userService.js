@@ -43,5 +43,3 @@ export const deleteUser = (id) => {
         return false;
     }
 }
-
-// insertUser('Suporte', 'suporte@suporte.com', 'suporte123', '1');

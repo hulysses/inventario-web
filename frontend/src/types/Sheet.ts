@@ -10,6 +10,6 @@ export interface SheetProps {
     onOpenChange: (open: boolean) => void,
     onSuccess: () => void,
     selectOptions?: {
-        [key: number]: Array<{ value: number, label: string }>;
+        [key: string]: Array<{ value: string, label: string }>;
     },
 }

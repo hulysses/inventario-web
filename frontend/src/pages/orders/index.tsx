@@ -23,7 +23,7 @@ export const Orders = () => {
     deleteOrder,
     isConfirmDialogOpen,
     setIsConfirmDialogOpen,
-    ordersData
+    orderData
   } = useOrders();
   const orderQuantity = orders.length;
   const { table } = useDataTable(columns(handleEdit, confirmDelete), orders);
@@ -80,7 +80,7 @@ export const Orders = () => {
           fetchOrders();
           setIsSheetOpen(false);
         }}
-        selectOptions={ordersData} />
+        selectOptions={orderData} />
       <ConfirmationDialog
         isOpen={isConfirmDialogOpen}
         onClose={() => setIsConfirmDialogOpen(false)}
