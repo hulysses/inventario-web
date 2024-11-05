@@ -49,7 +49,14 @@ export const columns = (handleEdit: (client: Client) => void, deleteSupplier: (c
             )
         },
         cell: ({ row }) => {
-            return formatarCNPJ(row.original.cpf_cnpj);
+            const cpfCnpjValue = row.original.cpf_cnpj;
+
+            if (cpfCnpjValue === null) {
+                return null;
+            } else {
+                return formatarCNPJ(row.original.cpf_cnpj);
+
+            }
         }
     },
     {
@@ -66,7 +73,13 @@ export const columns = (handleEdit: (client: Client) => void, deleteSupplier: (c
             )
         },
         cell: ({ row }) => {
-            return formatarTelefone(row.original.contato);
+            const telefoneValue = row.original.contato;
+
+            if (telefoneValue == null) {
+                return null;
+            } else {
+                return formatarTelefone(row.original.contato);
+            }
         }
     },
     {
@@ -110,7 +123,7 @@ export const columns = (handleEdit: (client: Client) => void, deleteSupplier: (c
         },
         id: "actions",
         cell: ({ row }) => {
-            
+
             const isAdmin = localStorage.getItem('isAdmin') === '1';
             const data = row.original;
 

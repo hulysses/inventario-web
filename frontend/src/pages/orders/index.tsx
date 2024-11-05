@@ -23,7 +23,7 @@ export const Orders = () => {
     deleteOrder,
     isConfirmDialogOpen,
     setIsConfirmDialogOpen,
-    orderData
+    selectOptions
   } = useOrders();
   const orderQuantity = orders.length;
   const { table } = useDataTable(columns(handleEdit, confirmDelete), orders);
@@ -74,19 +74,19 @@ export const Orders = () => {
         title={editingOrder ? "Editar pedido" : "Cadastro de pedido"}
         fields={fields}
         initialData={editingOrder || {}}
-        apiEndpoint={`http://localhost:3000/clients${editingOrder ? `?id=${editingOrder.id}` : ""}`}
+        apiEndpoint={`http://localhost:3000/orders${editingOrder ? `?id=${editingOrder.id}` : ""}`}
         method={editingOrder ? "put" : "post"}
         onSuccess={() => {
           fetchOrders();
           setIsSheetOpen(false);
         }}
-        selectOptions={orderData} />
+        selectOptions={selectOptions} />
       <ConfirmationDialog
         isOpen={isConfirmDialogOpen}
         onClose={() => setIsConfirmDialogOpen(false)}
         onConfirm={handleConfirmDelete}
         title="Confirmar exclusão"
-        description="Tem certeza que deseja excluir este cliente? Esta ação não pode ser desfeita."
+        description="Tem certeza que deseja excluir este pedido? Esta ação não pode ser desfeita."
       />
       <Toaster />
     </div>

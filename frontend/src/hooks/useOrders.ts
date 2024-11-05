@@ -27,25 +27,26 @@ export const useOrders = () => {
         }
     };
 
-    const fetchClients = async () => {
-        try {
-            const response = await axios.get('http://localhost:3000/clients');
-            setClients(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar clientes:', error);
-        }
+    useEffect(() => {
+        const fetchClients = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/clients');
+                setClients(response.data);
+            } catch (error) {
+                console.error('Erro ao buscar clientes:', error);
+            }
+        };
+
+        fetchClients();
+    }, []);
+
+    const selectOptions = {
+
+        clienteId: clients.map(client => ({
+            value: client.id.toString(), // Converta para string para o select
+            label: client.nome // Nome do cliente para exibir no select
+        }))
     };
-
-    fetchClients();
-
-    const orderData = {
-        clienteId: orders.map(order => ({
-            value: order.clienteId.toString(),
-            label: `Cliente ${order.clienteId} - Total: ${order.total}`
-        })),
-
-    };
-
 
     const handleEdit = (order: Order) => {
         setEditingOrder(order);
@@ -95,6 +96,6 @@ export const useOrders = () => {
         deleteOrder,
         isConfirmDialogOpen,
         setIsConfirmDialogOpen,
-        orderData
+        selectOptions
     };
 }
