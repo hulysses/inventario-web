@@ -15,9 +15,9 @@ app.use(express.json());
 
 app.use('/', loginRoutes);
 app.use('/', clientRoutes);
+app.use('/orders', orderRoutes);
 app.use('/suppliers', supplierRoutes);
 app.use('/users', userRoutes);
-app.use('/', orderRoutes)
 
 app.listen(3000);
 console.log("Servidor rodando.")

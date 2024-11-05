@@ -1,4 +1,4 @@
-import { deleteOrderS, insertOrderS, updateOrderS, insertOrderS, listOrderS } from "../database/services/orderService";
+import { deleteOrderS, insertOrderS, updateOrderS, listOrderS } from "../database/services/orderService.js";
 
 export const registerOrder = (req, res) => {
     const { data, clienteId, status, total } = req.body;
