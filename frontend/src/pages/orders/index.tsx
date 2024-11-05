@@ -5,7 +5,7 @@ import { TableFilter } from "@/components/table/table-filter";
 import { Button } from "@/components/ui/button";
 import { ConfirmationDialog } from "@/components/dialog/confirm";
 import { Plus } from "lucide-react";
-import { Sheets } from "@/components/sheet";
+import { Sheets } from "@/components/sheetOrders";
 import { toast, Toaster } from "sonner";
 import { useOrders } from "@/hooks/useOrders";
 
@@ -23,6 +23,7 @@ export const Orders = () => {
     deleteOrder,
     isConfirmDialogOpen,
     setIsConfirmDialogOpen,
+    ordersData
   } = useOrders();
   const orderQuantity = orders.length;
   const { table } = useDataTable(columns(handleEdit, confirmDelete), orders);
@@ -73,15 +74,13 @@ export const Orders = () => {
         title={editingOrder ? "Editar pedido" : "Cadastro de pedido"}
         fields={fields}
         initialData={editingOrder || {}}
-        apiEndpoint={`http://localhost:3000/clients${
-          editingOrder ? `?id=${editingOrder.id}` : ""
-        }`}
+        apiEndpoint={`http://localhost:3000/clients${editingOrder ? `?id=${editingOrder.id}` : ""}`}
         method={editingOrder ? "put" : "post"}
         onSuccess={() => {
           fetchOrders();
           setIsSheetOpen(false);
         }}
-      />
+        selectOptions={ordersData} />
       <ConfirmationDialog
         isOpen={isConfirmDialogOpen}
         onClose={() => setIsConfirmDialogOpen(false)}

@@ -1,3 +1,4 @@
+import { Client } from "@/types/Client";
 import { Order } from "@/types/Order";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -8,12 +9,13 @@ export const useOrders = () => {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
     const [orderToDelete, setOrderToDelete] = useState<number | null>(null);
+    const [clients, setClients] = useState<Client[]>([]);
 
     const fields = [
-        { name: 'clienteId', label: 'Cliente', type: 'text', placeholder: 'Selecione o cliente' },
+        { name: 'clienteId', label: 'Cliente', type: 'select', placeholder: 'Selecione o cliente', options: [] },
         { name: 'data', label: 'Data', type: 'text', placeholder: 'Selecione a data' },
         { name: 'status', label: 'Status', type: 'text', placeholder: 'Selecione o status' },
-        { name: 'total', label: 'Total', type: 'number', placeholder: 'Informe o preço', length: 14 },
+        { name: 'total', label: 'Total', type: 'text', placeholder: 'Informe o preço', length: 14 },
     ];
 
     const fetchOrders = async () => {
@@ -24,6 +26,21 @@ export const useOrders = () => {
             console.error('Erro ao buscar pedidos:', error);
         }
     };
+
+    const fetchClients = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/clients');
+            setClients(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar clientes:', error);
+        }
+    };
+
+    const ordersData = {
+        clienteId: clients.map(client => ({
+            value: client.id, label: client.id.toString(),
+        }))
+    }
 
     const handleEdit = (order: Order) => {
         setEditingOrder(order);
@@ -72,6 +89,7 @@ export const useOrders = () => {
         confirmDelete,
         deleteOrder,
         isConfirmDialogOpen,
-        setIsConfirmDialogOpen
+        setIsConfirmDialogOpen,
+        ordersData
     };
 }
