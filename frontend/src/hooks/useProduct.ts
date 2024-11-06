@@ -21,7 +21,7 @@ export const useProducts = () => {
             const response = await axios.get('http://localhost:3000/products');
             setProducts(response.data);
         } catch (error) {
-            console.error('Erro ao buscar fornecedores:', error);
+            console.error('Erro ao buscar produtos:', error);
         }
     };
 
@@ -47,7 +47,7 @@ export const useProducts = () => {
             await axios.delete(`http://localhost:3000/products?id=${productToDelete}`);
             fetchProducts();
         } catch (error) {
-            console.error("Erro ao deletar fornecedor:", error);
+            console.error("Erro ao deletar produto:", error);
         } finally {
             setIsConfirmDialogOpen(false);
             setProductToDelete(null);

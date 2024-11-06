@@ -76,6 +76,20 @@ export const columns = (handleEdit: (product: Product) => void, deleteSupplier: 
         },
     },
     {
+        accessorKey: "fornecedor",
+        header: ({ column }) => {
+            return (
+                <Button
+                    className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Fornecedor
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
         header: ({ }) => {
             return (
                 <p className="text-base font-semibold text-white">
