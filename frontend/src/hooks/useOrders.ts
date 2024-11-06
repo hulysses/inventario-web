@@ -13,8 +13,8 @@ export const useOrders = () => {
 
     const fields = [
         { name: 'clienteId', label: 'Cliente', type: 'select', placeholder: 'Selecione o cliente', options: [] },
-        { name: 'data', label: 'Data', type: 'text', placeholder: 'Selecione a data' },
-        { name: 'status', label: 'Status', type: 'text', placeholder: 'Selecione o status' },
+        { name: 'data', label: 'Data', type: 'data', placeholder: 'Selecione a data' },
+        { name: 'status', label: 'Status', type: 'select', placeholder: 'Selecione o status' },
         { name: 'total', label: 'Total', type: 'text', placeholder: 'Informe o preço', length: 14 },
     ];
 
@@ -43,8 +43,8 @@ export const useOrders = () => {
     const selectOptions = {
 
         clienteId: clients.map(client => ({
-            value: client.id.toString(), // Converta para string para o select
-            label: client.nome // Nome do cliente para exibir no select
+            value: client.id.toString(),
+            label: client.nome
         }))
     };
 
