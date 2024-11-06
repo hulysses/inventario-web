@@ -1,4 +1,4 @@
-import { } from "../database/services/productService.js";
+import { insertProduct, listProduct, updateProduct, deleteProduct } from "../database/services/productService.js";
 
 export const registerProduct = (req, res) => {
     const { nome, descricao, preco, quantidade } = req.body;

@@ -23,10 +23,10 @@ export const listProduct = () => {
     }
 }
 
-export const updateProduct = (id, nome, cnpj, contato, endereco) => {
+export const updateProduct = (id, nome, descricao, preco, quantidade) => {
     try {
-        const sql = 'UPDATE product SET nome = ?, cnpj = ?, contato = ?, endereco =  ? WHERE id = ?';
-        db.prepare(sql).run(nome, cnpj, contato, endereco, id);
+        const sql = 'UPDATE product SET nome = ?, descricao = ?, preco = ?, quantidade =  ? WHERE id = ?';
+        db.prepare(sql).run(nome, descricao, preco, quantidade, id);
         return true;
     } catch (error) {
         console.log("Erro ao atualizar produto:", error.message);
@@ -44,8 +44,3 @@ export const deleteProduct = (id) => {
         return false;
     }
 }
-
-export const findByDespcription = (descricao) => {
-    const sql = 'SELECT * FROM product WHERE descricao = ?';
-    return db.prepare(sql).get(descricao);
-};
