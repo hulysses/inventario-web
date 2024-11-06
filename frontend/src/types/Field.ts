@@ -5,4 +5,5 @@ export interface InputField {
     placeholder?: string;
     length?: number;
     options?: { value: number; label: string }[];
+    selectOptions?: { value: string, label: string }[];
 }
