@@ -19,14 +19,25 @@ export const Orders = () => {
     handleCreate,
     isSheetOpen,
     setIsSheetOpen,
-    confirmDelete,
+    confirmDelete, // TO DO: Verificar por que pedidos não estão sendo excluidos
     deleteOrder,
     isConfirmDialogOpen,
     setIsConfirmDialogOpen,
-    selectOptions
+    selectOptions,
+    getClientName
   } = useOrders();
+
   const orderQuantity = orders.length;
-  const { table } = useDataTable(columns(handleEdit, confirmDelete), orders);
+
+  const { table } = useDataTable(
+    columns({
+      getClientName,
+      handleEdit,
+      confirmDelete,
+    }),
+    orders
+  );
+
   const filters = ["status", "clienteId"];
 
   const handleConfirmDelete = async () => {
@@ -67,7 +78,7 @@ export const Orders = () => {
           Novo pedido
         </Button>
       </div>
-      <DataTable columns={columns(handleEdit, confirmDelete)} table={table} />
+      <DataTable columns={columns({ getClientName, handleEdit, confirmDelete })} table={table} />
       <Sheets
         open={isSheetOpen}
         onOpenChange={setIsSheetOpen}

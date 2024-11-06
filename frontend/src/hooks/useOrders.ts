@@ -38,14 +38,19 @@ export const useOrders = () => {
         };
 
         fetchClients();
+        fetchOrders();
     }, []);
 
-    const selectOptions = {
+    const getClientName = (clientId: number): string => {
+        const client = clients.find((client) => client.id === clientId);
+        return client ? client.nome : 'Cliente desconhecido';
+    }
 
-        clienteId: clients.map(client => ({
+    const selectOptions = {
+        clienteId: clients && clients.length > 0 ? clients.map(client => ({
             value: client.id.toString(),
             label: client.nome
-        }))
+        })) : []
     };
 
     const handleEdit = (order: Order) => {
@@ -96,6 +101,7 @@ export const useOrders = () => {
         deleteOrder,
         isConfirmDialogOpen,
         setIsConfirmDialogOpen,
-        selectOptions
+        selectOptions,
+        getClientName
     };
 }
