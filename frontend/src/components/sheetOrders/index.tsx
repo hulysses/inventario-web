@@ -7,6 +7,19 @@ import { useFormData } from '@/hooks/useForm';
 import { useEffect } from 'react';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
+const statusOptions = [
+    { value: "pendente", label: "Pendente" },
+    { value: 'concluido', label: "Concluído" }
+]
+
 export function Sheets({
     title,
     fields,
@@ -16,7 +29,7 @@ export function Sheets({
     open,
     onOpenChange,
     onSuccess,
-    selectOptions = {} // Nova prop para passar as opções de `select`
+    selectOptions = {},
 }: SheetProps) {
     const { form, submitFormData, resetForm } = useFormData(
         fields,
@@ -78,17 +91,29 @@ export function Sheets({
                                                     ))}
                                                 </RadioGroup>
                                             ) : field.type === 'select' ? (
-                                                <select
+                                                <Select
                                                     {...formField}
-                                                    className="border p-2"
+                                                    onValueChange={(value) => formField.onChange(value)}
+                                                    value={formField.value}
                                                 >
-                                                    <option value="">{field.placeholder}</option>
-                                                    {selectOptions[field.name]?.map((option) => (
-                                                        <option key={option.value} value={option.value}>
-                                                            {option.label}
-                                                        </option>
-                                                    ))}
-                                                </select>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder={field.placeholder}></SelectValue>
+                                                    </SelectTrigger>
+
+                                                    <SelectContent>
+                                                        {(field.name === 'status' ? statusOptions : selectOptions[field.name])?.map((option) => (
+                                                            <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+
+                                                </Select>
+                                            ) : field.type === 'data' ? (
+                                                <Input
+                                                    {...formField}
+                                                    type="date"
+                                                    placeholder={field.placeholder}
+                                                    className="border"
+                                                />
                                             ) : (
                                                 <Input
                                                     {...formField}

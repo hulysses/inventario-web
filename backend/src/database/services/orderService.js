@@ -14,7 +14,9 @@ export const insertOrderS = (data, clienteId, status, total) => {
 
 export const listOrderS = () => {
     try {
-        const sql = 'SELECT * FROM orders';
+        const sql = `
+            SELECT * FROM orders
+            JOIN clients ON orders.clienteId = clients.id`;
         const orders = db.prepare(sql).all();
         return orders;
     } catch (error) {
