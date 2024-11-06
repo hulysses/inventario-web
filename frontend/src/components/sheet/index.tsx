@@ -1,11 +1,11 @@
+import { useEffect } from 'react';
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { SheetProps } from "@/types/Sheet";
 import { useFormData } from '@/hooks/useForm';
-import { useEffect } from 'react';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 
 export function Sheets({
     title,
@@ -68,7 +68,7 @@ export function Sheets({
                                                     {field.options?.map((option) => (
                                                         <FormItem className="flex items-center space-x-3 space-y-0" key={option.value}>
                                                             <FormControl>
-                                                                <RadioGroupItem value={option.value} />
+                                                                <RadioGroupItem value={option.value.toString()} />
                                                             </FormControl>
                                                             <FormLabel className="font-normal">
                                                                 {option.label}
@@ -76,6 +76,18 @@ export function Sheets({
                                                         </FormItem>
                                                     ))}
                                                 </RadioGroup>
+                                            ) : field.type === 'select' ? (
+                                                <select
+                                                    {...formField}
+                                                    className="flex w-full border rounded p-2 bg-white"  	
+                                                >
+                                                    <option value="">{field.placeholder}</option>
+                                                    {field.selectOptions?.map((option) => (
+                                                        <option key={option.value} value={option.value} >
+                                                            {option.label}
+                                                        </option>
+                                                    ))}
+                                                </select>
                                             ) : (
                                                 <Input
                                                     {...formField}

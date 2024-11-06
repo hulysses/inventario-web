@@ -1,5 +1,5 @@
-import { Product } from "@/types/Product";
 import axios from "axios";
+import { Product } from "@/types/Product";
 import { useEffect, useState } from "react";
 
 export const useProducts = () => {
@@ -14,6 +14,13 @@ export const useProducts = () => {
         { name: 'descricao', label: 'Descrição', type: 'text', placeholder: 'Digite a descrição' },
         { name: 'preco', label: 'Preço', type: 'text', placeholder: 'Digite o preço', },
         { name: 'quantidade', label: 'Quantidade', type: 'text', placeholder: 'Digite a quantidade em estoque' },
+        {
+            name: 'fornecedor', label: 'Fornecedor', type: 'select', placeholder: 'Selecione o fornecedor',
+            selectOptions: [
+                { value: "1", label: "testes" },
+                { value: "2", label: "testes2" },
+            ]
+        },
     ];
 
     const fetchProducts = async () => {
@@ -21,7 +28,7 @@ export const useProducts = () => {
             const response = await axios.get('http://localhost:3000/products');
             setProducts(response.data);
         } catch (error) {
-            console.error('Erro ao buscar fornecedores:', error);
+            console.error('Erro ao buscar produtos:', error);
         }
     };
 
@@ -47,7 +54,7 @@ export const useProducts = () => {
             await axios.delete(`http://localhost:3000/products?id=${productToDelete}`);
             fetchProducts();
         } catch (error) {
-            console.error("Erro ao deletar fornecedor:", error);
+            console.error("Erro ao deletar produto:", error);
         } finally {
             setIsConfirmDialogOpen(false);
             setProductToDelete(null);
