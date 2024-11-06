@@ -13,8 +13,8 @@ export const useOrders = () => {
 
     const fields = [
         { name: 'clienteId', label: 'Cliente', type: 'select', placeholder: 'Selecione o cliente', options: [] },
-        { name: 'data', label: 'Data', type: 'text', placeholder: 'Selecione a data' },
-        { name: 'status', label: 'Status', type: 'text', placeholder: 'Selecione o status' },
+        { name: 'data', label: 'Data', type: 'data', placeholder: 'Selecione a data' },
+        { name: 'status', label: 'Status', type: 'select', placeholder: 'Selecione o status' },
         { name: 'total', label: 'Total', type: 'text', placeholder: 'Informe o preço', length: 14 },
     ];
 
@@ -38,14 +38,19 @@ export const useOrders = () => {
         };
 
         fetchClients();
+        fetchOrders();
     }, []);
 
-    const selectOptions = {
+    const getClientName = (clientId: number): string => {
+        const client = clients.find((client) => client.id === clientId);
+        return client ? client.nome : 'Cliente desconhecido';
+    }
 
-        clienteId: clients.map(client => ({
-            value: client.id.toString(), // Converta para string para o select
-            label: client.nome // Nome do cliente para exibir no select
-        }))
+    const selectOptions = {
+        clienteId: clients && clients.length > 0 ? clients.map(client => ({
+            value: client.id.toString(),
+            label: client.nome
+        })) : []
     };
 
     const handleEdit = (order: Order) => {
@@ -96,6 +101,7 @@ export const useOrders = () => {
         deleteOrder,
         isConfirmDialogOpen,
         setIsConfirmDialogOpen,
-        selectOptions
+        selectOptions,
+        getClientName
     };
 }
