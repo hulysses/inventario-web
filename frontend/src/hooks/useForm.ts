@@ -4,8 +4,10 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { InputField } from "@/types/Field";
+import { validarEmail } from '@/helpers/userHelper';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validarCNPJ, identificarCpfCnpj, validarEmail, isValidImageUrl } from '@/helpers/registerHelper';
+import { validarCNPJ, identificarCpfCnpj } from '@/helpers/clientSupplierHelper';
+import { validarQuantidade, isValidImageUrl, validarPreco } from '@/helpers/productHelper';
 
 export const useFormData = (
     fields: InputField[],
@@ -36,7 +38,13 @@ export const useFormData = (
                     schemaObject[field.name] = z.string();
                     break;
                 case 'imagem':
-                    schemaObject[field.name] = z.string().refine(async (url) => await isValidImageUrl(url), { message: "A URL não é uma imagem válida." });;
+                    schemaObject[field.name] = z.string().refine(isValidImageUrl, { message: "A URL não é uma imagem válida." });;
+                    break;
+                case 'quantidade':
+                    schemaObject[field.name] = z.string().refine(validarQuantidade, { message: "A quantidade deve ser inteira e positiva." });
+                    break;
+                case 'preco':
+                    schemaObject[field.name] = z.string().refine(validarPreco, { message: "O preço deve ser maior que 0." });
                     break;
                 default:
                     schemaObject[field.name] = z.string().nonempty(`O campo ${field.label} é obrigatório.`);

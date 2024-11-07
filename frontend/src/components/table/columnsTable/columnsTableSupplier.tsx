@@ -1,8 +1,8 @@
 import { Supplier } from "@/types/Supplier";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { formatarCNPJ } from "@/helpers/registerHelper";
-import { formatarTelefone } from "@/helpers/registerHelper";
+import { formatarCNPJ } from "@/helpers/clientSupplierHelper";
+import { formatarTelefone } from "@/helpers/clientSupplierHelper";
 import { ArrowUpDown, EllipsisVertical } from "lucide-react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 

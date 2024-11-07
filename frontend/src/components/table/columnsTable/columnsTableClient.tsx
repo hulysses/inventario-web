@@ -3,7 +3,7 @@ import { Client } from "@/types/Client"
 import { DrawerClient } from "@/components/drawerClient";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, EllipsisVertical } from "lucide-react";
-import { formatarCNPJ, formatarTelefone } from "@/helpers/registerHelper";
+import { formatarCNPJ, formatarTelefone } from "@/helpers/clientSupplierHelper";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export const columns = (handleEdit: (client: Client) => void, deleteSupplier: (clientId: number) => void): ColumnDef<Client>[] => [

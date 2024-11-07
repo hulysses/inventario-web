@@ -3,11 +3,11 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { SheetProps } from "@/types/Sheet";
 import { useFormData } from '@/hooks/useForm';
+import { isValidImageUrl } from '@/helpers/productHelper';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { isValidImageUrl } from '@/helpers/registerHelper';
 
 export function Sheets({
     title,
