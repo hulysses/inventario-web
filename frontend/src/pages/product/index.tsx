@@ -26,7 +26,7 @@ export function Products() {
         setIsConfirmDialogOpen
     } = useProducts();
     const productQuantity = products.length;
-    const filters = ['nome'];
+    const filters = ['nome', 'fornecedor', 'preco'];
     const { table } = useDataTable(columns(handleEdit, confirmDelete), products);
     const isAdmin = localStorage.getItem('isAdmin') === '1';
 

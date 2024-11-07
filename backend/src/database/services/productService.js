@@ -1,9 +1,9 @@
 import { db } from '../db.js';
 
-export const insertProduct = (nome, descricao, preco, quantidade) => {
+export const insertProduct = (nome, descricao, preco, quantidade, imagem, supplier_id) => {
     try {
-        const sql = 'INSERT INTO product (nome, descricao, preco, quantidade) VALUES (?, ?, ?, ?)';
-        db.prepare(sql).run(nome, descricao, preco, quantidade);
+        const sql = 'INSERT INTO product (nome, descricao, preco, quantidade, imagem, supplier_id) VALUES (?, ?, ?, ?, ?, ?)';
+        db.prepare(sql).run(nome, descricao, preco, quantidade, imagem, supplier_id);
 
         return true;
     } catch (error) {
@@ -23,10 +23,10 @@ export const listProduct = () => {
     }
 }
 
-export const updateProduct = (id, nome, descricao, preco, quantidade) => {
+export const updateProduct = (id, nome, descricao, preco, quantidade, imagem, supplier_id) => {
     try {
-        const sql = 'UPDATE product SET nome = ?, descricao = ?, preco = ?, quantidade =  ? WHERE id = ?';
-        db.prepare(sql).run(nome, descricao, preco, quantidade, id);
+        const sql = 'UPDATE product SET nome = ?, descricao = ?, preco = ?, quantidade =  ?, imagem = ?, supplier_id = ? WHERE id = ?';
+        db.prepare(sql).run(nome, descricao, preco, quantidade, imagem, supplier_id, id);
         return true;
     } catch (error) {
         console.log("Erro ao atualizar produto:", error.message);

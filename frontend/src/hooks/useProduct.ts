@@ -14,6 +14,7 @@ export const useProducts = () => {
         { name: 'descricao', label: 'Descrição', type: 'text', placeholder: 'Digite a descrição' },
         { name: 'preco', label: 'Preço', type: 'text', placeholder: 'Digite o preço', },
         { name: 'quantidade', label: 'Quantidade', type: 'text', placeholder: 'Digite a quantidade em estoque' },
+        { name: 'imagem', label: 'Imagem', type: 'image', placeholder: 'Informe a url da imagem' },
         {
             name: 'fornecedor', label: 'Fornecedor', type: 'select', placeholder: 'Selecione o fornecedor',
             selectOptions: [
