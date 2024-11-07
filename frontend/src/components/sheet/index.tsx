@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { isValidImageUrl } from '@/helpers/registerHelper';
 
 export function Sheets({
     title,
@@ -26,6 +27,12 @@ export function Sheets({
         onSuccess
     );
 
+    // Estado para controlar a validade da imagem
+    const [isImageValid, setIsImageValid] = useState(false);
+
+    // Controle para pesquisa
+    const [searchTerm, setSearchTerm] = useState('');
+
     useEffect(() => {
         if (open && initialData) {
             Object.keys(initialData).forEach((key) => {
@@ -41,11 +48,18 @@ export function Sheets({
         onOpenChange(isOpen);
     };
 
-    const [searchTerm, setSearchTerm] = useState('');
+    useEffect(() => {
+        const imageField = form.watch('imagem'); // Observar mudanças no campo de imagem
+        if (imageField) {
+            isValidImageUrl(imageField).then((isValid) => setIsImageValid(isValid));
+        } else {
+            setIsImageValid(false);
+        }
+    }, [form.watch('imagem')]);
 
     return (
         <Sheet open={open} onOpenChange={handleSheetOpenChange}>
-            <SheetContent>
+            <SheetContent className="overflow-y-auto">
                 <SheetHeader>
                     <SheetTitle>{title}</SheetTitle>
                 </SheetHeader>
@@ -108,6 +122,24 @@ export function Sheets({
                                                             ))}
                                                     </SelectContent>
                                                 </Select>
+                                            ) : field.type === 'image' ? (
+                                                <div className="space-y-2">
+                                                    <Input
+                                                        {...formField}
+                                                        type="url"
+                                                        placeholder="Enter image URL"
+                                                        className="border"
+                                                    />
+                                                    {isImageValid && formField.value && (
+                                                        <div className="relative w-full h-40">
+                                                            <img
+                                                                src={formField.value}
+                                                                alt="Pré-visualização"
+                                                                className="rounded-md w-full h-full object-fill"
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </div>
                                             ) : (
                                                 <Input
                                                     {...formField}

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { InputField } from "@/types/Field";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validarCNPJ, identificarCpfCnpj, validarEmail } from '@/helpers/registerHelper';
+import { validarCNPJ, identificarCpfCnpj, validarEmail, isValidImageUrl } from '@/helpers/registerHelper';
 
 export const useFormData = (
     fields: InputField[],
@@ -34,6 +34,9 @@ export const useFormData = (
                     break;
                 case 'endereco':
                     schemaObject[field.name] = z.string();
+                    break;
+                case 'imagem':
+                    schemaObject[field.name] = z.string().refine(async (url) => await isValidImageUrl(url), { message: "A URL não é uma imagem válida." });;
                     break;
                 default:
                     schemaObject[field.name] = z.string().nonempty(`O campo ${field.label} é obrigatório.`);

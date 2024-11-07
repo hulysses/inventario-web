@@ -93,6 +93,17 @@ export function formatarTelefone(tell: string): string {
     return tell.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
 }
 
+export function isValidImageUrl(url: string): Promise<boolean> {
+    return new Promise((resolve) => {
+        const img = new Image();
+
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+
+        img.src = url;
+    });
+}
+
 export function formatarData(data: Date) {
     // To do: função para formatar datas
 }
