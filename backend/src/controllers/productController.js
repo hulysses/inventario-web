@@ -1,9 +1,9 @@
 import { insertProduct, listProduct, updateProduct, deleteProduct } from "../database/services/productService.js";
 
 export const registerProduct = (req, res) => {
-    const { nome, descricao, preco, quantidade } = req.body;
+    const { nome, descricao, preco, quantidade, imagem, supplier_id } = req.body;
 
-    if (insertProduct(nome, descricao, preco, quantidade)) {
+    if (insertProduct(nome, descricao, preco, quantidade, imagem, supplier_id)) {
         res.status(201).json({ message: 'Produto cadastrado com sucesso' });
     } else {
         res.status(400).json({ message: 'Erro ao cadastrar produto.' });
@@ -23,9 +23,9 @@ export const listProducts = (req, res) => {
 export const updateProducts = (req, res) => {
     try {
         const { id } = req.query;
-        const { nome, descricao, preco, quantidade } = req.body;
+        const { nome, descricao, preco, quantidade, imagem, supplier_id } = req.body;
 
-        updateProduct(id, nome, descricao, preco, quantidade);
+        updateProduct(id, nome, descricao, preco, quantidade, imagem, supplier_id);
         res.status(200).json({ message: 'Produto atualizado com sucesso' });
     } catch (error) {
         console.error('Erro ao atualizar produtos:', error);

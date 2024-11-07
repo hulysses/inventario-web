@@ -6,8 +6,9 @@ import loginRoutes from './routes/loginRoutes.js';
 import clientRoutes from './routes/clientRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import supplierRoutes from './routes/supplierRoutes.js';
-import { runMigrations } from './database/migrations/index.js';
+import { dropaTabelas, runMigrations } from './database/migrations/index.js';
 
+// dropaTabelas();
 runMigrations();
 
 const app = express();
