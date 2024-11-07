@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { SheetProps } from "@/types/Sheet";
@@ -6,6 +6,7 @@ import { useFormData } from '@/hooks/useForm';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 export function Sheets({
     title,
@@ -39,6 +40,8 @@ export function Sheets({
         }
         onOpenChange(isOpen);
     };
+
+    const [searchTerm, setSearchTerm] = useState('');
 
     return (
         <Sheet open={open} onOpenChange={handleSheetOpenChange}>
@@ -77,17 +80,34 @@ export function Sheets({
                                                     ))}
                                                 </RadioGroup>
                                             ) : field.type === 'select' ? (
-                                                <select
+                                                <Select
                                                     {...formField}
-                                                    className="flex w-full border rounded p-2 bg-white"  	
+                                                    onValueChange={(value) => formField.onChange(value)}
+                                                    value={formField.value}
                                                 >
-                                                    <option value="">{field.placeholder}</option>
-                                                    {field.selectOptions?.map((option) => (
-                                                        <option key={option.value} value={option.value} >
-                                                            {option.label}
-                                                        </option>
-                                                    ))}
-                                                </select>
+                                                    <SelectTrigger className='flex h-10 w-full rounded-sm px-3 py-1  focus:outline-none'>
+                                                        <SelectValue placeholder={field.placeholder} ></SelectValue>
+                                                    </SelectTrigger>
+                                                    <SelectContent className=''>
+                                                        <div>
+                                                            <Input
+                                                                placeholder="Pesquisar..."
+                                                                value={searchTerm}
+                                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                                                className="border mb-1 flex h-10 w-full rounded-sm px-3 py-1 text-sm placeholder:text-muted-foreground focus:outline-none"
+                                                            />
+                                                        </div>
+                                                        {field.selectOptions
+                                                            ?.filter(option =>
+                                                                option.label.toLowerCase().includes(searchTerm.toLowerCase())
+                                                            )
+                                                            .map((option) => (
+                                                                <SelectItem key={option.value} value={option.value}>
+                                                                    {option.label}
+                                                                </SelectItem>
+                                                            ))}
+                                                    </SelectContent>
+                                                </Select>
                                             ) : (
                                                 <Input
                                                     {...formField}

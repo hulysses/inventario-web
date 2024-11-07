@@ -33,9 +33,9 @@ export function Products() {
     const handleConfirmDelete = async () => {
         try {
             await deleteProduct();
-            toast('Fornecedor excluído com sucesso!');
+            toast('Produto excluído com sucesso!');
         } catch (error) {
-            toast('Erro ao excluir fornecedor.');
+            toast('Erro ao excluir produto.');
         }
     };
 
@@ -83,7 +83,7 @@ export function Products() {
                 onClose={() => setIsConfirmDialogOpen(false)}
                 onConfirm={handleConfirmDelete}
                 title="Confirmar exclusão"
-                description="Tem certeza que deseja excluir este fornecedor? Esta ação não pode ser desfeita."
+                description="Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita."
             />
 
             <Toaster />
