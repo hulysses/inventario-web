@@ -127,7 +127,7 @@ export function Sheets({
                                                     <Input
                                                         {...formField}
                                                         type="url"
-                                                        placeholder="Enter image URL"
+                                                        placeholder={field.placeholder}
                                                         className="border"
                                                     />
                                                     {isImageValid && formField.value && (

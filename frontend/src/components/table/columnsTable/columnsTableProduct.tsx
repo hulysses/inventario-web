@@ -110,15 +110,21 @@ export const columns = (handleEdit: (product: Product) => void, deleteSupplier: 
         accessorKey: "quantidade",
         header: ({ column }) => {
             return (
-                <Button
-                    className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Quantidade
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
+                <div className="text-center">
+                    <Button
+                        className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Quantidade
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                </div>
             )
         },
+        cell: ({ row }) => {
+            const quantidade = row.getValue("quantidade") as number;
+            return <div className="text-right">{quantidade}</div>
+        }
     },
     {
         accessorKey: "fornecedor",
