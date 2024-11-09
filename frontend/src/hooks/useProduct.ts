@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export const useProducts = () => {
     const [products, setProducts] = useState<Product[]>([]);
+    const [suppliers, setSuppliers] = useState<{ value: string; label: string }[]>([]);
     const [editingProduct, setEditingProduct] = useState<Product | null>(null);
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
@@ -16,11 +17,8 @@ export const useProducts = () => {
         { name: 'quantidade', label: 'Quantidade', type: 'text', placeholder: 'Digite a quantidade em estoque' },
         { name: 'imagem', label: 'Imagem', type: 'image', placeholder: 'Informe a url da imagem' },
         {
-            name: 'fornecedor', label: 'Fornecedor', type: 'select', placeholder: 'Selecione o fornecedor',
-            selectOptions: [
-                { value: "1", label: "testes" },
-                { value: "2", label: "testes2" },
-            ]
+            name: 'supplier_id', label: 'Fornecedor', type: 'select', placeholder: 'Selecione o fornecedor',
+            selectOptions: suppliers
         },
     ];
 
@@ -31,6 +29,24 @@ export const useProducts = () => {
         } catch (error) {
             console.error('Erro ao buscar produtos:', error);
         }
+    };
+
+    const fetchSuppliers = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/suppliers');
+            const supplierOptions = response.data.map((supplier: { id: number; nome: string }) => ({
+                value: supplier.id.toString(),
+                label: supplier.nome,
+            }));
+            setSuppliers(supplierOptions);
+        } catch (error) {
+            console.error('Erro ao buscar fornecedores:', error);
+        }
+    };
+
+    const getSupplierName = (supplierId: number): string => {
+        const supplier = suppliers.find((supplier) => supplier.value === supplierId.toString());
+        return supplier ? supplier.label : 'Fornecedor desconhecido';
     };
 
     const handleEdit = (product: Product) => {
@@ -64,6 +80,7 @@ export const useProducts = () => {
 
     useEffect(() => {
         fetchProducts();
+        fetchSuppliers();
     }, []);
 
     return {
@@ -78,6 +95,7 @@ export const useProducts = () => {
         confirmDelete,
         deleteProduct,
         isConfirmDialogOpen,
-        setIsConfirmDialogOpen
+        setIsConfirmDialogOpen,
+        getSupplierName
     };
 };

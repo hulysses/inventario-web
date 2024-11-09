@@ -1,14 +1,14 @@
 
 import { Plus } from 'lucide-react';
 import { toast, Toaster } from 'sonner';
+import { Sheets } from '@/components/sheet';
 import { Button } from '@/components/ui/button';
 import { useProducts } from '@/hooks/useProduct';
 import { useDataTable } from '@/hooks/useDataTable';
 import { DataTable } from '@/components/table/data-table';
 import { TableFilter } from '@/components/table/table-filter';
-import { columns } from '@/components/table/columnsTable/columnsTableProduct';
-import { Sheets } from '@/components/sheet';
 import { ConfirmationDialog } from '@/components/dialog/confirm';
+import { columns } from '@/components/table/columnsTable/columnsTableProduct';
 
 export function Products() {
     const {
@@ -23,11 +23,12 @@ export function Products() {
         confirmDelete,
         deleteProduct,
         isConfirmDialogOpen,
-        setIsConfirmDialogOpen
+        setIsConfirmDialogOpen,
+        getSupplierName
     } = useProducts();
     const productQuantity = products.length;
     const filters = ['nome', 'fornecedor', 'preco'];
-    const { table } = useDataTable(columns(handleEdit, confirmDelete), products);
+    const { table } = useDataTable(columns(handleEdit, confirmDelete, getSupplierName), products);
     const isAdmin = localStorage.getItem('isAdmin') === '1';
 
     const handleConfirmDelete = async () => {
@@ -62,7 +63,7 @@ export function Products() {
                 </Button>
             </div>
             <DataTable
-                columns={columns(handleEdit, confirmDelete)}
+                columns={columns(handleEdit, confirmDelete, getSupplierName)}
                 table={table}
             />
             <Sheets

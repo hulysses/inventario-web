@@ -5,7 +5,7 @@ export const registerSupplier = (req, res) => {
 
     const supplier = findByCnpj(cnpj);
     if (supplier) {
-      return res.status(400).json({ message: 'Já esxiste um fornecedor cadastrado com esse CNPJ.' });
+        return res.status(400).json({ message: 'Já esxiste um fornecedor cadastrado com esse CNPJ.' });
     }
 
     if (insertSupplier(nome, cnpj, contato, endereco)) {
@@ -41,8 +41,12 @@ export const updateSuppliers = (req, res) => {
 export const deleteSuppliers = (req, res) => {
     try {
         const { id } = req.query;
-        deleteSupplier(id);
-        res.status(200).json({ message: 'Fornecedor deletado com sucesso' });
+        if (deleteSupplier(id)) {
+            res.status(200).json({ message: 'Fornecedor deletado com sucesso' });
+        } else {
+            res.status(400).json({ message: 'Erro ao deletar fornecedor' });
+        }
+
     } catch (error) {
         console.error('Erro ao deletar fornecedor:', error);
         res.status(500).json({ message: 'Erro ao deletar fornecedor' });

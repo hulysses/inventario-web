@@ -5,5 +5,5 @@ export type Product = {
     preco: string,
     quantidade: string,
     imagem: string,
-    fornecedorId: number
+    supplier_id: number
 };
