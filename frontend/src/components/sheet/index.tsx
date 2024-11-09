@@ -95,12 +95,11 @@ export function Sheets({
                                                 </RadioGroup>
                                             ) : field.type === 'select' ? (
                                                 <Select
-                                                    {...formField}
                                                     onValueChange={(value) => formField.onChange(value)}
-                                                    value={formField.value}
+                                                    value={formField.value ?? ''}
                                                 >
                                                     <SelectTrigger className='flex h-10 w-full rounded-sm px-3 py-1  focus:outline-none'>
-                                                        <SelectValue placeholder={field.placeholder} ></SelectValue>
+                                                        <SelectValue placeholder={field.placeholder} />
                                                     </SelectTrigger>
                                                     <SelectContent className=''>
                                                         <div>
@@ -113,7 +112,7 @@ export function Sheets({
                                                         </div>
                                                         {field.selectOptions
                                                             ?.filter(option =>
-                                                                option.label.toLowerCase().includes(searchTerm.toLowerCase())
+                                                                option.label?.toLowerCase().includes(searchTerm.toLowerCase())
                                                             )
                                                             .map((option) => (
                                                                 <SelectItem key={option.value} value={option.value}>

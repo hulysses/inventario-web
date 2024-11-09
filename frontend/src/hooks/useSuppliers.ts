@@ -46,8 +46,10 @@ export const useSuppliers = () => {
     try {
       await axios.delete(`http://localhost:3000/suppliers?id=${supplierToDelete}`);
       fetchSuppliers();
+      return true;
     } catch (error) {
       console.error("Erro ao deletar fornecedor:", error);
+      return false;
     } finally {
       setIsConfirmDialogOpen(false);
       setSupplierToDelete(null);

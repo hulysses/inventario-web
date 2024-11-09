@@ -33,10 +33,14 @@ export function Suppliers() {
   // Função para confirmar a exclusão de um fornecedor
   const handleConfirmDelete = async () => {
     try {
-      await deleteSupplier();
-      toast('Fornecedor excluído com sucesso!');
+      const response = await deleteSupplier();
+      if (response) {
+        toast('Fornecedor excluído com sucesso!');
+      } else {
+        toast('Erro ao excluir fornecedor. O mesmo pode ter produtos vinculados.');
+      }
     } catch (error) {
-      toast('Erro ao excluir fornecedor.');
+      toast('Erro ao excluir fornecedor. O mesmo pode ter produtos vinculados.');
     }
   };
 
