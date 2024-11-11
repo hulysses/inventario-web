@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.get('/clients/:id', (req, res) => {
     const clienteId = req.params.id;
-    console.log("Buscando pedidos para clienteId:", clienteId);
 
     try {
         const statement = db.prepare("SELECT * FROM orders WHERE clienteId = ?");
