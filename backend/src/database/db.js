@@ -1,3 +1,6 @@
 import Database from 'better-sqlite3';
+import path from 'path';
 
-export const db = new Database('inventario-web.db');
+const dbPath = path.resolve('../inventario-web.db');
+
+export const db = new Database(dbPath);
