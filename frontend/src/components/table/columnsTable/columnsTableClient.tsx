@@ -106,9 +106,11 @@ export const columns = (handleEdit: (client: Client) => void, deleteSupplier: (c
             )
         },
         id: "details",
-        cell: ({ }) => {
+        cell: ({ row }) => {
+            const clienteId = row.original.id;
             return (
-                <DrawerClient />
+
+                <DrawerClient clienteId={clienteId} />
             )
         }
     },

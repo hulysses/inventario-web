@@ -85,11 +85,3 @@ export function formatarCNPJ(cnpj: string): string {
 export function formatarTelefone(tell: string): string {
     return tell.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
 }
-
-export function formatarData(data: Date) {
-    // To do: função para formatar datas
-}
-
-export function formataValor(valor: Number) {
-    // To do: função para formatar valores
-}

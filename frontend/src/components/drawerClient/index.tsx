@@ -2,13 +2,24 @@ import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
 import { DataTable } from "../table/data-table";
 import { useDataTable } from "@/hooks/useDataTable";
-import { getClientDetails } from "@/services/ClientDetails";
 import { columns } from "../table/columnsTable/columnsTableClientHist";
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter,DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
+import { useClients } from "@/hooks/useClientsDetails";
+import { useEffect } from "react";
 
-export const DrawerClient = () => {
-    const data = getClientDetails();
-    const { table } = useDataTable(columns, data);
+interface DrawerClientProps {
+    clienteId: number;
+}
+
+export const DrawerClient = ({ clienteId }: DrawerClientProps) => {
+    const { clientOrders, fetchOrdersByClient } = useClients();
+    const { table } = useDataTable(columns, clientOrders);
+
+    useEffect(() => {
+        if (clienteId) {
+            fetchOrdersByClient(clienteId);
+        }
+    }, [clienteId]);
 
     return (
         <Drawer>

@@ -24,7 +24,9 @@ export const ClientTable = () => {
         isConfirmDialogOpen,
         setIsConfirmDialogOpen
     } = useClients();
+
     const clientQuantity = clients.length;
+
     const { table } = useDataTable(columns(handleEdit, confirmDelete), clients);
     const filters = ['nome', 'cpf_cnpj'];
     const isAdmin = localStorage.getItem('isAdmin') === '1';

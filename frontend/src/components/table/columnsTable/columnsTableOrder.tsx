@@ -32,6 +32,10 @@ export const columns = ({
           </Button>
         );
       },
+      cell: ({ row }) => {
+        const dateValue = row.original.data;
+        return dateValue ? new Date(dateValue).toLocaleDateString() : 'N/A';
+      }
     },
     {
       accessorKey: "clienteId",
@@ -80,6 +84,10 @@ export const columns = ({
           </Button>
         );
       },
+      cell: ({ row }) => {
+        const value = row.original.total;
+        return value ? `R$ ${value.toFixed(2)}` : `Valor não fornecido`
+      }
     },
 
     {
@@ -90,7 +98,7 @@ export const columns = ({
       },
       id: "details",
       cell: ({ }) => {
-        return <DrawerClient />;
+        return <DrawerClient clienteId={0} />;
       },
     },
 
