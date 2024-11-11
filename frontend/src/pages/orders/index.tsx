@@ -19,7 +19,7 @@ export const Orders = () => {
     handleCreate,
     isSheetOpen,
     setIsSheetOpen,
-    confirmDelete, // TO DO: Verificar por que pedidos não estão sendo excluidos
+    confirmDelete,
     deleteOrder,
     isConfirmDialogOpen,
     setIsConfirmDialogOpen,

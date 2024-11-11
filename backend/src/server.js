@@ -6,9 +6,9 @@ import loginRoutes from './routes/loginRoutes.js';
 import clientRoutes from './routes/clientRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import supplierRoutes from './routes/supplierRoutes.js';
-import { dropaTabelas, runMigrations } from './database/migrations/index.js';
+import clientDetailsRoutes from './routes/clientDetailsRoutes.js'
+import { runMigrations } from './database/migrations/index.js';
 
-// dropaTabelas();
 runMigrations();
 
 const app = express();
@@ -18,6 +18,7 @@ app.use(express.json());
 app.use('/', loginRoutes);
 app.use('/users', userRoutes);
 app.use('/', clientRoutes);
+app.use('/', clientDetailsRoutes);
 app.use('/suppliers', supplierRoutes);
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
