@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { DrawerClient } from "@/components/drawerClient";
+import { DrawerOrder } from "@/components/drawerOrder";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, EllipsisVertical } from "lucide-react";
 import {
@@ -98,7 +98,7 @@ export const columns = ({
       },
       id: "details",
       cell: ({ }) => {
-        return <DrawerClient clienteId={0} />;
+        return <DrawerOrder orderId={0} />;
       },
     },
 
