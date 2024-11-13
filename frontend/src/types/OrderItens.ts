@@ -4,4 +4,5 @@ export type OrderItens = {
     produtoNome: string,
     produtoValor: string;
     produtoId: number,
+    pedidoId: number | null,
 }

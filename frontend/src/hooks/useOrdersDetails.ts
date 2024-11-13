@@ -1,25 +1,10 @@
-import { Order } from "@/types/Order";
-import { useState } from "react";
-import { OrderDetails } from '@/types/OrderItens';
 import axios from "axios";
+import { OrderItens } from "@/types/OrderItens";
 
-const pedidoId = 1;
+export const getProducts = async () => {
+    return axios.get("http://localhost:3000/products");
+};
 
-export const useOrderDetails = () => {
-    const [produtos, setProdutos] = useState<Order[]>([]);
-    const [itensPedido, setItensPedido] = useState<OrderDetails[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    const fetchProdutos = async () => {
-        setIsLoading(true);
-
-        try {
-            const response = await axios.get('http://localhost:3000/products');
-            setProdutos(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar produtos', error);
-        }
-    }
-
-    // const fetchItensPedido = 
-}
+export const addOrderItem = async (item: OrderItens) => {
+    return axios.post("http://localhost:3000/itens-orders", item);
+};

@@ -7,8 +7,10 @@ export const createItensOrdersTable = () => {
             produtoNome TEXT,
             produtoValor INTEGER,
             produtoId INTEGER,
+            pedidoId INTEGER,
             data_adicao TEXT,
             FOREIGN KEY (produtoId) REFERENCES product(id)
+            FOREIGN KEY (pedidoId) REFERENCES orders(id)
         )
     `;
     db.prepare(sql).run();
