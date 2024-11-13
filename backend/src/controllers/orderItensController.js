@@ -3,9 +3,9 @@ import {
 } from "../database/services/orderItensService.js";
 
 export const registerItensOrders = (req, res) => {
-    const { produtoNome, data_adicao, preco, produtoId } = req.body;
+    const { produtoNome, data_adicao, produtoValor, produtoId } = req.body;
 
-    if (insertItensOrdersS(produtoNome, data_adicao, preco, produtoId)) {
+    if (insertItensOrdersS(produtoNome, data_adicao, produtoValor, produtoId)) {
         res.status(201).json({ message: 'Item de pedido cadastrado com sucesso' });
     } else {
         res.status(400).json({ message: 'Erro ao cadastrar item de pedido.' });
@@ -26,9 +26,9 @@ export const listItensOrders = (req, res) => {
 export const updateItensOrders = (req, res) => {
     try {
         const { id } = req.query;
-        const { data, clienteId, status, total } = req.body;
+        const { produtoNome, produtoValor, data_criacao, produtoId } = req.body;
 
-        updateItensOrdersS(id, data, clienteId, status, total);
+        updateItensOrdersS(id, produtoNome, produtoValor, data_criacao, produtoId);
         res.status(200).json({ message: 'Item de pedido atualizado com sucesso' });
     } catch (error) {
         console.error('Erro ao atualizar item de pedido:', error);

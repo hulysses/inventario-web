@@ -1,19 +1,11 @@
 import express from 'express';
-import { db } from '../database/db.js';
+import { listItensOrders, deleteItensOrders, registerItensOrders, updateItensOrders } from '../controllers/orderItensController.js';
 
 const router = express.Router();
 
-router.get('/orders/:id', (req, res) => {
-    const orderId = req.params.id;
-
-    try {
-        const statement = db.prepare("SELECT * FROM orders WHERE orderId = ?");
-        const orders = statement.all(orderId);
-        res.json(orders);
-    } catch (err) {
-        console.error("Erro ao buscar pedidos:", err);
-        res.status(500).json({ error: err.message });
-    }
-});
+router.get('/itens-orders', listItensOrders);
+router.post('/itens-orders', registerItensOrders);
+router.put('/itens-orders', updateItensOrders);
+router.delete('/itens-orders', deleteItensOrders);
 
 export default router;

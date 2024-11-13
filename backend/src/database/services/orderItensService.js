@@ -1,9 +1,9 @@
 import { db } from '../db.js';
 
-export const insertItensOrdersS = (produtoNome, data_adicao, preco, produtoId) => {
+export const insertItensOrdersS = (produtoNome, data_adicao, produtoValor, produtoId) => {
     try {
-        const sql = 'INSERT INTO itens_order (produtoNome, data_adicao, preco, produtoId) VALUES (?, ?, ?, ?)';
-        db.prepare(sql).run(produtoNome, data_adicao, preco, produtoId);
+        const sql = 'INSERT INTO itens_order (produtoNome, data_adicao, produtoValor, produtoId) VALUES (?, ?, ?, ?)';
+        db.prepare(sql).run(produtoNome, data_adicao, produtoValor, produtoId);
 
         return true;
     } catch (error) {
@@ -34,10 +34,10 @@ export const listItensOrdersS = () => {
     }
 }
 
-export const updateItensOrdersS = (id, produtoNome, data_adicao, preco, produtoId) => {
+export const updateItensOrdersS = (id, produtoNome, data_adicao, produtoValor, produtoId) => {
     try {
-        const sql = 'UPDATE itens_orders SET produtoNome = ?, data_adicao = ?, preco = ?, produtoId = ? WHERE id = ?, ';
-        db.prepare(sql).run(produtoNome, data_adicao, preco, produtoId, id);
+        const sql = 'UPDATE itens_orders SET produtoNome = ?, data_adicao = ?, produtoValor = ?, produtoId = ? WHERE id = ?, ';
+        db.prepare(sql).run(produtoNome, data_adicao, produtoValor, produtoId, id);
         return true;
     } catch (error) {
         console.log("Erro ao atualizar item de pedido:", error.message);

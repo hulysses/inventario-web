@@ -30,8 +30,11 @@ export const ComboboxOrder = () => {
     const [itens, setItens] = useState<OrderItens[]>([]);
     const [produtoSelecionado, setProdutoSelecionado] = useState<Product | null>(null);
     const [itensToAdd, setItensToAdd] = useState<ItemToAdd[]>([]);
+    const [loading, setLoading] = useState(false);
 
-    const handleAddItem = () => {
+    // TO DO: Organizar e separar código 
+
+    const handleAddItem = async () => {
         if (produtoSelecionado) {
             const novoItem: OrderItens = {
                 produtoNome: produtoSelecionado.nome,
@@ -42,11 +45,15 @@ export const ComboboxOrder = () => {
 
             setItens((prevItens) => [...prevItens, novoItem]);
 
-            axios.post('http://localhost:3000/itens-pedidos', novoItem).then((response) => {
-                console.log('Item adicionado com sucesso.', response.data);
-            }).catch((error) => {
-                console.error('Erro ao adicionar item:', error);
-            })
+            try {
+                setLoading(true);
+                await axios.post("http://localhost:3000/itens-orders", novoItem);
+                console.log("Item adicionado com sucesso.");
+            } catch (error) {
+                console.error("Erro ao adicionar item:", error);
+            } finally {
+                setLoading(false);
+            }
         }
     }
 
@@ -99,6 +106,11 @@ export const ComboboxOrder = () => {
                                         onSelect={(currentValue) => {
                                             setValue(currentValue === value ? "" : currentValue)
                                             setOpen(false)
+
+                                            const selectedProduct = produtos.find(
+                                                (produto) => produto.nome === currentValue
+                                            );
+                                            setProdutoSelecionado(selectedProduct || null);
                                         }}
                                     >
                                         <Check
@@ -115,7 +127,11 @@ export const ComboboxOrder = () => {
                     </Command>
                 </PopoverContent>
             </Popover>
-            <Button className="bg-green-500 hover:bg-green-400">Adicionar Item</Button>
+            <Button
+                className="bg-green-500 hover:bg-green-400"
+                onClick={handleAddItem}
+                disabled={!produtoSelecionado || loading}
+            >Adicionar Item</Button>
         </>
     )
 }
