@@ -7,6 +7,7 @@ import clientRoutes from './routes/clientRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import supplierRoutes from './routes/supplierRoutes.js';
 import clientDetailsRoutes from './routes/clientDetailsRoutes.js'
+import orderDetailsRoutes from './routes/orderDetailsRoutes.js';
 import { runMigrations } from './database/migrations/index.js';
 
 runMigrations();
@@ -19,6 +20,7 @@ app.use('/', loginRoutes);
 app.use('/users', userRoutes);
 app.use('/', clientRoutes);
 app.use('/', clientDetailsRoutes);
+app.use('/', orderDetailsRoutes);
 app.use('/suppliers', supplierRoutes);
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
