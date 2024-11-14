@@ -24,31 +24,17 @@ type ItemToAdd = {
     label: string
 }
 
-export const ComboboxOrder = () => {
+type ComboboxOrderProps = {
+    pedidoId: number | null,
+}
+
+export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
 
     const [produtos, setProdutos] = useState<Product[]>([]);
-    const [itens, setItens] = useState<OrderItens[]>([]);
-    const [produtoSelecionado, setProdutoSelecionado] = useState<Product | null>(null);
     const [itensToAdd, setItensToAdd] = useState<ItemToAdd[]>([]);
-
-    const handleAddItem = () => {
-        if (produtoSelecionado) {
-            const novoItem: OrderItens = {
-                produtoNome: produtoSelecionado.nome,
-                produtoValor: produtoSelecionado.preco,
-                produtoId: produtoSelecionado.id,
-                data_adicao: new Date().toISOString(),
-            };
-
-            setItens((prevItens) => [...prevItens, novoItem]);
-
-            axios.post('http://localhost:3000/itens-pedidos', novoItem).then((response) => {
-                console.log('Item adicionado com sucesso.', response.data);
-            }).catch((error) => {
-                console.error('Erro ao adicionar item:', error);
-            })
-        }
-    }
+    const [loading, setLoading] = useState(false);
+    const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<OrderItens[]>([]);
 
     useEffect(() => {
         axios
@@ -56,6 +42,7 @@ export const ComboboxOrder = () => {
             .then((response) => {
                 const transformedItens = response.data.map((produto: Product) => ({
                     value: produto.nome,
+                    label: produto.nome
                 }));
 
                 setItensToAdd(transformedItens);
@@ -65,6 +52,42 @@ export const ComboboxOrder = () => {
                 console.error('Erro ao buscar produtos', error);
             });
     }, []);
+
+    const handleAddItemOrder = async () => {
+        if (!selectedProductId) return;
+
+        setLoading(true);
+
+        try {
+            const produtoSelecionado = produtos.find(
+                (produto) => produto.id === selectedProductId
+            );
+
+            if (produtoSelecionado) {
+                const response = await axios.post('http://localhost:3000/itens-orders', {
+                    produtoId: selectedProductId,
+                    pedidoId: pedidoId,
+                    produtoNome: produtoSelecionado.nome,
+                    produtoValor: produtoSelecionado.preco,
+                    data_adicao: new Date().toISOString(),
+                });
+
+                setSelectedProduct((prevItems) => [
+                    ...prevItems,
+                    response.data,
+                ]);
+            }
+
+        } catch (error) {
+            console.error('Erro ao adicionar item ao pedido');
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+
+    }, selectedProduct)
 
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
@@ -78,7 +101,6 @@ export const ComboboxOrder = () => {
                         role="combobox"
                         aria-expanded={open}
                         className="w-[200px] justify-between opacity-90 mx-auto right-0"
-
                     >
                         {value
                             ? itensToAdd.find((item) => item.value === value)?.value
@@ -97,8 +119,15 @@ export const ComboboxOrder = () => {
                                         key={item.value}
                                         value={item.value}
                                         onSelect={(currentValue) => {
-                                            setValue(currentValue === value ? "" : currentValue)
-                                            setOpen(false)
+                                            const selectedProduct = produtos.find(
+                                                (produto) => produto.nome === currentValue
+                                            );
+                                            setValue(currentValue === value ? "" : currentValue);
+                                            setOpen(false);
+
+                                            if (selectedProduct) {
+                                                setSelectedProductId(selectedProduct.id);
+                                            }
                                         }}
                                     >
                                         <Check
@@ -115,7 +144,11 @@ export const ComboboxOrder = () => {
                     </Command>
                 </PopoverContent>
             </Popover>
-            <Button className="bg-green-500 hover:bg-green-400">Adicionar Item</Button>
+            <Button
+                className="bg-green-500 hover:bg-green-400"
+                disabled={!selectedProduct || loading}
+                onClick={handleAddItemOrder}
+            >Adicionar Item</Button>
         </>
     )
 }

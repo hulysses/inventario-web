@@ -97,8 +97,9 @@ export const columns = ({
         );
       },
       id: "details",
-      cell: ({ }) => {
-        return <DrawerOrder orderId={0} />;
+      cell: ({ row }) => {
+        const orderId = row.original.id;
+        return <DrawerOrder pedidoId={orderId} />;
       },
     },
 
