@@ -37,7 +37,7 @@ export const listItensOrdersS = (pedidoId) => {
 
 export const deleteItensOrdersS = (id) => {
     try {
-        const sql = 'DELETE FROM itens_orders WHERE id = ?';
+        const sql = 'DELETE FROM itens_order WHERE id = ?';
         db.prepare(sql).run(id);
         return true;
     } catch (error) {

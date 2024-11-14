@@ -1,9 +1,9 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Trash2 } from "lucide-react";
 import { OrderItens } from "@/types/OrderItens";
 
-export const columns: ColumnDef<OrderItens>[] = [
+export const columns = (handleDeleteItem: (id: number) => void): ColumnDef<OrderItens>[] => [
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -69,6 +69,22 @@ export const columns: ColumnDef<OrderItens>[] = [
             )
         },
         cell: ({ row }) => row.original.produtoValor,
+    },
+    {
+        id: "delete",
+        header: "Ações",
+        cell: ({ row }) => {
+            const itemId = row.original.id;
+            return (
+                <Button
+                    onClick={() => handleDeleteItem(itemId)}
+                    className="bg-red-500 hover:bg-red-400 -mr-16"
+                >
+                    <Trash2 className="mr-2" />
+                    Deletar
+                </Button>
+            );
+        },
     },
 ]
 

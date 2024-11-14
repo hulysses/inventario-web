@@ -14,7 +14,6 @@ export const registerItensOrders = (req, res) => {
 
 export const listItensOrders = (req, res) => {
     const pedidoId = req.params.pedidoId;
-    console.log(pedidoId);
 
     try {
         const itensOrders = listItensOrdersS(pedidoId);
@@ -27,8 +26,11 @@ export const listItensOrders = (req, res) => {
 
 export const deleteItensOrders = (req, res) => {
     try {
-        const { id } = req.query;
+
+        const { id } = req.params;
+
         deleteItensOrdersS(id);
+
         res.status(200).json({ message: 'Item de pedido deletado com sucesso' });
     } catch (error) {
         console.error('Erro ao deletar item de pedido:', error);

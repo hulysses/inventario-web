@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/itens-orders/:pedidoId', listItensOrders);
 router.post('/itens-orders', registerItensOrders);
-router.delete('/itens-orders', deleteItensOrders);
+router.delete('/itens-orders/:id', deleteItensOrders);
 
 export default router;
