@@ -14,6 +14,7 @@ interface DrawerOrderProps {
 }
 
 export const DrawerOrder = ({ pedidoId }: DrawerOrderProps) => {
+
     const [data, setData] = useState<OrderItens[]>([]);
     const { table } = useDataTable(columns, data);
 

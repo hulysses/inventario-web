@@ -21,7 +21,7 @@ export const listItensOrdersS = (pedidoId) => {
                 i.pedidoId,
                 p.nome AS produtoNome,
                 p.preco AS produtoValor,
-                o.data AS data
+                i.data_adicao AS data_adicao
             FROM itens_order i
             JOIN product p ON i.produtoId = p.id
             JOIN orders o ON i.pedidoId = o.id

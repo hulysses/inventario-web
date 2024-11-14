@@ -35,7 +35,6 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
     const [loading, setLoading] = useState(false);
     const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
     const [selectedProduct, setSelectedProduct] = useState<OrderItens[]>([]);
-    // TO DO: Organizar e separar código 
 
     useEffect(() => {
         axios
@@ -70,7 +69,7 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
                     pedidoId: pedidoId,
                     produtoNome: produtoSelecionado.nome,
                     produtoValor: produtoSelecionado.preco,
-                    data_adicao: new Date().toLocaleDateString(),
+                    data_adicao: new Date().toISOString(),
                 });
 
                 setSelectedProduct((prevItems) => [
