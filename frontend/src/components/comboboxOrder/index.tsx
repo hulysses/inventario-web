@@ -70,17 +70,25 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
                     pedidoId: pedidoId,
                     produtoNome: produtoSelecionado.nome,
                     produtoValor: produtoSelecionado.preco,
-                    data_adicao: new Date().toISOString(),
+                    data_adicao: new Date().toLocaleDateString(),
                 });
-                setSelectedProduct([...selectedProduct, response.data]);
+
+                setSelectedProduct((prevItems) => [
+                    ...prevItems,
+                    response.data,
+                ]);
             }
 
         } catch (error) {
-            console.error('Erro ao adicionar item ao pedioo');
+            console.error('Erro ao adicionar item ao pedido');
         } finally {
             setLoading(false);
         }
     }
+
+    useEffect(() => {
+
+    }, selectedProduct)
 
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")

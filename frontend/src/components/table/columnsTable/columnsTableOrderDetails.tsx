@@ -36,8 +36,7 @@ export const columns: ColumnDef<OrderItens>[] = [
             )
         },
         cell: ({ row }) => {
-            const dateValue = row.original.data_adicao;
-            return dateValue ? new Date(dateValue).toLocaleDateString() : 'N/A';
+            return row.original.data_adicao;
         }
     },
     {

@@ -12,7 +12,7 @@ export const insertItensOrdersS = (produtoNome, data_adicao, produtoValor, produ
     }
 };
 
-export const listItensOrdersS = () => {
+export const listItensOrdersS = (pedidoId) => {
     try {
         const sql = `
             SELECT 
@@ -23,8 +23,8 @@ export const listItensOrdersS = () => {
                 p.preco AS produtoValor,
                 o.data AS data
             FROM itens_order i
-            JOIN products p ON i.produtoId = p.id
-            JOIN pedidos o ON i.pedidoId = o.id
+            JOIN product p ON i.produtoId = p.id
+            JOIN orders o ON i.pedidoId = o.id
             WHERE i.pedidoId = ?
         `;
         const itensOrders = db.prepare(sql).all(pedidoId);

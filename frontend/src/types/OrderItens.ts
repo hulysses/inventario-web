@@ -1,6 +1,6 @@
 export type OrderItens = {
     id?: number,
-    data_adicao: string,
+    data_adicao: Date,
     produtoNome: string,
     produtoValor: string;
     produtoId: number,

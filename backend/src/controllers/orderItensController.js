@@ -14,6 +14,7 @@ export const registerItensOrders = (req, res) => {
 
 export const listItensOrders = (req, res) => {
     const pedidoId = req.params.pedidoId;
+    console.log(pedidoId);
 
     try {
         const itensOrders = listItensOrdersS(pedidoId);

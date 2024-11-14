@@ -5,8 +5,9 @@ import { useDataTable } from "@/hooks/useDataTable";
 import { columns } from "../table/columnsTable/columnsTableOrderDetails";
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { ComboboxOrder } from "../comboboxOrder";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { OrderItens } from "@/types/OrderItens";
+import axios from "axios";
 
 interface DrawerOrderProps {
     pedidoId: number;
@@ -15,6 +16,20 @@ interface DrawerOrderProps {
 export const DrawerOrder = ({ pedidoId }: DrawerOrderProps) => {
     const [data, setData] = useState<OrderItens[]>([]);
     const { table } = useDataTable(columns, data);
+
+    const fetchOrderItems = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/itens-orders/${pedidoId}`);
+            setData(response.data);
+            console.log(data);
+        } catch (error) {
+            console.error('Erro ao buscar item do pedido');
+        }
+    }
+
+    useEffect(() => {
+        fetchOrderItems();
+    }, [pedidoId]);
 
     return (
         <Drawer>
