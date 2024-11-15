@@ -19,7 +19,8 @@ export const listOrderS = () => {
                 orders.id AS pedidoId, 
                 orders.data, 
                 orders.status, 
-                orders.clienteId
+                orders.clienteId,
+                orders.total
             FROM orders
             JOIN clients ON orders.clienteId = clients.id`;
 
