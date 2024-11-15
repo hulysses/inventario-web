@@ -41,7 +41,7 @@ export const listProduct = () => {
 export const listProductWithSuppliers = () => {
   try {
     const sql =
-      "SELECT p.nome, p.quantidade, s.nome as supplier_name FROM product p INNER JOIN supplier s ON p.supplier_id = s.id";
+      "SELECT p.id, p.nome, p.quantidade, s.nome as supplier_name FROM product p INNER JOIN supplier s ON p.supplier_id = s.id";
     const products = db.prepare(sql).all();
 
     return products;

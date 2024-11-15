@@ -3,6 +3,7 @@ import {
   listProduct,
   updateProduct,
   deleteProduct,
+  listProductWithSuppliers,
 } from "../database/services/productService.js";
 
 export const registerProduct = (req, res) => {

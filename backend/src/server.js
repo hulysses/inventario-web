@@ -21,6 +21,7 @@ app.use('/', clientRoutes);
 app.use('/', clientDetailsRoutes);
 app.use('/', orderDetailsRoutes);
 app.use('/users', userRoutes);
+app.use('/home', productRoutes);
 app.use('/suppliers', supplierRoutes);
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
