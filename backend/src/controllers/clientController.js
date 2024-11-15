@@ -17,7 +17,7 @@ export const registerClients = (req, res) => {
   }
 
   if (insertClientS(nome, cpf_cnpj, contato, endereco)) {
-    res.status(201).json({ message: "Cliente cadastrado com sucesso" });
+    res.status(201).json({ message: "Cliente cadastrado com sucesso." });
   } else {
     res.status(400).json({ message: "Erro ao cadastrar cliente." });
   }
@@ -29,7 +29,7 @@ export const listClients = (req, res) => {
     res.status(200).json(clients);
   } catch (error) {
     console.error("Erro ao listar clientes:", error);
-    res.status(500).json({ message: "Erro ao listar clientes" });
+    res.status(500).json({ message: "Erro ao listar clientes." });
   }
 };
 
@@ -46,20 +46,23 @@ export const updateClients = (req, res) => {
     }
 
     updateClientS(id, nome, cpf_cnpj, contato, endereco);
-    res.status(200).json({ message: "Cliente atualizado com sucesso" });
+    res.status(200).json({ message: "Cliente atualizado com sucesso." });
   } catch (error) {
     console.error("Erro ao atualizar cliente:", error);
-    res.status(500).json({ message: "Erro ao atualizar cliente" });
+    res.status(500).json({ message: "Erro ao atualizar cliente." });
   }
 };
 
 export const deleteClients = (req, res) => {
   try {
     const { id } = req.query;
-    deleteClientS(id);
-    res.status(200).json({ message: "Cliente deletado com sucesso" });
+    if (deleteClientS(id)) {
+      res.status(200).json({ message: "Cliente deletado com sucesso." });
+    } else {
+      res.status(400).json({ message: "Erro ao deletar cliente." });
+    }
   } catch (error) {
     console.error("Erro ao deletar cliente:", error);
-    res.status(500).json({ message: "Erro ao deletar cliente" });
+    res.status(500).json({ message: "Erro ao deletar cliente." });
   }
 };
