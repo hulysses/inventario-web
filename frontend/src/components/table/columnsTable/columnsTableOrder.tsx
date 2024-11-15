@@ -70,6 +70,24 @@ export const columns = ({
           </Button>
         );
       },
+      cell: ({ row }) => {
+        const status = row.original.status;
+
+        const statusStyle = status === "pendente"
+          ? "bg-yellow-500 mr-1 -ml-10"
+          : status === "concluido"
+            ? "bg-green-500 mr-1 -ml-10"
+            : "bg-gray-500";
+
+        const statusText = status === "pendente" ? "Pendente" : "Concluído";
+
+        return (
+          <div className="flex items-center space-x-2">
+            <div className={`inline-block w-4 h-4 rounded-full ${statusStyle}`} />
+            {statusText}
+          </div>
+        );
+      }
     },
     {
       accessorKey: "total",
