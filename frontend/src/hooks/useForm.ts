@@ -37,6 +37,9 @@ export const useFormData = (
                 case 'endereco':
                     schemaObject[field.name] = z.string();
                     break;
+                case 'supplier_id':
+                    schemaObject[field.name] = z.string();
+                    break;
                 case 'imagem':
                     schemaObject[field.name] = z.string().refine(isValidImageUrl, { message: "A URL não é uma imagem válida." });;
                     break;
