@@ -74,9 +74,9 @@ export const columns = ({
         const status = row.original.status;
 
         const statusStyle = status === "pendente"
-          ? "bg-yellow-500 mr-1 -ml-10"
+          ? "bg-yellow-500 mr-1"
           : status === "concluido"
-            ? "bg-green-500 mr-1 -ml-10"
+            ? "bg-green-500 mr-1"
             : "bg-gray-500";
 
         const statusText = status === "pendente" ? "Pendente" : "Concluído";
