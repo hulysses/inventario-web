@@ -15,3 +15,9 @@ export const createItensOrdersTable = () => {
     `;
     db.prepare(sql).run();
 };
+
+export const dropItensOrdersTable = () => {
+    const sql = 'DROP TABLE IF EXISTS itens_order';
+    db.exec(sql);
+    console.log('Tabela "itens_order" deletada com sucesso.');
+}

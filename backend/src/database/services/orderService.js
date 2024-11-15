@@ -15,8 +15,15 @@ export const insertOrderS = (data, clienteId, status, total) => {
 export const listOrderS = () => {
     try {
         const sql = `
-            SELECT * FROM orders
+            SELECT 
+                orders.id AS pedidoId, 
+                orders.data, 
+                orders.status, 
+                orders.clienteId,
+                orders.total
+            FROM orders
             JOIN clients ON orders.clienteId = clients.id`;
+
         const orders = db.prepare(sql).all();
         return orders;
     } catch (error) {
@@ -24,6 +31,7 @@ export const listOrderS = () => {
         throw new Error('Erro ao listar pedidos');
     }
 }
+
 
 export const updateOrderS = (id, data, clienteId, status, total) => {
     try {

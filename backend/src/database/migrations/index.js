@@ -17,6 +17,6 @@ export const runMigrations = () => {
 // Usado para excluir tabelas em caso de algum erro.
 export const dropaTabelas = () => {
     dropClientTable();
-    dropOrderTable();
+    dropItensOrdersOrders();
     dropProductTable();
 }

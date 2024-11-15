@@ -1,4 +1,5 @@
 export type Order = {
+    pedidoId: number
     id: number,
     data: Date,
     clienteId: number,
