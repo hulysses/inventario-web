@@ -98,7 +98,7 @@ export const columns = ({
       },
       id: "details",
       cell: ({ row }) => {
-        const orderId = row.original.id;
+        const orderId = row.original.pedidoId;
         return <DrawerOrder pedidoId={orderId} />;
       },
     },

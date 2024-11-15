@@ -15,7 +15,6 @@ export const useOrders = () => {
         { name: 'clienteId', label: 'Cliente', type: 'select', placeholder: 'Selecione o cliente', options: [] },
         { name: 'data', label: 'Data', type: 'data', placeholder: 'Selecione a data' },
         { name: 'status', label: 'Status', type: 'select', placeholder: 'Selecione o status' },
-        { name: 'total', label: 'Total', type: 'text', placeholder: 'Informe o preço', length: 14 },
     ];
 
     const fetchOrders = async () => {
@@ -38,7 +37,6 @@ export const useOrders = () => {
         };
 
         fetchClients();
-        fetchOrders();
     }, []);
 
     const getClientName = (clientId: number): string => {

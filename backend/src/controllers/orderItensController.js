@@ -1,5 +1,5 @@
 import {
-    insertItensOrdersS, listItensOrdersS, deleteItensOrdersS
+    insertItensOrdersS, listItensOrdersS, deleteItensOrdersS,
 } from "../database/services/orderItensService.js";
 
 export const registerItensOrders = (req, res) => {

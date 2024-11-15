@@ -17,10 +17,10 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/', loginRoutes);
-app.use('/users', userRoutes);
 app.use('/', clientRoutes);
 app.use('/', clientDetailsRoutes);
 app.use('/', orderDetailsRoutes);
+app.use('/users', userRoutes);
 app.use('/suppliers', supplierRoutes);
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
