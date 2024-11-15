@@ -4,7 +4,7 @@ import { useDataTable } from "@/hooks/useDataTable";
 import { TableFilter } from "@/components/table/table-filter";
 import { Button } from "@/components/ui/button";
 import { ConfirmationDialog } from "@/components/dialog/confirm";
-import { Plus } from "lucide-react";
+import { Plus, RefreshCcw } from "lucide-react";
 import { Sheets } from "@/components/sheetOrders";
 import { toast, Toaster } from "sonner";
 import { useOrders } from "@/hooks/useOrders";
@@ -59,6 +59,13 @@ export const Orders = () => {
         <h1 className="font-bold text-2xl mt-20 -ml-0 flex mx-auto">
           Pedidos <p className="ml-5 text-gray-400">{orderQuantity}</p>
         </h1>
+
+        <Button
+          variant={"outline"}
+          className="p-2 ml-2 mt-20"
+          onClick={fetchOrders}
+        ><RefreshCcw /></Button>
+
         <div className="grid grid-flow-col mt-20 gap-5">
           {filters.map((column) => (
             <TableFilter
