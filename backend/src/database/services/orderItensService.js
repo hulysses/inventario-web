@@ -5,7 +5,6 @@ export const insertItensOrdersS = (produtoNome, data_adicao, produtoValor, produ
         const sql = 'INSERT INTO itens_order (produtoNome, data_adicao, produtoValor, produtoId, pedidoId) VALUES (?, ?, ?, ?, ?)';
         db.prepare(sql).run(produtoNome, data_adicao, produtoValor, produtoId, pedidoId);
 
-        // Atualizar o valor do pedido após inserir um item
         updateValueOrderS(pedidoId);
 
         return true;
@@ -50,11 +49,9 @@ export const deleteItensOrdersS = (id) => {
 
         const { pedidoId } = result;
 
-        // Deletando o item do pedido
         const sql = 'DELETE FROM itens_order WHERE id = ?';
         db.prepare(sql).run(id);
 
-        // Atualizar o valor do pedido após a exclusão do item
         updateValueOrderS(pedidoId);
 
         return true;
@@ -66,7 +63,6 @@ export const deleteItensOrdersS = (id) => {
 
 export const updateValueOrderS = (pedidoId) => {
     try {
-        // Calcular a soma dos valores dos itens do pedido
         const sql = `
             SELECT SUM(produtoValor) AS total
             FROM itens_order
@@ -76,7 +72,6 @@ export const updateValueOrderS = (pedidoId) => {
         const result = db.prepare(sql).get(pedidoId);
         const totalPedido = result ? result.total : 0;
 
-        // Atualizar o total do pedido na tabela orders
         const updateSql = `
             UPDATE orders
             SET total = ?
@@ -84,7 +79,7 @@ export const updateValueOrderS = (pedidoId) => {
         `;
         db.prepare(updateSql).run(totalPedido, pedidoId);
 
-        return totalPedido;  // Retorna o valor total atualizado
+        return totalPedido;
     } catch (error) {
         console.error("Erro ao atualizar valor do pedido:", error.message);
         throw new Error('Erro ao atualizar valor do pedido');

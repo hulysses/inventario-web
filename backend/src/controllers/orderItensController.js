@@ -9,7 +9,7 @@ export const registerItensOrders = (req, res) => {
         const itemInserted = insertItensOrdersS(produtoNome, data_adicao, produtoValor, produtoId, pedidoId);
 
         if (itemInserted) {
-            // Atualizar o valor total do pedido após a inserção
+
             const updatedTotal = updateValueOrderS(pedidoId);
             res.status(201).json({
                 message: 'Item de pedido cadastrado com sucesso',
@@ -40,12 +40,11 @@ export const deleteItensOrders = (req, res) => {
     try {
         const { id } = req.params;
 
-        // Deletar o item
         const itemDeleted = deleteItensOrdersS(id);
 
         if (itemDeleted) {
-            const pedidoId = req.body.pedidoId; // Pode ser necessário passar o pedidoId para recalcular o valor
-            // Atualizar o valor do pedido após a exclusão do item
+            const pedidoId = req.body.pedidoId;
+
             const updatedTotal = updateValueOrderS(pedidoId);
             res.status(200).json({
                 message: 'Item de pedido deletado com sucesso',
