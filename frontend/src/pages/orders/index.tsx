@@ -1,13 +1,13 @@
-import { DataTable } from "@/components/table/data-table";
-import { columns } from "@/components/table/columnsTable/columnsTableOrder";
-import { useDataTable } from "@/hooks/useDataTable";
-import { TableFilter } from "@/components/table/table-filter";
-import { Button } from "@/components/ui/button";
-import { ConfirmationDialog } from "@/components/dialog/confirm";
-import { Plus, RefreshCcw } from "lucide-react";
-import { Sheets } from "@/components/sheetOrders";
 import { toast, Toaster } from "sonner";
 import { useOrders } from "@/hooks/useOrders";
+import { Button } from "@/components/ui/button";
+import { Plus, RefreshCcw } from "lucide-react";
+import { Sheets } from "@/components/sheetOrders";
+import { useDataTable } from "@/hooks/useDataTable";
+import { DataTable } from "@/components/table/data-table";
+import { TableFilter } from "@/components/table/table-filter";
+import { ConfirmationDialog } from "@/components/dialog/confirm";
+import { columns } from "@/components/table/columnsTable/columnsTableOrder";
 
 export const Orders = () => {
   const {
@@ -24,7 +24,7 @@ export const Orders = () => {
     isConfirmDialogOpen,
     setIsConfirmDialogOpen,
     selectOptions,
-    getClientName
+    getClientName,
   } = useOrders();
 
   const orderQuantity = orders.length;
@@ -38,7 +38,7 @@ export const Orders = () => {
     orders
   );
 
-  const filters = ["status", "clienteId"];
+  const filters = ["status", "data"];
 
   const handleConfirmDelete = async () => {
     try {
@@ -64,7 +64,9 @@ export const Orders = () => {
           variant={"outline"}
           className="p-2 ml-2 mt-20"
           onClick={fetchOrders}
-        ><RefreshCcw /></Button>
+        >
+          <RefreshCcw />
+        </Button>
 
         <div className="grid grid-flow-col mt-20 gap-5">
           {filters.map((column) => (
@@ -85,20 +87,26 @@ export const Orders = () => {
           Novo pedido
         </Button>
       </div>
-      <DataTable columns={columns({ getClientName, handleEdit, confirmDelete })} table={table} />
+      <DataTable
+        columns={columns({ getClientName, handleEdit, confirmDelete })}
+        table={table}
+      />
       <Sheets
         open={isSheetOpen}
         onOpenChange={setIsSheetOpen}
         title={editingOrder ? "Editar pedido" : "Cadastro de pedido"}
         fields={fields}
         initialData={editingOrder || {}}
-        apiEndpoint={`http://localhost:3000/orders${editingOrder ? `?id=${editingOrder.id}` : ""}`}
+        apiEndpoint={`http://localhost:3000/orders${
+          editingOrder ? `?id=${editingOrder.id}` : ""
+        }`}
         method={editingOrder ? "put" : "post"}
         onSuccess={() => {
           fetchOrders();
           setIsSheetOpen(false);
         }}
-        selectOptions={selectOptions} />
+        selectOptions={selectOptions}
+      />
       <ConfirmationDialog
         isOpen={isConfirmDialogOpen}
         onClose={() => setIsConfirmDialogOpen(false)}
