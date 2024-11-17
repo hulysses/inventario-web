@@ -50,38 +50,37 @@ export const Orders = () => {
   };
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 bg-white mx-7 mb-7 rounded-xl">
-      <h1 className="font-bold text-2xl">Gerenciamento de pedidos</h1>
-      <h3 className="font-light text-gray-500">
+    <div className="flex flex-1 flex-col gap-4 p-4 bg-background mx-7 mb-7 rounded-xl">
+      <h1 className="font-bold text-2xl text-primary">
+        Gerenciamento de pedidos
+      </h1>
+      <h3 className="font-light text-muted-foreground">
         Gerencie seus pedidos, podendo alterar, excluir ou criar novos.
       </h3>
-      <div className="flex items-center space-x-4">
-        <h1 className="font-bold text-2xl mt-20 -ml-0 flex mx-auto">
+      <div className="flex items-center justify-end space-x-4 mt-7">
+        <h1 className="font-bold text-2xl -ml-0 flex mx-auto">
           Pedidos <p className="ml-5 text-gray-400">{orderQuantity}</p>
         </h1>
 
         <Button
           variant={"outline"}
-          className="p-2 ml-2 mt-20"
+          className="p-2 ml-2 mx-auto"
           onClick={fetchOrders}
         >
           <RefreshCcw />
         </Button>
 
-        <div className="grid grid-flow-col mt-20 gap-5">
-          {filters.map((column) => (
-            <TableFilter
-              key={column}
-              table={table}
-              column={column}
-              placeholder={`Filtrar ${column}...`}
-            />
-          ))}
-        </div>
-
+        {filters.map((column) => (
+          <TableFilter
+            key={column}
+            table={table}
+            column={column}
+            placeholder={`Filtrar ${column}...`}
+          />
+        ))}
         <Button
           onClick={handleCreate}
-          className="bg-orange hover:bg-orangeHover text-white font-semibold mt-20"
+          className="bg-orange hover:bg-orangeHover text-white font-semibold mx-auto"
         >
           <Plus className="w-4 mr-1" />
           Novo pedido
