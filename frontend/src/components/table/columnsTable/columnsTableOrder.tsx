@@ -22,6 +22,20 @@ export const columns = ({
   confirmDelete,
 }: ColumnsProps): ColumnDef<Order>[] => [
   {
+    accessorKey: "pedidoId",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
     accessorKey: "data",
     header: ({ column }) => {
       return (
