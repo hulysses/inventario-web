@@ -37,13 +37,6 @@ export const updateClients = (req, res) => {
   try {
     const { id } = req.query;
     const { nome, cpf_cnpj, contato, endereco } = req.body;
-    const client = findByCpfCnpj(cpf_cnpj);
-
-    if (client) {
-      return res.status(400).json({
-        message: "Já existe um cliente cadastrado com esse CPF/CNPJ.",
-      });
-    }
 
     updateClientS(id, nome, cpf_cnpj, contato, endereco);
     res.status(200).json({ message: "Cliente atualizado com sucesso." });

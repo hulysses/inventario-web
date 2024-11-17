@@ -37,13 +37,6 @@ export const updateSuppliers = (req, res) => {
   try {
     const { id } = req.query;
     const { nome, cnpj, contato, endereco } = req.body;
-    const supplier = findByCnpj(cnpj);
-
-    if (supplier) {
-      return res.status(400).json({
-        message: "Já esxiste um fornecedor cadastrado com esse CNPJ.",
-      });
-    }
 
     updateSupplier(id, nome, cnpj, contato, endereco);
     res.status(200).json({ message: "Fornecedor atualizado com sucesso." });
