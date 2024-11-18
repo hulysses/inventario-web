@@ -42,10 +42,18 @@ export const Orders = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      await deleteOrder();
-      toast("Pedido excluído com sucesso!");
+      const response = await deleteOrder();
+      if (response) {
+        toast("Pedido excluído com sucesso!");
+      } else {
+        toast(
+          "Erro ao excluir pedido. O mesmo pode ter itens vinculados."
+        );
+      }
     } catch (error) {
-      toast("Erro ao excluir pedido.");
+      toast(
+        "Erro ao excluir pedido. O mesmo pode ter itens vinculados."
+      );
     }
   };
 

@@ -86,6 +86,7 @@ export const useOrders = () => {
   };
 
   const deleteOrder = async () => {
+    console.log("orderToDelete", orderToDelete);
     if (orderToDelete == null) return;
 
     try {

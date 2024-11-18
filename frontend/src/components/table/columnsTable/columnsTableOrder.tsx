@@ -145,7 +145,7 @@ export const columns = ({
     id: "actions",
     cell: ({ row }) => {
       const data = row.original;
-
+      
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -157,7 +157,7 @@ export const columns = ({
             <DropdownMenuItem onClick={() => handleEdit(data)}>
               Editar
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => confirmDelete(data.id)}>
+            <DropdownMenuItem onClick={() => confirmDelete(data.pedidoId)}>
               Excluir
             </DropdownMenuItem>
           </DropdownMenuContent>
