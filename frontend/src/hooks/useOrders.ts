@@ -2,7 +2,6 @@ import axios from "axios";
 import { Order } from "@/types/Order";
 import { Client } from "@/types/Client";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
 export const useOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
