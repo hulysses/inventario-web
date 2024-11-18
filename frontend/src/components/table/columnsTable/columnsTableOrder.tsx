@@ -121,21 +121,7 @@ export const columns = ({
     },
     cell: ({ row }) => {
       const value = row.original.total;
-      return value ? `R$ ${value.toFixed(2)}` : `Valor não fornecido`;
-    },
-  },
-  {
-    accessorKey: "quantidade",
-    header: ({ column }) => {
-      return (
-        <Button
-          className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Quantidade
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return value ? `R$ ${value.toFixed(2)}` : `R$ 0,00`;
     },
   },
   {

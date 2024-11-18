@@ -98,8 +98,8 @@ export const Orders = () => {
         open={isSheetOpen}
         onOpenChange={setIsSheetOpen}
         title={editingOrder ? "Editar pedido" : "Cadastro de pedido"}
-        fields={fields}
-        initialData={editingOrder || {}}
+        fields={[...fields]}
+        initialData={editingOrder || { status: "pendente" }}
         apiEndpoint={`http://localhost:3000/orders${
           editingOrder ? `?id=${editingOrder.pedidoId}` : ""
         }`}
