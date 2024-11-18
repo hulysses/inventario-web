@@ -6,6 +6,7 @@ import { Suppliers } from "./pages/supplier";
 import { Products } from "./pages/product";
 import { ClientTable } from "@/pages/client";
 import { AppSidebar } from "./components/sidebar/menuSideBar";
+import { Transactions } from "./pages/transaction/Transactions";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,6 +14,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { Orders } from "./pages/orders";
+
 
 export function App() {
   // Estados que verifica se o usuário está logado e se é adiministrador, respectivamente
@@ -47,6 +49,7 @@ export function App() {
           <Route path="/clients" element={<ClientTable />} />
           <Route path="/products" element={<Products />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/transactions" element={<Transactions />} />
           {isUserAdmin && <Route path="/users" element={<Users />} />}
         </Route>
       </Routes>
