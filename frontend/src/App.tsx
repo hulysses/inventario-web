@@ -44,7 +44,7 @@ export function App() {
           }
         />
         <Route element={isLoggedIn ? <AppSidebar /> : <Navigate to="/" />}>
-          <Route path="/home" element={<Home />} />
+          {isUserAdmin && <Route path="/home" element={<Home />} />}
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/clients" element={<ClientTable />} />
           <Route path="/products" element={<Products />} />

@@ -1,20 +1,21 @@
-import { db } from '../db.js';
+import { db } from "../db.js";
 
 export const insertOrderS = (data, clienteId, status, total) => {
-    try {
-        const sql = 'INSERT INTO orders (data, clienteId, status, total) VALUES (?, ?, ?, ?)';
-        db.prepare(sql).run(data, clienteId, status, total);
+  try {
+    const sql =
+      "INSERT INTO orders (data, clienteId, status, total) VALUES (?, ?, ?, ?)";
+    db.prepare(sql).run(data, clienteId, status, total);
 
-        return true;
-    } catch (error) {
-        console.log("Erro ao inserir pedido:", error.message);
-        return false;
-    }
+    return true;
+  } catch (error) {
+    console.log("Erro ao inserir pedido:", error.message);
+    return false;
+  }
 };
 
 export const listOrderS = () => {
-    try {
-        const sql = `
+  try {
+    const sql = `
             SELECT 
                 orders.id AS pedidoId, 
                 orders.data, 
@@ -24,33 +25,33 @@ export const listOrderS = () => {
             FROM orders
             JOIN clients ON orders.clienteId = clients.id`;
 
-        const orders = db.prepare(sql).all();
-        return orders;
-    } catch (error) {
-        console.error('Erro ao listar pedidos:', error);
-        throw new Error('Erro ao listar pedidos');
-    }
-}
-
+    const orders = db.prepare(sql).all();
+    return orders;
+  } catch (error) {
+    console.error("Erro ao listar pedidos:", error);
+    throw new Error("Erro ao listar pedidos");
+  }
+};
 
 export const updateOrderS = (id, data, clienteId, status, total) => {
-    try {
-        const sql = 'UPDATE orders SET data = ?, clienteId = ?, status = ?, total =  ? WHERE id = ?';
-        db.prepare(sql).run(data, clienteId, status, total, id);
-        return true;
-    } catch (error) {
-        console.log("Erro ao atualizar pedido:", error.message);
-        return false;
-    }
-}
+  try {
+    const sql =
+      "UPDATE orders SET data = ?, clienteId = ?, status = ?, total =  ? WHERE id = ?";
+    db.prepare(sql).run(data, clienteId, status, total, id);
+    return true;
+  } catch (error) {
+    console.log("Erro ao atualizar pedido:", error.message);
+    return false;
+  }
+};
 
 export const deleteOrderS = (id) => {
-    try {
-        const sql = 'DELETE FROM orders WHERE id = ?';
-        db.prepare(sql).run(id);
-        return true;
-    } catch (error) {
-        console.log("Erro ao deletar pedidos:", error.message);
-        return false;
-    }
-}
+  try {
+    const sql = "DELETE FROM orders WHERE id = ?";
+    db.prepare(sql).run(id);
+    return true;
+  } catch (error) {
+    console.log("Erro ao deletar pedidos:", error.message);
+    return false;
+  }
+};

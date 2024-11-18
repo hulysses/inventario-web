@@ -1,5 +1,5 @@
-import { Input } from "@/components/ui/input";
 import { FilterProps } from "@/types/Filter";
+import { Input } from "@/components/ui/input";
 
 export function TableFilter({ table, column, placeholder }: FilterProps) {
   return (
@@ -11,5 +11,5 @@ export function TableFilter({ table, column, placeholder }: FilterProps) {
       }
       className="max-w-sm border"
     />
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { Supplier } from '@/types/Supplier';
-import { useState, useEffect } from 'react';
+import axios from "axios";
+import { Supplier } from "@/types/Supplier";
+import { useState, useEffect } from "react";
 
 export const useSuppliers = () => {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
@@ -10,18 +10,35 @@ export const useSuppliers = () => {
   const [supplierToDelete, setSupplierToDelete] = useState<number | null>(null);
 
   const fields = [
-    { name: 'nome', label: 'Nome', type: 'text', placeholder: 'Digite o nome' },
-    { name: 'cnpj', label: 'CNPJ', type: 'text', placeholder: 'Digite o CNPJ', length: 18 },
-    { name: 'contato', label: 'Telefone', type: 'text', placeholder: 'Digite o telefone',  length: 14 },
-    { name: 'endereco', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço' },
+    { name: "nome", label: "Nome", type: "text", placeholder: "Digite o nome" },
+    {
+      name: "cnpj",
+      label: "CNPJ",
+      type: "text",
+      placeholder: "Digite o CNPJ",
+      length: 18,
+    },
+    {
+      name: "contato",
+      label: "Telefone",
+      type: "text",
+      placeholder: "Digite o telefone",
+      length: 14,
+    },
+    {
+      name: "endereco",
+      label: "Endereço",
+      type: "text",
+      placeholder: "Digite o endereço",
+    },
   ];
 
   const fetchSuppliers = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/suppliers');
+      const response = await axios.get("http://localhost:3000/suppliers");
       setSuppliers(response.data);
     } catch (error) {
-      console.error('Erro ao buscar fornecedores:', error);
+      console.error("Erro ao buscar fornecedores:", error);
     }
   };
 
@@ -44,7 +61,9 @@ export const useSuppliers = () => {
     if (supplierToDelete === null) return;
 
     try {
-      await axios.delete(`http://localhost:3000/suppliers?id=${supplierToDelete}`);
+      await axios.delete(
+        `http://localhost:3000/suppliers?id=${supplierToDelete}`
+      );
       fetchSuppliers();
       return true;
     } catch (error) {
@@ -72,6 +91,6 @@ export const useSuppliers = () => {
     confirmDelete,
     deleteSupplier,
     isConfirmDialogOpen,
-    setIsConfirmDialogOpen
+    setIsConfirmDialogOpen,
   };
 };

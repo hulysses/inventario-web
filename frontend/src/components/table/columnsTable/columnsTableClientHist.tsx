@@ -74,7 +74,7 @@ export const columns: ColumnDef<Order>[] = [
         },
         cell: ({ row }) => {
             const value = row.original.total;
-            return value ? `R$ ${value.toFixed(2)}` : `Valor não fornecido`
+            return value ? `R$ ${value.toFixed(2)}` : `R$ 0,00`
         }
     },
 ]
