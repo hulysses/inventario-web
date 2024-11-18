@@ -46,14 +46,10 @@ export const Orders = () => {
       if (response) {
         toast("Pedido excluído com sucesso!");
       } else {
-        toast(
-          "Erro ao excluir pedido. O mesmo pode ter itens vinculados."
-        );
+        toast("Erro ao excluir pedido. O mesmo pode ter itens vinculados.");
       }
     } catch (error) {
-      toast(
-        "Erro ao excluir pedido. O mesmo pode ter itens vinculados."
-      );
+      toast("Erro ao excluir pedido. O mesmo pode ter itens vinculados.");
     }
   };
 
@@ -105,7 +101,7 @@ export const Orders = () => {
         fields={fields}
         initialData={editingOrder || {}}
         apiEndpoint={`http://localhost:3000/orders${
-          editingOrder ? `?id=${editingOrder.id}` : ""
+          editingOrder ? `?id=${editingOrder.pedidoId}` : ""
         }`}
         method={editingOrder ? "put" : "post"}
         onSuccess={() => {

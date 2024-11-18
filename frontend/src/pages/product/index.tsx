@@ -69,7 +69,7 @@ export function Products() {
           className="bg-orange hover:bg-orangeHover text-white font-semibold mx-auto"
         >
           <Plus className="w-4 mr-1" />
-          Novo Produto
+          Novo produto
         </Button>
       </div>
       <DataTable

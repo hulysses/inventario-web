@@ -50,7 +50,10 @@ export const useProducts = () => {
     };
 
     const handleEdit = (product: Product) => {
-        setEditingProduct(product);
+        setEditingProduct({
+            ...product,
+            quantidade: product.quantidade.toString()
+        });
         setIsSheetOpen(true);
     };
 

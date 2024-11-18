@@ -71,7 +71,10 @@ export const useOrders = () => {
   };
 
   const handleEdit = (order: Order) => {
-    setEditingOrder(order);
+    setEditingOrder({
+      ...order,
+      clienteId: order.clienteId.toString(),
+    });
     setIsSheetOpen(true);
   };
 

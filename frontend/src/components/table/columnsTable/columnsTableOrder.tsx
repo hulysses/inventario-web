@@ -124,7 +124,20 @@ export const columns = ({
       return value ? `R$ ${value.toFixed(2)}` : `Valor não fornecido`;
     },
   },
-
+  {
+    accessorKey: "quantidade",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Quantidade
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
   {
     header: ({}) => {
       return (
@@ -145,7 +158,7 @@ export const columns = ({
     id: "actions",
     cell: ({ row }) => {
       const data = row.original;
-      
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
