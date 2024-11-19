@@ -21,7 +21,7 @@ export const listOrderS = () => {
                 orders.data, 
                 orders.status, 
                 orders.clienteId,
-                orders.total,
+                IFNULL(orders.total, 0) AS total,
                 COUNT(itens_order.id) AS itemsCount
             FROM orders
             LEFT JOIN itens_order ON orders.id = itens_order.pedido_id
