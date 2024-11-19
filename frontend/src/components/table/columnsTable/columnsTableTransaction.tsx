@@ -17,7 +17,7 @@ interface ColumnsProps {
 }
 
 export const columns = ({
-    getClientName, handleEdit, confirmDelete,
+    getClientName, handleEdit, confirmDelete, getSupplierName
 }: ColumnsProps): ColumnDef<Transaction>[] => [
         {
             accessorKey: "transaction_date",
@@ -58,7 +58,7 @@ export const columns = ({
             }
         },
         {
-            accessorKey: "supplier",
+            accessorKey: "supplierId",
             header: ({ column }) => {
                 return (
                     <Button
@@ -70,6 +70,12 @@ export const columns = ({
                     </Button>
                 );
             },
+            cell: ({ row }) => {
+                const supplierId = row.original.supplierId;
+                const supplierNome = getSupplierName(supplierId);
+
+                return <span>{supplierNome}</span>;
+            }
         },
         {
             accessorKey: "transaction_type",
@@ -86,7 +92,17 @@ export const columns = ({
             },
             cell: ({ row }) => {
                 const value = row.original.transaction_type;
-                return value;
+
+                const colorClass =
+                    value === "entrada" ? "bg-green-500" : "bg-red-500";
+
+                return (
+                    <div
+                        className={`flex items-center justify-center w-24 h-8 rounded text-white font-bold ${colorClass}`}
+                    >
+                        {value === "entrada" ? "Entrada" : "Saída"}
+                    </div>
+                );
             }
         },
 
@@ -105,7 +121,20 @@ export const columns = ({
             },
             cell: ({ row }) => {
                 const value = row.original.transaction_value;
-                return value ? `R$ ${value.toFixed(2)}` : `Valor não fornecido`
+                const type = row.original.transaction_type;
+
+                const colorClass =
+                    type === "entrada" ? "bg-green-500" : "bg-red-500";
+
+                return (
+                    <div className="flex items-center gap-2">
+                        <div
+                            className={`w-4 h-4 rounded ${colorClass}`}
+                            title={type}
+                        ></div>
+                        <span>{`R$ ${value},00`}</span>
+                    </div>
+                );
             }
         },
 
