@@ -15,9 +15,9 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-const statusOptions = [
-    { value: "pendente", label: "Pendente" },
-    { value: 'concluido', label: "Concluído" }
+const cashOptions = [
+    { value: "entrada", label: "Entrada" },
+    { value: 'saida', label: "Saída" }
 ]
 
 export function Sheets({
@@ -29,8 +29,9 @@ export function Sheets({
     open,
     onOpenChange,
     onSuccess,
-    selectOptions = {},
+    selectOptions,
 }: SheetProps) {
+
     const { form, submitFormData, resetForm } = useFormData(
         fields,
         initialData,
@@ -38,6 +39,8 @@ export function Sheets({
         method as 'post' | 'put',
         onSuccess
     );
+
+    console.log(selectOptions)
 
     useEffect(() => {
         if (open && initialData) {
@@ -82,7 +85,7 @@ export function Sheets({
                                                     {field.options?.map((option) => (
                                                         <FormItem className="flex items-center space-x-3 space-y-0" key={option.value}>
                                                             <FormControl>
-                                                                <RadioGroupItem value={option.value} />
+                                                                <RadioGroupItem value={option.value.toString()} />
                                                             </FormControl>
                                                             <FormLabel className="font-normal">
                                                                 {option.label}
@@ -97,15 +100,36 @@ export function Sheets({
                                                     value={formField.value}
                                                 >
                                                     <SelectTrigger>
-                                                        <SelectValue placeholder={field.placeholder}></SelectValue>
+                                                        <SelectValue
+                                                            placeholder={field.placeholder}
+                                                        ></SelectValue>
                                                     </SelectTrigger>
 
                                                     <SelectContent>
-                                                        {(field.name === 'status' ? statusOptions : selectOptions[field.name])?.map((option) => (
-                                                            <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
-                                                        ))}
+                                                        {field.name === 'transaction_type' ? (
+                                                            cashOptions.map((option) => (
+                                                                <SelectItem key={option.value} value={option.value}>
+                                                                    {option.label}
+                                                                </SelectItem>
+                                                            ))
+                                                        ) : (
+                                                            field.name === 'clientId' ? (
+                                                                selectOptions?.clientOptions.map((option) => (
+                                                                    <SelectItem key={option.value} value={option.value}>
+                                                                        {option.label}
+                                                                    </SelectItem>
+                                                                ))
+                                                            ) : field.name === 'supplierId' ? (
+                                                                selectOptions?.supplierOptions.map((option) => (
+                                                                    <SelectItem key={option.value} value={option.value}>
+                                                                        {option.label}
+                                                                    </SelectItem>
+                                                                ))
+                                                            ) : (
+                                                                <SelectItem key="none" value="none">Nenhuma opção disponível</SelectItem>
+                                                            )
+                                                        )}
                                                     </SelectContent>
-
                                                 </Select>
                                             ) : field.type === 'data' ? (
                                                 <Input

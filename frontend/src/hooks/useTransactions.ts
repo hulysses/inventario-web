@@ -14,7 +14,7 @@ export const useTransactions = () => {
     const [transactionToDelete, setTransactionToDelete] = useState<number | null>(null);
 
     const fields = [
-        { name: 'clienteId', label: 'Cliente', type: 'select', placeholder: 'Selecione o cliente', options: [] },
+        { name: 'clientId', label: 'Cliente', type: 'select', placeholder: 'Selecione o cliente', options: [] },
         { name: 'supplierId', label: 'Fornecedor', type: 'select', placeholder: 'Selecione o fornecedor' },
         { name: 'transaction_date', label: 'Data', type: 'data', placeholder: 'Selecione a data' },
         { name: 'transaction_type', label: 'Transação', type: 'select', placeholder: 'Selecione entrada ou saída' },
@@ -51,7 +51,9 @@ export const useTransactions = () => {
             } catch (error) {
                 console.error("Erro ao buscar fornecedores.");
             }
-        }
+        };
+
+        fetchSuppliers();
     }, []);
 
     const getClientName = (clientId: number): string => {
@@ -64,12 +66,19 @@ export const useTransactions = () => {
         return supplier ? supplier.nome : 'Fornecedor desconhecido';
     }
 
-    const selectOptions = {
-        clienteId: clients && clients.length > 0 ? clients.map(client => ({
+    const clientOptions = clients && clients.length > 0
+        ? clients.map(client => ({
             value: client.id.toString(),
             label: client.nome
-        })) : []
-    };
+        }))
+        : [];
+
+    const supplierOptions = suppliers && suppliers.length > 0
+        ? suppliers.map(supplier => ({
+            value: supplier.id.toString(),
+            label: supplier.nome
+        }))
+        : [];
 
     const handleEdit = (transaction: Transaction) => {
         setEditingTransaction(transaction);
@@ -119,7 +128,8 @@ export const useTransactions = () => {
         deleteTransaction,
         isConfirmDialogOpen,
         setIsConfirmDialogOpen,
-        selectOptions,
+        clientOptions,
+        supplierOptions,
         getClientName,
         getSupplierName
     };

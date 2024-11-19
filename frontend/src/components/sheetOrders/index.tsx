@@ -41,7 +41,7 @@ export function Sheets({
   open,
   onOpenChange,
   onSuccess,
-  selectOptions = {},
+  selectOptions,
 }: SheetProps) {
   const { form, submitFormData, resetForm } = useFormData(
     fields,

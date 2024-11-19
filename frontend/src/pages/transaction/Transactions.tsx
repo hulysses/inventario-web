@@ -23,7 +23,8 @@ export const Transactions = () => {
         deleteTransaction,
         isConfirmDialogOpen,
         setIsConfirmDialogOpen,
-        selectOptions,
+        clientOptions,
+        supplierOptions,
         getClientName,
         getSupplierName,
     } = useTransactions();
@@ -40,7 +41,7 @@ export const Transactions = () => {
         transactions
     );
 
-    const filters = ["transaction_type", "clienteId"];
+    const filters = ["transaction_type", "clientId"];
 
     const handleConfirmDelete = async () => {
         try {
@@ -100,7 +101,7 @@ export const Transactions = () => {
                     fetchTransactions();
                     setIsSheetOpen(false);
                 }}
-                selectOptions={selectOptions} />
+                selectOptions={{ clientOptions, supplierOptions }} />
             <ConfirmationDialog
                 isOpen={isConfirmDialogOpen}
                 onClose={() => setIsConfirmDialogOpen(false)}

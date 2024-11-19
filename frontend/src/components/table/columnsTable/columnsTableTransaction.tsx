@@ -10,7 +10,7 @@ import {
 import { Transaction } from "@/types/Transaction";
 
 interface ColumnsProps {
-    getClientName: (clienteId: number) => string;
+    getClientName: (clientId: number) => string;
     getSupplierName: (supplierId: number) => string;
     handleEdit: (transaction: Transaction) => void;
     confirmDelete: (transactionId: number) => void;
@@ -51,8 +51,8 @@ export const columns = ({
                 )
             },
             cell: ({ row }) => {
-                const clienteId = row.original.clientId;
-                const clienteNome = getClientName(clienteId);
+                const clientId = row.original.clientId;
+                const clienteNome = getClientName(clientId);
 
                 return <span>{clienteNome}</span>
             }
@@ -79,7 +79,7 @@ export const columns = ({
                         className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Total
+                        Entrada/Saída
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 );
