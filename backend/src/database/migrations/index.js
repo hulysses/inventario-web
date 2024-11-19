@@ -4,6 +4,7 @@ import { createProductTable, dropProductTable } from "./createProductTable.js";
 import { createOrderTable, dropOrderTable } from "./createOrderTable.js";
 import { createClientTable, dropClientTable } from './createClientTable.js';
 import { createItensOrdersTable } from "./createItensOrdersTable.js";
+import { createTransactionTable } from "./createTransactionTable.js";
 
 export const runMigrations = () => {
     createUserTable();
@@ -12,6 +13,7 @@ export const runMigrations = () => {
     createOrderTable();
     createProductTable();
     createItensOrdersTable();
+    createTransactionTable();
 }
 
 // Usado para excluir tabelas em caso de algum erro.

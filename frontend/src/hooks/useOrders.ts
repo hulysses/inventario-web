@@ -64,9 +64,9 @@ export const useOrders = () => {
     clienteId:
       clients && clients.length > 0
         ? clients.map((client) => ({
-            value: client.id.toString(),
-            label: client.nome,
-          }))
+          value: client.id.toString(),
+          label: client.nome,
+        }))
         : [],
   };
 

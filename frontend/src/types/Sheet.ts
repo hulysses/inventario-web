@@ -10,6 +10,7 @@ export interface SheetProps {
     onOpenChange: (open: boolean) => void,
     onSuccess: () => void,
     selectOptions?: {
-        [key: string]: Array<{ value: string, label: string }>;
-    },
+        clientOptions: { value: string; label: string }[];
+        supplierOptions: { value: string; label: string }[];
+    };
 }
