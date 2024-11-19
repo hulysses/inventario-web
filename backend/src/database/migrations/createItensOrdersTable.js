@@ -8,7 +8,7 @@ export const createItensOrdersTable = () => {
             produto_id INTEGER,
             quantidade INTEGER,
             preco_unitario REAL,
-            FOREIGN KEY (produto_id) REFERENCES product(id)
+            FOREIGN KEY (produto_id) REFERENCES product(id),
             FOREIGN KEY (pedido_id) REFERENCES orders(id)
         )
     `;

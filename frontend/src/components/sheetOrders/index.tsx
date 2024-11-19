@@ -51,6 +51,8 @@ export function Sheets({
     onSuccess
   );
 
+  const hasItems = initialData.itemsCount > 0;
+
   useEffect(() => {
     if (open && initialData) {
       Object.keys(initialData).forEach((key) => {
@@ -113,6 +115,10 @@ export function Sheets({
                           {...formField}
                           onValueChange={(value) => formField.onChange(value)}
                           value={formField.value}
+                          disabled={
+                            (method === "post" && field.name === "status") ||
+                            (field.name === "status" && !hasItems)
+                          }
                         >
                           <SelectTrigger>
                             <SelectValue

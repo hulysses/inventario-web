@@ -31,6 +31,12 @@ export const updateOrder = (req, res) => {
     const { id } = req.query;
     const { data, clienteId, status, total } = req.body;
 
+    // Fetch items count for the order
+    const order = listOrderS().find(order => order.pedidoId === parseInt(id));
+    if (status === "concluido" && order.itemsCount === 0) {
+      return res.status(400).json({ message: "Não é possível concluir um pedido sem itens." });
+    }
+
     updateOrderS(id, data, clienteId, status, total);
     res.status(200).json({ message: "Pedido atualizado com sucesso" });
   } catch (error) {

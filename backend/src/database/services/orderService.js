@@ -21,9 +21,12 @@ export const listOrderS = () => {
                 orders.data, 
                 orders.status, 
                 orders.clienteId,
-                orders.total
+                orders.total,
+                COUNT(itens_order.id) AS itemsCount
             FROM orders
-            JOIN clients ON orders.clienteId = clients.id`;
+            LEFT JOIN itens_order ON orders.id = itens_order.pedido_id
+            GROUP BY orders.id
+        `;
 
     const orders = db.prepare(sql).all();
     return orders;

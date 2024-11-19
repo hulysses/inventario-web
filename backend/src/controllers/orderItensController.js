@@ -3,10 +3,10 @@ import {
 } from "../database/services/orderItensService.js";
 
 export const registerItensOrders = (req, res) => {
-    const { produtoNome, data_adicao, produtoValor, produtoId, pedidoId } = req.body;
+    const { pedidoId, produtoId, quantidade, precoUnitario } = req.body;
 
     try {
-        const itemInserted = insertItensOrdersS(produtoNome, data_adicao, produtoValor, produtoId, pedidoId);
+        const itemInserted = insertItensOrdersS(pedidoId, produtoId, quantidade, precoUnitario);
 
         if (itemInserted) {
 
