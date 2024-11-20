@@ -69,10 +69,10 @@ export const updateProducts = (req, res) => {
     const difference = quantidade - existingProduct.quantidade;
     const data = new Date().toISOString().split("T")[0];
     const tipo = difference > 0 ? "Entrada" : difference < 0 ? "Saida" : null;
-    const valor = Math.abs(difference) * parseFloat(preco);
     const order_id = null;
 
     if (difference !== 0) {
+      const valor = Math.abs(difference) * parseFloat(preco.replace(",", "."));
       if (!insertTransactionS(data, tipo, valor, id, order_id)) {
         return res
           .status(400)
