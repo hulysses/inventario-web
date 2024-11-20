@@ -53,3 +53,14 @@ export const deleteTransactionS = (id) => {
     return false;
   }
 };
+
+export const deleteTransactionsByProductId = (product_id) => {
+  try {
+    const sql = "DELETE FROM transactions WHERE product_id = ?";
+    db.prepare(sql).run(product_id);
+    return true;
+  } catch (error) {
+    console.log("Erro ao deletar transações do produto:", error.message);
+    return false;
+  }
+};
