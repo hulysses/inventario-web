@@ -88,29 +88,7 @@ export function Sheets({
                   <FormItem>
                     <FormLabel className="font-bold">{field.label}</FormLabel>
                     <FormControl>
-                      {field.type === "radio" ? (
-                        <RadioGroup
-                          onValueChange={formField.onChange}
-                          value={formField.value}
-                          className="flex flex-col space-y-1"
-                        >
-                          {field.options?.map((option) => (
-                            <FormItem
-                              className="flex items-center space-x-3 space-y-0"
-                              key={option.value}
-                            >
-                              <FormControl>
-                                <RadioGroupItem
-                                  value={option.value.toString()}
-                                />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                {option.label}
-                              </FormLabel>
-                            </FormItem>
-                          ))}
-                        </RadioGroup>
-                      ) : field.type === "select" ? (
+                      {field.type === "select" ? (
                         <Select
                           {...formField}
                           onValueChange={(value) => formField.onChange(value)}
