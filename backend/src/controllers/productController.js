@@ -6,7 +6,10 @@ import {
   listProductWithSuppliers,
   getProductById,
 } from "../database/services/productService.js";
-import { insertTransactionS, deleteTransactionsByProductId } from "../database/services/transactionService.js";
+import {
+  insertTransactionS,
+  deleteTransactionsByProductId,
+} from "../database/services/transactionService.js";
 
 export const registerProduct = (req, res) => {
   const { nome, descricao, preco, quantidade, imagem, supplier_id } = req.body;
@@ -21,7 +24,7 @@ export const registerProduct = (req, res) => {
   );
 
   if (productId) {
-    const valor = parseInt(quantidade) * parseFloat(preco);
+    const valor = parseFloat(quantidade) * parseFloat(preco.replace(",", "."));
     const data = new Date().toISOString().split("T")[0];
     const tipo = "Entrada";
     const order_id = null;
@@ -59,8 +62,9 @@ export const listProductsSupplier = (req, res) => {
 export const updateProducts = (req, res) => {
   try {
     const { id } = req.query;
-    const { nome, descricao, preco, quantidade, imagem, supplier_id } = req.body;
-    
+    const { nome, descricao, preco, quantidade, imagem, supplier_id } =
+      req.body;
+
     const existingProduct = getProductById(id);
     const difference = quantidade - existingProduct.quantidade;
     const data = new Date().toISOString().split("T")[0];
@@ -89,7 +93,9 @@ export const deleteProducts = (req, res) => {
 
     // Delete transactions associated with the product
     if (!deleteTransactionsByProductId(id)) {
-      return res.status(400).json({ message: "Erro ao deletar transações do produto." });
+      return res
+        .status(400)
+        .json({ message: "Erro ao deletar transações do produto." });
     }
 
     deleteProduct(id);
