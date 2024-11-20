@@ -29,6 +29,9 @@ export function Home() {
   const [transactionType, setTransactionType] = useState("Todos");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [salesReport, setSalesReport] = useState([]);
+  const [reportStartDate, setReportStartDate] = useState(null);
+  const [reportEndDate, setReportEndDate] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3000/home/reportproduct")
@@ -40,9 +43,27 @@ export function Home() {
     fetch("http://localhost:3000/home/reporttransaction")
       .then((response) => response.json())
       .then((data) => setTransactions(data));
-
-    console.log(transactions);
   }, []);
+
+  useEffect(() => {
+    if (reportStartDate && reportEndDate) {
+      fetch(
+        `http://localhost:3000/orders/home/reportsales?startDate=${reportStartDate.toISOString()}&endDate=${reportEndDate.toISOString()}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // Format date to Brazilian standard
+          data.forEach(report => {
+            report.groupByField = new Date(report.groupByField).toLocaleDateString("pt-BR");
+          });
+          setSalesReport(data);
+        })
+        .catch(error => {
+          console.error("Erro ao buscar relatório de vendas:", error);
+          setSalesReport([]);
+        });
+    }
+  }, [reportStartDate, reportEndDate]);
 
   const suppliers = useMemo(
     () => ["Todos", ...new Set(products.map((p) => p.supplier_name))],
@@ -128,7 +149,7 @@ export function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-grow overflow-hidden flex flex-col">
-          <div className="flex mb-6 justify-end gap-2">
+          <div className="flex mb-6 justify-end gap-1">
             <Select onValueChange={setTransactionType} value={transactionType}>
               <SelectTrigger className="h-11 w-[144px]">
                 <SelectValue placeholder="Selecione tipo" />
@@ -197,6 +218,78 @@ export function Home() {
                     </TableCell>
                   </TableRow>
                 ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="flex flex-col h-[calc(100vh-5.6rem)] overflow-hidden">
+        <CardHeader>
+          <CardTitle>Relatório de Vendas</CardTitle>
+          <CardDescription>
+            Total de vendas realizadas em um período:
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex-grow overflow-hidden flex flex-col">
+          <div className="flex mb-6 justify-end gap-1">
+            <input
+              type="date"
+              value={
+                reportStartDate
+                  ? reportStartDate.toISOString().split("T")[0]
+                  : ""
+              }
+              onChange={(e) =>
+                setReportStartDate(
+                  e.target.value ? new Date(e.target.value) : null
+                )
+              }
+              className="border rounded p-2"
+              placeholder="Data Inicial"
+            />
+            <input
+              type="date"
+              value={
+                reportEndDate ? reportEndDate.toISOString().split("T")[0] : ""
+              }
+              onChange={(e) =>
+                setReportEndDate(
+                  e.target.value ? new Date(e.target.value) : null
+                )
+              }
+              className="border rounded p-2"
+              placeholder="Data Final"
+            />
+          </div>
+          <div className="overflow-auto flex-grow">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Data</TableHead>
+                  <TableHead>Total de Vendas</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {Array.isArray(salesReport) && salesReport.length > 0 ? (
+                  salesReport.map((report, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{report.groupByField}</TableCell>
+                      <TableCell className="text-right">
+                        {report.totalSales.toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={2} className="text-center">
+                      Nenhum dado encontrado
+                    </TableCell>
+                  </TableRow>
+                )}
               </TableBody>
             </Table>
           </div>

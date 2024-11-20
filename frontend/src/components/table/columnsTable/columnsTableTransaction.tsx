@@ -36,7 +36,7 @@ export const columns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => {
       const dateValue = row.original.data;
       return dateValue
-        ? new Date(dateValue).toLocaleDateString()
+        ? new Date(dateValue).toLocaleDateString("pt-BR", { timeZone: "UTC" })
         : "Data inválida";
     },
   },

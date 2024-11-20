@@ -4,6 +4,7 @@ import {
   updateOrderS,
   listOrderS,
   getTotalOrder,
+  getSalesReportS,
 } from "../database/services/orderService.js";
 import {
   deleteAllItensOrders,
@@ -74,5 +75,16 @@ export const deleteOrder = (req, res) => {
   } catch (error) {
     console.error("Erro ao deletar pedido:", error);
     res.status(500).json({ message: "Erro ao deletar pedido" });
+  }
+};
+
+export const getSalesReport = (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    const salesReport = getSalesReportS(startDate, endDate);
+    res.status(200).json(salesReport);
+  } catch (error) {
+    console.error("Erro ao buscar relatório de vendas:", error);
+    res.status(500).json({ message: "Erro ao buscar relatório de vendas" });
   }
 };

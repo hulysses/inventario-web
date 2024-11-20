@@ -69,3 +69,23 @@ export const getTotalOrder = (id) => {
     throw new Error("Erro ao buscar total do pedido");
   }
 };
+
+export const getSalesReportS = (startDate, endDate) => {
+  try {
+    const sql = `
+      SELECT 
+        DATE(data) AS groupByField, 
+        SUM(total) AS totalSales 
+      FROM orders 
+      WHERE data BETWEEN ? AND ? 
+        AND status = 'concluido'
+      GROUP BY DATE(data)
+    `;
+
+    const salesReport = db.prepare(sql).all(startDate, endDate);
+    return salesReport;
+  } catch (error) {
+    console.error("Erro ao buscar relatório de vendas:", error);
+    throw new Error("Erro ao buscar relatório de vendas");
+  }
+};
