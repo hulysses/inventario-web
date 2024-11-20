@@ -64,3 +64,14 @@ export const deleteTransactionsByProductId = (product_id) => {
     return false;
   }
 };
+
+export const deleteTransactionsByOrderId = (order_id) => {
+  try {
+    const sql = "DELETE FROM transactions WHERE order_id = ?";
+    db.prepare(sql).run(order_id);
+    return true;
+  } catch (error) {
+    console.log("Erro ao deletar transações do pedido:", error.message);
+    return false;
+  }
+};

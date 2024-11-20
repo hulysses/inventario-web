@@ -74,6 +74,17 @@ export const updateProduct = (
   }
 };
 
+export const updateProductQuantity = (product_id, quantityChange) => {
+  try {
+    const sql = "UPDATE product SET quantidade = quantidade + ? WHERE id = ?";
+    db.prepare(sql).run(quantityChange, product_id);
+    return true;
+  } catch (error) {
+    console.log("Erro ao atualizar quantidade do produto:", error.message);
+    return false;
+  }
+};
+
 export const deleteProduct = (id) => {
   try {
     const sql = "DELETE FROM product WHERE id = ?";

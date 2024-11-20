@@ -4,7 +4,8 @@ import {
   updateOrderS,
   listOrderS,
 } from "../database/services/orderService.js";
-import { deleteAllItensOrders } from "../database/services/orderItensService.js";
+import { deleteAllItensOrders, returnItensToStock } from "../database/services/orderItensService.js";
+import { deleteTransactionsByOrderId } from "../database/services/transactionService.js";
 
 export const registerOrder = (req, res) => {
   const { data, clienteId, status, total } = req.body;
@@ -48,12 +49,18 @@ export const updateOrder = (req, res) => {
 export const deleteOrder = (req, res) => {
   try {
     const { id } = req.query;
-    if (deleteAllItensOrders(id)) {
-      deleteOrderS(id);
+
+    if (returnItensToStock(id)) {
+      if (deleteAllItensOrders(id)) {
+        deleteTransactionsByOrderId(id);
+        deleteOrderS(id);
+        res.status(200).json({ message: "Pedido deletado com sucesso" });
+      } else {
+        res.status(400).json({ message: "Erro ao deletar itens do pedido." });
+      }
     } else {
-      console.log("Erro ao deletar pedido");
+      res.status(400).json({ message: "Erro ao retornar itens ao estoque." });
     }
-    res.status(200).json({ message: "Pedido deletado com sucesso" });
   } catch (error) {
     console.error("Erro ao deletar pedido:", error);
     res.status(500).json({ message: "Erro ao deletar pedido" });
