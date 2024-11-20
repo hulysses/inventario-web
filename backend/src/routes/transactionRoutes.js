@@ -5,6 +5,7 @@ import { deleteTransaction, listTransaction, registerTransaction, updateTransact
 const router = express.Router();
 
 router.get('/transactions', listTransaction);
+router.get('/home/reporttransaction', listTransaction);
 router.post('/transactions', registerTransaction);
 router.put('/transactions', updateTransaction);
 router.delete('/transactions', deleteTransaction);

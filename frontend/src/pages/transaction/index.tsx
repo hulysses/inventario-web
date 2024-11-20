@@ -8,7 +8,7 @@ export const Transactions = () => {
   const { transactions } = useTransactions();
   const { table } = useDataTable(columns, transactions);
   const transactionQuantity = transactions.length;
-  const filters = ["tipo"];
+  const filters = ["tipo", "data"];
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 bg-background mx-7 mb-7 rounded-xl">

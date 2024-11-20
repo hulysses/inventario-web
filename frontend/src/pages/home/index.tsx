@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect, useMemo } from "react";
 import {
   Card,
@@ -23,21 +21,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 
 export function Home() {
   const [products, setProducts] = useState([]);
   const [selectedSupplier, setSelectedSupplier] = useState("Todos");
+  const [transactions, setTransactions] = useState([]);
+  const [transactionType, setTransactionType] = useState("Todos");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/home/report")
+    fetch("http://localhost:3000/home/reportproduct")
       .then((response) => response.json())
       .then((data) => setProducts(data));
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/home/reporttransaction")
+      .then((response) => response.json())
+      .then((data) => setTransactions(data));
+
+    console.log(transactions);
   }, []);
 
   const suppliers = useMemo(
@@ -53,12 +57,16 @@ export function Home() {
     );
   }, [selectedSupplier, products]);
 
-  const chartConfig = {
-    quantidade: {
-      label: "Quantidade",
-      color: "#023E8A",
-    },
-  };
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter((transaction) => {
+      const isTypeMatch =
+        transactionType === "Todos" || transaction.tipo === transactionType;
+      const isDateMatch =
+        (!startDate || new Date(transaction.data) >= new Date(startDate)) &&
+        (!endDate || new Date(transaction.data) <= new Date(endDate));
+      return isTypeMatch && isDateMatch;
+    });
+  }, [transactionType, startDate, endDate, transactions]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-7 mb-7">
@@ -75,7 +83,7 @@ export function Home() {
               onValueChange={setSelectedSupplier}
               value={selectedSupplier}
             >
-              <SelectTrigger className="mt-2 w-[180px]">
+              <SelectTrigger className="h-11 w-[144px]">
                 <SelectValue placeholder="Selecione fornecedor" />
               </SelectTrigger>
               <SelectContent>
@@ -111,32 +119,89 @@ export function Home() {
           </div>
         </CardContent>
       </Card>
-      {[2, 3].map((cardNumber) => (
-        <Card
-          key={cardNumber}
-          className="flex flex-col h-[calc(100vh-5.6rem)] overflow-hidden"
-        >
-          <CardHeader>
-            <CardTitle>Dashboard {cardNumber}</CardTitle>
-            <CardDescription>Performance Overview</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-grow">
-            <ChartContainer config={chartConfig} className="w-full h-full">
-              <BarChart data={products}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="nome" />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar
-                  dataKey="quantidade"
-                  fill="var(--color-quantidade)"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-      ))}
+
+      <Card className="flex flex-col h-[calc(100vh-5.6rem)] overflow-hidden">
+        <CardHeader>
+          <CardTitle>Relatório de Transações</CardTitle>
+          <CardDescription>
+            Exibe todas as transações financeiras. Filtre por tipo e período:
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex-grow overflow-hidden flex flex-col">
+          <div className="flex mb-6 justify-end gap-2">
+            <Select onValueChange={setTransactionType} value={transactionType}>
+              <SelectTrigger className="h-11 w-[144px]">
+                <SelectValue placeholder="Selecione tipo" />
+              </SelectTrigger>
+              <SelectContent>
+                {["Todos", "Entrada", "Saída"].map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <input
+              type="date"
+              value={startDate ? startDate.toISOString().split("T")[0] : ""}
+              onChange={(e) =>
+                setStartDate(e.target.value ? new Date(e.target.value) : null)
+              }
+              className="border rounded p-2"
+              placeholder="Data Inicial"
+            />
+            <input
+              type="date"
+              value={endDate ? endDate.toISOString().split("T")[0] : ""}
+              onChange={(e) =>
+                setEndDate(e.target.value ? new Date(e.target.value) : null)
+              }
+              className="border rounded p-2"
+              placeholder="Data Final"
+            />
+          </div>
+          <div className="overflow-auto flex-grow">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Data</TableHead>
+                  <TableHead>Tipo</TableHead>
+                  <TableHead>Valor</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredTransactions.map((transaction) => (
+                  <TableRow key={transaction.id}>
+                    <TableCell>
+                      {new Date(
+                        new Date(transaction.data).getTime() +
+                          new Date(transaction.data).getTimezoneOffset() * 60000
+                      ).toLocaleDateString("pt-BR")}
+                    </TableCell>
+                    <TableCell
+                      className={
+                        transaction.tipo === "Entrada"
+                          ? "font-bold text-red-500"
+                          : transaction.tipo === "Saída"
+                          ? "font-bold text-green-500"
+                          : ""
+                      }
+                    >
+                      {transaction.tipo}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {transaction.valor.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
