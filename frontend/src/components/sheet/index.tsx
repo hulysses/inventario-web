@@ -42,7 +42,6 @@ export function Sheets({
     {
       ...initialData,
       clienteId: initialData.clienteId?.toString() || "",
-      quantidade: initialData.quantidade?.toString() || "",
     },
     apiEndpoint as string,
     method as "post" | "put",
