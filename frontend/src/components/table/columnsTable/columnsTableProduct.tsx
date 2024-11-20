@@ -85,15 +85,13 @@ export const columns = (
     accessorKey: "preco",
     header: ({ column }) => {
       return (
-        <div className="text-center">
-          <Button
-            className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Preço
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
+        <Button
+          className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Preço
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
       );
     },
     cell: ({ row }) => {
@@ -108,30 +106,28 @@ export const columns = (
           style: "currency",
           currency: "BRL",
         }).format(preco);
-        return <div className="text-right">{formatted}</div>;
+        return formatted;
       }
 
-      return <div className="text-right">Valor inválido</div>;
+      return <div>Valor inválido</div>;
     },
   },
   {
     accessorKey: "quantidade",
     header: ({ column }) => {
       return (
-        <div className="text-center">
-          <Button
-            className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Quantidade
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
+        <Button
+          className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Quantidade
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
       );
     },
     cell: ({ row }) => {
       const quantidade = row.getValue("quantidade") as number;
-      return <div className="text-right">{quantidade}</div>;
+      return <div>{quantidade}</div>;
     },
   },
   {
