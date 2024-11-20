@@ -50,16 +50,13 @@ export const DrawerOrder = ({ pedidoId }: DrawerOrderProps) => {
 
   return (
     <Drawer>
-      <DrawerTrigger
-        type="button"
-        className="flex rounded-md border-gray-200 pl-3 pt-3 pr-3 pb-2 mr-5"
-      >
-        Mais detalhes <ArrowRight className="ml-1" />
+      <DrawerTrigger type="button" className="flex rounded-md border-gray-200 ">
+        Visualizar <ArrowRight className="ml-1" />
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <div className="flex items-center justify-between space-x-2">
-            <DrawerTitle>Lista de Itens</DrawerTitle>
+            <DrawerTitle>Itens do pedido</DrawerTitle>
             <div className="flex items-center justify-end space-x-2">
               <ComboboxOrder pedidoId={pedidoId} />
             </div>

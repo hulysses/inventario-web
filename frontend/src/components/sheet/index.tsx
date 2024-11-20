@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { SheetProps } from "@/types/Sheet";
+import { useEffect, useState } from "react";
 import { useFormData } from "@/hooks/useForm";
 import { isValidImageUrl } from "@/helpers/productHelper";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -41,8 +41,6 @@ export function Sheets({
     fields,
     {
       ...initialData,
-      clienteId: initialData.clienteId?.toString() || "", 
-      quantidade: initialData.quantidade?.toString() || "",
     },
     apiEndpoint as string,
     method as "post" | "put",
@@ -58,7 +56,9 @@ export function Sheets({
   useEffect(() => {
     if (open && initialData) {
       Object.keys(initialData).forEach((key) => {
-        form.setValue(key, initialData[key]);
+        if (form.getValues(key) !== initialData[key]) {
+          form.setValue(key, initialData[key]);
+        }
       });
     }
   }, [open, initialData, form]);
@@ -71,13 +71,17 @@ export function Sheets({
   };
 
   useEffect(() => {
-    const imageField = form.watch("imagem"); // Observar mudanças no campo de imagem
-    if (imageField) {
-      isValidImageUrl(imageField).then((isValid) => setIsImageValid(isValid));
-    } else {
-      setIsImageValid(false);
-    }
-  }, [form.watch("imagem")]);
+    const subscription = form.watch((value) => {
+      if (value.imagem) {
+        isValidImageUrl(value.imagem).then((isValid) =>
+          setIsImageValid(isValid)
+        );
+      } else {
+        setIsImageValid(false);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   return (
     <Sheet open={open} onOpenChange={handleSheetOpenChange}>
@@ -112,7 +116,7 @@ export function Sheets({
                             >
                               <FormControl>
                                 <RadioGroupItem
-                                  value={option.value.toString()}
+                                  value={option.value}
                                 />
                               </FormControl>
                               <FormLabel className="font-normal">

@@ -1,8 +1,8 @@
 export type Transaction = {
-    id: number,
-    supplierId: number,
-    clientId: number,
-    transaction_type: string,
-    transaction_date: Date
-    transaction_value: number
-}
+  id: number;
+  data: Date;
+  tipo: string;
+  valor: number;
+  product_id: number;
+  order_id: number;
+};

@@ -6,7 +6,7 @@ import { Suppliers } from "./pages/supplier";
 import { Products } from "./pages/product";
 import { ClientTable } from "@/pages/client";
 import { AppSidebar } from "./components/sidebar/menuSideBar";
-import { Transactions } from "./pages/transaction/Transactions";
+import { Transactions } from "./pages/transaction";
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,13 +15,13 @@ import {
 } from "react-router-dom";
 import { Orders } from "./pages/orders";
 
-
 export function App() {
   // Estados que verifica se o usuário está logado e se é adiministrador, respectivamente
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [isUserAdmin, setIsUserAdmin] = useState<boolean | null>(null);
 
   //Hook para verificar se o usuário está logado e se é administrador e alterar os estados
+  
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     const isAdmin = JSON.parse(localStorage.getItem("isAdmin") || "false");

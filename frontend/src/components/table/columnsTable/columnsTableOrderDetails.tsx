@@ -44,52 +44,64 @@ export const columns = (
       },
     },
     {
-      accessorKey: "data_adicao",
+      accessorKey: "nome",
       header: ({ column }) => {
         return (
           <Button
             className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Data de Adição
+            Item
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => row.original.nome,
+    },
+    {
+      accessorKey: "preco_unitario",
+      header: ({ column }) => {
+        return (
+          <Button
+            className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Preço unitário
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
       },
       cell: ({ row }) => {
-        const dateValue = row.original.data_adicao;
-        return dateValue ? new Date(dateValue).toLocaleDateString() : "N/A";
+        let preco = row.getValue("preco_unitario");
+        if (typeof preco === "string") {
+          preco = parseFloat(preco.replace(",", "."));
+        }
+
+        if (typeof preco === "number" && !isNaN(preco)) {
+          const formatted = new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(preco);
+          return formatted;
+        }
+
+        return <div>Valor inválido</div>;
       },
     },
     {
-      accessorKey: "produtoNome",
+      accessorKey: "quantidade",
       header: ({ column }) => {
         return (
           <Button
             className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Nome do Item
+            Quantidade
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
       },
-      cell: ({ row }) => row.original.produtoNome,
-    },
-    {
-      accessorKey: "produtoValor",
-      header: ({ column }) => {
-        return (
-          <Button
-            className="text-base font-semibold bg-inherit hover:bg-inherit pl-0"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Valor
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
-      cell: ({ row }) => row.original.produtoValor,
+      cell: ({ row }) => row.original.quantidade,
     },
     {
       id: "delete",
@@ -98,7 +110,11 @@ export const columns = (
         const itemId = row.original.id;
         return (
           <>
-            <Button onClick={() => confirmDelete(itemId)} variant="ghost">
+            <Button
+              onClick={() => confirmDelete(itemId)}
+              variant="ghost"
+              className="hover:bg-inherit p-0"
+            >
               <Trash2 />
             </Button>
             {isOpen && (

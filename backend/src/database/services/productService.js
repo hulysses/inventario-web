@@ -11,16 +11,11 @@ export const insertProduct = (
   try {
     const sql =
       "INSERT INTO product (nome, descricao, preco, quantidade, imagem, supplier_id) VALUES (?, ?, ?, ?, ?, ?)";
-    db.prepare(sql).run(
-      nome,
-      descricao,
-      preco,
-      quantidade,
-      imagem,
-      supplier_id
-    );
+    const result = db
+      .prepare(sql)
+      .run(nome, descricao, preco, quantidade, imagem, supplier_id);
 
-    return true;
+    return result.lastInsertRowid;
   } catch (error) {
     console.log("Erro ao inserir produto:", error.message);
     return false;
@@ -79,6 +74,17 @@ export const updateProduct = (
   }
 };
 
+export const updateProductQuantity = (product_id, quantityChange) => {
+  try {
+    const sql = "UPDATE product SET quantidade = quantidade + ? WHERE id = ?";
+    db.prepare(sql).run(quantityChange, product_id);
+    return true;
+  } catch (error) {
+    console.log("Erro ao atualizar quantidade do produto:", error.message);
+    return false;
+  }
+};
+
 export const deleteProduct = (id) => {
   try {
     const sql = "DELETE FROM product WHERE id = ?";
@@ -87,5 +93,16 @@ export const deleteProduct = (id) => {
   } catch (error) {
     console.log("Erro ao deletar produto:", error.message);
     return false;
+  }
+};
+
+export const getProductById = (id) => {
+  try {
+    const sql = "SELECT * FROM product WHERE id = ?";
+    const product = db.prepare(sql).get(id);
+    return product;
+  } catch (error) {
+    console.log("Erro ao buscar produto:", error.message);
+    return null;
   }
 };

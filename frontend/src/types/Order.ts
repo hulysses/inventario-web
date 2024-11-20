@@ -4,5 +4,5 @@ export type Order = {
     data: Date,
     clienteId: number,
     status: string, // Pendente ou Concluído
-    total: number
+    total: string
 }
