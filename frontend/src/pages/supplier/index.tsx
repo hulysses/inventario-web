@@ -60,18 +60,14 @@ export function Suppliers() {
         <h1 className="font-bold text-2xl -ml-0 flex mx-auto">
           Fornecedores <p className="ml-5 text-gray-400">{supplierQuantity}</p>
         </h1>
-        {filters.map(
-          (
-            column // Mapeia os filtros e os renderiza
-          ) => (
-            <TableFilter
-              key={column}
-              table={table}
-              column={column}
-              placeholder={`Filtrar ${column} ...`}
-            />
-          )
-        )}
+        {filters.map((column) => (
+          <TableFilter
+            key={column}
+            table={table}
+            column={column}
+            placeholder={`Filtrar ${column} ...`}
+          />
+        ))}
         <Button
           disabled={!isAdmin}
           onClick={handleCreate}

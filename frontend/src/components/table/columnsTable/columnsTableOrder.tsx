@@ -121,7 +121,6 @@ export const columns = ({
     },
     cell: ({ row }) => {
       let total = row.getValue("total");
-      console.log(total);
       if (typeof total === "string") {
         total = parseFloat(total.replace(",", "."));
       }

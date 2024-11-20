@@ -64,9 +64,9 @@ export const useOrders = () => {
     clienteId:
       clients && clients.length > 0
         ? clients.map((client) => ({
-          value: client.id.toString(),
-          label: client.nome,
-        }))
+            value: client.id.toString(),
+            label: client.nome,
+          }))
         : [],
   };
 
@@ -89,7 +89,6 @@ export const useOrders = () => {
   };
 
   const deleteOrder = async () => {
-    console.log("orderToDelete", orderToDelete);
     if (orderToDelete == null) return;
 
     try {

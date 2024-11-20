@@ -1,136 +1,46 @@
-import { Client } from "@/types/Client";
-import { Supplier } from "@/types/Supplier";
-import { Transaction } from "@/types/Transaction";
 import axios from "axios";
+import { Product } from "@/types/Product";
 import { useEffect, useState } from "react";
+import { Transaction } from "@/types/Transaction";
 
 export const useTransactions = () => {
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
-    const [clients, setClients] = useState<Client[]>([]);
-    const [suppliers, setSuppliers] = useState<Supplier[]>([]);
-    const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
-    const [isSheetOpen, setIsSheetOpen] = useState(false);
-    const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
-    const [transactionToDelete, setTransactionToDelete] = useState<number | null>(null);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
-    const fields = [
-        { name: 'clientId', label: 'Cliente', type: 'select', placeholder: 'Selecione o cliente', options: [] },
-        { name: 'supplierId', label: 'Fornecedor', type: 'select', placeholder: 'Selecione o fornecedor' },
-        { name: 'transaction_date', label: 'Data', type: 'data', placeholder: 'Selecione a data' },
-        { name: 'transaction_type', label: 'Transação', type: 'select', placeholder: 'Selecione entrada ou saída' },
-        { name: 'transaction_value', label: "Valor", type: 'input', placeholder: 'Informe o valor da transação' }
-    ];
+  const fetchTransactions = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/transactions");
+      setTransactions(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar transações:", error);
+    }
+  };
 
-    const fetchTransactions = async () => {
-        try {
-            const response = await axios.get('http://localhost:3000/transactions');
-            setTransactions(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar transações:', error);
-        }
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
+
+  useEffect(() => {
+    const fetchProduto = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/products");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar produto:", error);
+      }
     };
 
-    useEffect(() => {
-        const fetchClients = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/clients');
-                setClients(response.data);
-            } catch (error) {
-                console.error('Erro ao buscar clientes:', error);
-            }
-        };
+    fetchProduto();
+  }, []);
 
-        fetchClients();
-    }, []);
+  const getProductName = (product_id: number): string => {
+    const product = products.find((product) => product.id === product_id);
+    return product ? product.nome : "Produto desconhecido";
+  };
 
-    useEffect(() => {
-        const fetchSuppliers = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/suppliers');
-                setSuppliers(response.data);
-            } catch (error) {
-                console.error("Erro ao buscar fornecedores.");
-            }
-        };
-
-        fetchSuppliers();
-    }, []);
-
-    const getClientName = (clientId: number): string => {
-        const client = clients.find((client) => client.id === clientId);
-        return client ? client.nome : 'Cliente desconhecido';
-    }
-
-    const getSupplierName = (supplierId: number): string => {
-        const supplier = suppliers.find((supplier) => supplier.id === supplierId);
-        return supplier ? supplier.nome : 'Fornecedor desconhecido';
-    }
-
-    const clientOptions = clients && clients.length > 0
-        ? clients.map(client => ({
-            value: client.id.toString(),
-            label: client.nome
-        }))
-        : [];
-
-    const supplierOptions = suppliers && suppliers.length > 0
-        ? suppliers.map(supplier => ({
-            value: supplier.id.toString(),
-            label: supplier.nome
-        }))
-        : [];
-
-    const handleEdit = (transaction: Transaction) => {
-        setEditingTransaction(transaction);
-        setIsSheetOpen(true);
-    }
-
-    const handleCreate = () => {
-        setEditingTransaction(null);
-        setIsSheetOpen(true);
-    };
-
-    const confirmDelete = (transactionId: number) => {
-        setTransactionToDelete(transactionId);
-        setIsConfirmDialogOpen(true);
-    }
-
-    const deleteTransaction = async () => {
-        if (transactionToDelete == null) return;
-
-        try {
-            await axios.delete(`http://localhost:3000/transactions?id=${transactionToDelete}`);
-            fetchTransactions();
-            return true;
-        } catch (error) {
-            console.error("Erro ao deletar pedido:", error);
-            return false;
-        } finally {
-            setIsConfirmDialogOpen(false);
-            setTransactionToDelete(null);
-        }
-    };
-
-    useEffect(() => {
-        fetchTransactions();
-    }, []);
-
-    return {
-        transactions,
-        fetchTransactions,
-        fields,
-        editingTransaction,
-        handleEdit,
-        handleCreate,
-        isSheetOpen,
-        setIsSheetOpen,
-        confirmDelete,
-        deleteTransaction,
-        isConfirmDialogOpen,
-        setIsConfirmDialogOpen,
-        clientOptions,
-        supplierOptions,
-        getClientName,
-        getSupplierName
-    };
-}
+  return {
+    transactions,
+    fetchTransactions,
+    getProductName,
+  };
+};

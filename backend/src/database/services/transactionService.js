@@ -1,21 +1,21 @@
 import { db } from "../db.js";
 
 export const insertTransactionS = (
-  clientId,
-  supplierId,
-  transaction_type,
-  transaction_date,
-  transaction_value
+  data,
+  tipo,
+  valor,
+  product_id,
+  order_id
 ) => {
   try {
     const sql =
-      "INSERT INTO transactions (clientId, supplierId, transaction_type, transaction_date, transaction_value) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO transactions (data, tipo, valor, product_id, order_id) VALUES (?, ?, ?, ?, ?)";
     db.prepare(sql).run(
-      clientId,
-      supplierId,
-      transaction_type,
-      transaction_date,
-      transaction_value
+      data,
+      tipo,
+      valor,
+      product_id,
+      order_id
     );
 
     return true;
@@ -37,21 +37,23 @@ export const listTransactionS = () => {
 };
 
 export const updateTransactionS = (
-  clientId,
-  supplierId,
-  transaction_type,
-  transaction_date,
-  transaction_value
+  id,
+  data,
+  tipo,
+  valor,
+  product_id,
+  order_id
 ) => {
   try {
     const sql =
-      "UPDATE transactions SET clientId = ?, supplierId = ?, transaction_type = ?, transaction_date =  ?, transaction_value WHERE id = ?";
+      "UPDATE transactions SET data = ?, tipo = ?, valor = ?, product_id = ?, order_id = ? WHERE id = ?";
     db.prepare(sql).run(
-      clientId,
-      supplierId,
-      transaction_type,
-      transaction_date,
-      transaction_value
+      data,
+      tipo,
+      valor,
+      product_id,
+      order_id,
+      id
     );
     return true;
   } catch (error) {
