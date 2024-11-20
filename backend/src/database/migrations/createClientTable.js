@@ -1,7 +1,7 @@
-import { db } from '../db.js';
+import { db } from "../db.js";
 
 export const createClientTable = () => {
-    const sql = `
+  const sql = `
         CREATE TABLE IF NOT EXISTS clients (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT,
@@ -10,11 +10,11 @@ export const createClientTable = () => {
             endereco TEXT
         )
     `;
-    db.prepare(sql).run();
+  db.prepare(sql).run();
 };
 
 export const dropClientTable = () => {
-    const sql = 'DROP TABLE IF EXISTS clients';
-    db.exec(sql);
-    console.log('Tabela "clients" deletada com sucesso.');
-}
+  const sql = "DROP TABLE IF EXISTS clients";
+  db.exec(sql);
+  console.log('Tabela "clients" deletada com sucesso.');
+};

@@ -52,7 +52,6 @@ export function Home() {
       )
         .then((response) => response.json())
         .then((data) => {
-          // Format date to Brazilian standard
           data.forEach(report => {
             report.groupByField = new Date(report.groupByField).toLocaleDateString("pt-BR");
           });

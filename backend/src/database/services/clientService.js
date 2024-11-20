@@ -1,53 +1,58 @@
 import { db } from "../db.js";
 
-export const insertClientS = (nome, cpf_cnpj, contato, endereco) => {
+const executeQuery = (sql, params = []) => {
   try {
-    const sql =
-      "INSERT INTO clients (nome, cpf_cnpj, contato, endereco) VALUES (?, ?, ?, ?)";
-    db.prepare(sql).run(nome, cpf_cnpj, contato, endereco);
-
-    return true;
+    return db.prepare(sql).run(...params);
   } catch (error) {
-    console.log("Erro ao inserir cliente:", error.message);
-    return false;
+    console.error("Database error:", error.message);
+    throw new Error("Database operation failed");
   }
+};
+
+const fetchAll = (sql, params = []) => {
+  try {
+    return db.prepare(sql).all(...params);
+  } catch (error) {
+    console.error("Database error:", error.message);
+    throw new Error("Database operation failed");
+  }
+};
+
+const fetchOne = (sql, params = []) => {
+  try {
+    return db.prepare(sql).get(...params);
+  } catch (error) {
+    console.error("Database error:", error.message);
+    throw new Error("Database operation failed");
+  }
+};
+
+export const insertClientS = (nome, cpf_cnpj, contato, endereco) => {
+  const sql =
+    "INSERT INTO clients (nome, cpf_cnpj, contato, endereco) VALUES (?, ?, ?, ?)";
+  executeQuery(sql, [nome, cpf_cnpj, contato, endereco]);
+  return true;
 };
 
 export const listClientS = () => {
-  try {
-    const sql = "SELECT * FROM clients";
-    const clients = db.prepare(sql).all();
-    return clients;
-  } catch (error) {
-    console.error("Erro ao listar clientes:", error);
-    throw new Error("Erro ao listar clientes");
-  }
+  const sql = "SELECT * FROM clients";
+  return fetchAll(sql);
 };
 
 export const updateClientS = (id, nome, cpf_cnpj, contato, endereco) => {
-  try {
-    const sql =
-      "UPDATE clients SET nome = ?, cpf_cnpj = ?, contato = ?, endereco =  ? WHERE id = ?";
-    db.prepare(sql).run(nome, cpf_cnpj, contato, endereco, id);
-    return true;
-  } catch (error) {
-    console.log("Erro ao atualizar cliente:", error.message);
-    return false;
-  }
+  const sql =
+    "UPDATE clients SET nome = ?, cpf_cnpj = ?, contato = ?, endereco = ? WHERE id = ?";
+  executeQuery(sql, [nome, cpf_cnpj, contato, endereco, id]);
+  return true;
 };
 
 export const deleteClientS = (id) => {
-  try {
-    const sql = "DELETE FROM clients WHERE id = ?";
-    db.prepare(sql).run(id);
-    return true;
-  } catch (error) {
-    console.log("Erro ao deletar cliente:", error.message);
-    return false;
-  }
+  const sql = "DELETE FROM clients WHERE id = ?";
+  executeQuery(sql, [id]);
+  return true;
 };
 
 export const findByCpfCnpj = (cpf_cnpj) => {
   const sql = "SELECT * FROM clients WHERE cpf_cnpj = ?";
-  return db.prepare(sql).get(cpf_cnpj);
+  return fetchOne(sql, [cpf_cnpj]);
 };

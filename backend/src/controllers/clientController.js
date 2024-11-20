@@ -7,19 +7,23 @@ import {
 } from "../database/services/clientService.js";
 
 export const registerClients = (req, res) => {
-  const { nome, cpf_cnpj, contato, endereco } = req.body;
-  const client = findByCpfCnpj(cpf_cnpj);
+  try {
+    const { nome, cpf_cnpj, contato, endereco } = req.body;
+    const client = findByCpfCnpj(cpf_cnpj);
 
-  if (client) {
-    return res
-      .status(400)
-      .json({ message: "Já existe um cliente cadastrado com esse CPF/CNPJ." });
-  }
+    if (client) {
+      return res
+        .status(400)
+        .json({
+          message: "Já existe um cliente cadastrado com esse CPF/CNPJ.",
+        });
+    }
 
-  if (insertClientS(nome, cpf_cnpj, contato, endereco)) {
+    insertClientS(nome, cpf_cnpj, contato, endereco);
     res.status(201).json({ message: "Cliente cadastrado com sucesso." });
-  } else {
-    res.status(400).json({ message: "Erro ao cadastrar cliente." });
+  } catch (error) {
+    console.error("Erro ao cadastrar cliente:", error);
+    res.status(500).json({ message: "Erro ao cadastrar cliente." });
   }
 };
 
@@ -49,11 +53,8 @@ export const updateClients = (req, res) => {
 export const deleteClients = (req, res) => {
   try {
     const { id } = req.query;
-    if (deleteClientS(id)) {
-      res.status(200).json({ message: "Cliente deletado com sucesso." });
-    } else {
-      res.status(400).json({ message: "Erro ao deletar cliente." });
-    }
+    deleteClientS(id);
+    res.status(200).json({ message: "Cliente deletado com sucesso." });
   } catch (error) {
     console.error("Erro ao deletar cliente:", error);
     res.status(500).json({ message: "Erro ao deletar cliente." });
