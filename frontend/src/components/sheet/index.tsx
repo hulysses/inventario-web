@@ -41,7 +41,6 @@ export function Sheets({
     fields,
     {
       ...initialData,
-      clienteId: initialData.clienteId?.toString() || "",
     },
     apiEndpoint as string,
     method as "post" | "put",
@@ -117,7 +116,7 @@ export function Sheets({
                             >
                               <FormControl>
                                 <RadioGroupItem
-                                  value={option.value.toString()}
+                                  value={option.value}
                                 />
                               </FormControl>
                               <FormLabel className="font-normal">
