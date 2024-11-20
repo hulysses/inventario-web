@@ -56,7 +56,7 @@ export const columns: ColumnDef<Transaction>[] = [
       const value = row.original.tipo;
       const type = row.original.tipo;
 
-      const colorClass = type === "entrada" ? "bg-green-500" : "bg-red-500";
+      const colorClass = type === "Entrada" ? "bg-red-500" : "bg-green-500";
 
       return (
         <div className="flex items-center gap-2">
