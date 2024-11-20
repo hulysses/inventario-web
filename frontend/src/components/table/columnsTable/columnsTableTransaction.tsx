@@ -18,6 +18,7 @@ export const columns: ColumnDef<Transaction>[] = [
         </Button>
       );
     },
+    sortDescFirst: true,
   },
   {
     accessorKey: "data",

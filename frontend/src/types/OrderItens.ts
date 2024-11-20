@@ -1,8 +1,8 @@
 export type OrderItens = {
   id: number;
   quantidade: number;
-  produtoNome: string;
-  produtoValor: string;
-  produtoId: number;
-  pedidoId: number | null;
+  nome: string;
+  preco_unitario: string;
+  pedido_id: number;
+  produto_id: number | null;
 };

@@ -44,7 +44,7 @@ export const columns = (
       },
     },
     {
-      accessorKey: "produtoNome",
+      accessorKey: "nome",
       header: ({ column }) => {
         return (
           <Button
@@ -56,10 +56,10 @@ export const columns = (
           </Button>
         );
       },
-      cell: ({ row }) => row.original.produtoNome,
+      cell: ({ row }) => row.original.nome,
     },
     {
-      accessorKey: "produtoValor",
+      accessorKey: "preco_unitario",
       header: ({ column }) => {
         return (
           <Button
@@ -72,7 +72,7 @@ export const columns = (
         );
       },
       cell: ({ row }) => {
-        let preco = row.getValue("produtoValor");
+        let preco = row.getValue("preco_unitario");
         if (typeof preco === "string") {
           preco = parseFloat(preco.replace(",", "."));
         }

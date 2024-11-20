@@ -138,9 +138,7 @@ export const columns = ({
   },
   {
     header: ({}) => {
-      return (
-        <p className="text-base font-semibold text-white">Itens do Pedido</p>
-      );
+      return <p className="text-base font-semibold text-white">Itens</p>;
     },
     id: "details",
     cell: ({ row }) => {

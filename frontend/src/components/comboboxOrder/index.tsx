@@ -1,3 +1,16 @@
+import axios from "axios";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Product } from "@/types/Product";
+import { OrderItens } from "@/types/OrderItens";
+import React, { useEffect, useState } from "react";
+import { Check, ChevronsUpDown, Plus } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Command,
   CommandEmpty,
@@ -6,18 +19,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import React, { useEffect, useState } from "react";
-import { Button } from "../ui/button";
-import { Check, ChevronsUpDown, Plus } from "lucide-react";
-import { cn } from "@/lib/utils";
-import axios from "axios";
-import { Product } from "@/types/Product";
-import { OrderItens } from "@/types/OrderItens";
 
 type ItemToAdd = {
   value: string;
@@ -35,6 +36,9 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
   const [selectedProductId, setSelectedProductId] = useState<number | null>(
     null
   );
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("");
+  const [quantity, setQuantity] = useState<number>(1);
   const [selectedProduct, setSelectedProduct] = useState<OrderItens[]>([]);
 
   useEffect(() => {
@@ -68,15 +72,18 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
         const response = await axios.post(
           "http://localhost:3000/itens-orders",
           {
-            produtoId: selectedProductId,
-            pedidoId: pedidoId,
-            produtoNome: produtoSelecionado.nome,
-            produtoValor: produtoSelecionado.preco,
-            data_adicao: new Date().toISOString(),
+            produto_id: selectedProductId,
+            pedido_id: pedidoId,
+            nome: produtoSelecionado.nome,
+            quantidade: quantity,
+            preco_unitario: produtoSelecionado.preco, // Ensure preco_unitario is passed
           }
         );
 
         setSelectedProduct((prevItems) => [...prevItems, response.data]);
+        setValue("");
+        setSelectedProductId(null);
+        setQuantity(1);
       }
     } catch (error) {
       console.error("Erro ao adicionar item ao pedido");
@@ -87,22 +94,19 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
 
   useEffect(() => {}, selectedProduct);
 
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
-
   return (
-    <>
+    <div className="flex items-center space-x-2">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[200px] justify-between opacity-90 mx-auto right-0"
+            className="w-[200px] justify-between opacity-90"
           >
             {value
               ? itensToAdd.find((item) => item.value === value)?.value
-              : "Adicione um item..."}
+              : "Selecione um item..."}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -110,7 +114,7 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
           <Command>
             <CommandInput placeholder="Procure um item..." />
             <CommandList>
-              <CommandEmpty>Nenhum item achado.</CommandEmpty>
+              <CommandEmpty>Nenhum item encontrado.</CommandEmpty>
               <CommandGroup>
                 {itensToAdd.map((item) => (
                   <CommandItem
@@ -142,14 +146,23 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
           </Command>
         </PopoverContent>
       </Popover>
+      <Input
+        type="number"
+        value={quantity}
+        onChange={(e) =>
+          setQuantity(Math.max(1, parseInt(e.target.value) || 0))
+        }
+        className="w-20 border"
+        min="1"
+      />
       <Button
-        className="bg-orange hover:bg-orangeHover text-white font-semibold mx-auto"
-        disabled={!selectedProduct || loading}
+        className="bg-orange hover:bg-orangeHover text-white font-semibold"
+        disabled={!selectedProductId || quantity <= 0 || loading}
         onClick={handleAddItemOrder}
       >
         <Plus className="w-4 mr-1" />
-        Adicionar Item
+        Adicionar
       </Button>
-    </>
+    </div>
   );
 };
