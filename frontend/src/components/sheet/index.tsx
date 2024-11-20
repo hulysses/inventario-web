@@ -57,7 +57,9 @@ export function Sheets({
   useEffect(() => {
     if (open && initialData) {
       Object.keys(initialData).forEach((key) => {
-        form.setValue(key, initialData[key]);
+        if (form.getValues(key) !== initialData[key]) {
+          form.setValue(key, initialData[key]);
+        }
       });
     }
   }, [open, initialData, form]);
@@ -70,13 +72,17 @@ export function Sheets({
   };
 
   useEffect(() => {
-    const imageField = form.watch("imagem"); // Observar mudanças no campo de imagem
-    if (imageField) {
-      isValidImageUrl(imageField).then((isValid) => setIsImageValid(isValid));
-    } else {
-      setIsImageValid(false);
-    }
-  }, [form.watch("imagem")]);
+    const subscription = form.watch((value) => {
+      if (value.imagem) {
+        isValidImageUrl(value.imagem).then((isValid) =>
+          setIsImageValid(isValid)
+        );
+      } else {
+        setIsImageValid(false);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   return (
     <Sheet open={open} onOpenChange={handleSheetOpenChange}>

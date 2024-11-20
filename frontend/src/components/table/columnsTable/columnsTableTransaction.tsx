@@ -81,7 +81,6 @@ export const columns: ColumnDef<Transaction>[] = [
     },
     cell: ({ row }) => {
       let valor = row.getValue("valor");
-      console.log(valor);
       if (typeof valor === "string") {
         valor = parseFloat(valor.replace(",", "."));
       }
