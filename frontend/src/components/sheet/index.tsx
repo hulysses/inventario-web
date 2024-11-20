@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { SheetProps } from "@/types/Sheet";
+import { useEffect, useState } from "react";
 import { useFormData } from "@/hooks/useForm";
 import { isValidImageUrl } from "@/helpers/productHelper";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -41,7 +41,7 @@ export function Sheets({
     fields,
     {
       ...initialData,
-      clienteId: initialData.clienteId?.toString() || "", 
+      clienteId: initialData.clienteId?.toString() || "",
       quantidade: initialData.quantidade?.toString() || "",
     },
     apiEndpoint as string,

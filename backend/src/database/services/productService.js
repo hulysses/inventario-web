@@ -11,7 +11,7 @@ export const insertProduct = (
   try {
     const sql =
       "INSERT INTO product (nome, descricao, preco, quantidade, imagem, supplier_id) VALUES (?, ?, ?, ?, ?, ?)";
-    db.prepare(sql).run(
+    const result = db.prepare(sql).run(
       nome,
       descricao,
       preco,
@@ -20,7 +20,7 @@ export const insertProduct = (
       supplier_id
     );
 
-    return true;
+    return result.lastInsertRowid;
   } catch (error) {
     console.log("Erro ao inserir produto:", error.message);
     return false;

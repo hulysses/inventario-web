@@ -5,12 +5,31 @@ import {
   deleteProduct,
   listProductWithSuppliers,
 } from "../database/services/productService.js";
+import { insertTransactionS } from "../database/services/transactionService.js";
 
 export const registerProduct = (req, res) => {
   const { nome, descricao, preco, quantidade, imagem, supplier_id } = req.body;
 
-  if (insertProduct(nome, descricao, preco, quantidade, imagem, supplier_id)) {
-    res.status(201).json({ message: "Produto cadastrado com sucesso" });
+  const productId = insertProduct(
+    nome,
+    descricao,
+    preco,
+    quantidade,
+    imagem,
+    supplier_id
+  );
+
+  if (productId) {
+    const valor = -(quantidade * preco);
+    const data = new Date().toISOString().split("T")[0];
+    const tipo = "Entrada";
+    const order_id = null;
+
+    if (insertTransactionS(data, tipo, valor, productId, order_id)) {
+      res.status(201).json({ message: "Produto cadastrado com sucesso" });
+    } else {
+      res.status(400).json({ message: "Erro ao cadastrar transação." });
+    }
   } else {
     res.status(400).json({ message: "Erro ao cadastrar produto." });
   }
