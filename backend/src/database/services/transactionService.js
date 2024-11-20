@@ -1,22 +1,10 @@
 import { db } from "../db.js";
 
-export const insertTransactionS = (
-  data,
-  tipo,
-  valor,
-  product_id,
-  order_id
-) => {
+export const insertTransactionS = (data, tipo, valor, product_id, order_id) => {
   try {
     const sql =
       "INSERT INTO transactions (data, tipo, valor, product_id, order_id) VALUES (?, ?, ?, ?, ?)";
-    db.prepare(sql).run(
-      data,
-      tipo,
-      valor,
-      product_id,
-      order_id
-    );
+    db.prepare(sql).run(data, tipo, valor, product_id, order_id);
 
     return true;
   } catch (error) {
@@ -47,14 +35,7 @@ export const updateTransactionS = (
   try {
     const sql =
       "UPDATE transactions SET data = ?, tipo = ?, valor = ?, product_id = ?, order_id = ? WHERE id = ?";
-    db.prepare(sql).run(
-      data,
-      tipo,
-      valor,
-      product_id,
-      order_id,
-      id
-    );
+    db.prepare(sql).run(data, tipo, valor, product_id, order_id, id);
     return true;
   } catch (error) {
     console.log("Erro ao atualizar transação:", error.message);

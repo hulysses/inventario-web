@@ -11,14 +11,9 @@ export const insertProduct = (
   try {
     const sql =
       "INSERT INTO product (nome, descricao, preco, quantidade, imagem, supplier_id) VALUES (?, ?, ?, ?, ?, ?)";
-    const result = db.prepare(sql).run(
-      nome,
-      descricao,
-      preco,
-      quantidade,
-      imagem,
-      supplier_id
-    );
+    const result = db
+      .prepare(sql)
+      .run(nome, descricao, preco, quantidade, imagem, supplier_id);
 
     return result.lastInsertRowid;
   } catch (error) {
@@ -87,5 +82,16 @@ export const deleteProduct = (id) => {
   } catch (error) {
     console.log("Erro ao deletar produto:", error.message);
     return false;
+  }
+};
+
+export const getProductById = (id) => {
+  try {
+    const sql = "SELECT * FROM product WHERE id = ?";
+    const product = db.prepare(sql).get(id);
+    return product;
+  } catch (error) {
+    console.log("Erro ao buscar produto:", error.message);
+    return null;
   }
 };

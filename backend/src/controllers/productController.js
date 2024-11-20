@@ -4,6 +4,7 @@ import {
   updateProduct,
   deleteProduct,
   listProductWithSuppliers,
+  getProductById,
 } from "../database/services/productService.js";
 import { insertTransactionS } from "../database/services/transactionService.js";
 
@@ -61,8 +62,27 @@ export const updateProducts = (req, res) => {
     const { nome, descricao, preco, quantidade, imagem, supplier_id } =
       req.body;
 
-    updateProduct(id, nome, descricao, preco, quantidade, imagem, supplier_id);
-    res.status(200).json({ message: "Produto atualizado com sucesso" });
+    const existingProduct = getProductById(id);
+    const difference = quantidade - existingProduct.quantidade;
+    const data = new Date().toISOString().split("T")[0];
+    const tipo = difference > 0 ? "Entrada" : "Saida";
+    const valor = Math.abs(difference) * parseFloat(preco);
+    const order_id = null;
+
+    if (insertTransactionS(data, tipo, valor, id, order_id)) {
+      updateProduct(
+        id,
+        nome,
+        descricao,
+        preco,
+        quantidade,
+        imagem,
+        supplier_id
+      );
+      res.status(200).json({ message: "Produto atualizado com sucesso" });
+    } else {
+      res.status(400).json({ message: "Erro ao cadastrar transação." });
+    }
   } catch (error) {
     console.error("Erro ao atualizar produtos:", error);
     res.status(500).json({ message: "Erro ao atualizar produto." });
