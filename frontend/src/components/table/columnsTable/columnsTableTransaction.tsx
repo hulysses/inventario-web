@@ -34,7 +34,9 @@ export const columns: ColumnDef<Transaction>[] = [
     },
     cell: ({ row }) => {
       const dateValue = row.original.data;
-      return dateValue ? new Date(dateValue).toLocaleDateString() : "Data inválida";
+      return dateValue
+        ? new Date(dateValue).toLocaleDateString()
+        : "Data inválida";
     },
   },
   {
@@ -79,6 +81,7 @@ export const columns: ColumnDef<Transaction>[] = [
     },
     cell: ({ row }) => {
       let valor = row.getValue("valor");
+      console.log(valor);
       if (typeof valor === "string") {
         valor = parseFloat(valor.replace(",", "."));
       }

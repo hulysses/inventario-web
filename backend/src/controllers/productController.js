@@ -20,7 +20,7 @@ export const registerProduct = (req, res) => {
   );
 
   if (productId) {
-    const valor = -(quantidade * preco);
+    const valor = parseInt(quantidade) * parseFloat(preco);
     const data = new Date().toISOString().split("T")[0];
     const tipo = "Entrada";
     const order_id = null;
