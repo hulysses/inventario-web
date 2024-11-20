@@ -50,10 +50,7 @@ export const DrawerOrder = ({ pedidoId }: DrawerOrderProps) => {
 
   return (
     <Drawer>
-      <DrawerTrigger
-        type="button"
-        className="flex rounded-md border-gray-200 "
-      >
+      <DrawerTrigger type="button" className="flex rounded-md border-gray-200 ">
         Visualizar <ArrowRight className="ml-1" />
       </DrawerTrigger>
       <DrawerContent>

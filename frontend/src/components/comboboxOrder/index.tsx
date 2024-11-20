@@ -76,7 +76,7 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
             pedido_id: pedidoId,
             nome: produtoSelecionado.nome,
             quantidade: quantity,
-            preco_unitario: produtoSelecionado.preco, // Ensure preco_unitario is passed
+            preco_unitario: produtoSelecionado.preco,
           }
         );
 

@@ -27,8 +27,7 @@ export const listItensOrdersS = (pedido_id) => {
                 i.id,
                 i.pedido_id,
                 i.produto_id,
-                p.nome AS produtoNome,
-                p.preco AS produtoValor,
+                p.nome,
                 i.quantidade,
                 i.preco_unitario
             FROM itens_order i
