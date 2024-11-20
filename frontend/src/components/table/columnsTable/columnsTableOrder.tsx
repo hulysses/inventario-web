@@ -143,7 +143,8 @@ export const columns = ({
     id: "details",
     cell: ({ row }) => {
       const orderId = row.original.pedidoId;
-      return <DrawerOrder pedidoId={orderId} />;
+      const status = row.original.status;
+      return <DrawerOrder pedidoId={orderId} status={status} />;
     },
   },
 
@@ -154,6 +155,7 @@ export const columns = ({
     id: "actions",
     cell: ({ row }) => {
       const data = row.original;
+      const isConcluido = data.status === "concluido";
 
       return (
         <DropdownMenu>
@@ -163,7 +165,7 @@ export const columns = ({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => handleEdit(data)}>
+            <DropdownMenuItem onClick={() => handleEdit(data)} disabled={isConcluido}>
               Editar
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => confirmDelete(data.pedidoId)}>

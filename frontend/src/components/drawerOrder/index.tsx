@@ -18,7 +18,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-export const DrawerOrder = ({ pedidoId }: DrawerOrderProps) => {
+export const DrawerOrder = ({ pedidoId, status }: DrawerOrderProps) => {
   const [data, setData] = useState<OrderItens[]>([]);
 
   const fetchOrderItems = async () => {
@@ -41,7 +41,7 @@ export const DrawerOrder = ({ pedidoId }: DrawerOrderProps) => {
     }
   };
 
-  const columns = columnsTemplate(handleDeleteItem);
+  const columns = columnsTemplate(handleDeleteItem, status === "concluido");
   const { table } = useDataTable(columns, data);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export const DrawerOrder = ({ pedidoId }: DrawerOrderProps) => {
           <div className="flex items-center justify-between space-x-2">
             <DrawerTitle>Itens do pedido</DrawerTitle>
             <div className="flex items-center justify-end space-x-2">
-              <ComboboxOrder pedidoId={pedidoId} />
+              <ComboboxOrder pedidoId={pedidoId} disabled={status === "concluido"} />
             </div>
           </div>
           <DataTable columns={columns} table={table} />

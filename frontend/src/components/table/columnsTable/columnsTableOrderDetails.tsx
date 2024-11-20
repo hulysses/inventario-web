@@ -6,7 +6,8 @@ import { useState } from "react";
 import { ConfirmationDialog } from "@/components/dialog/confirm";
 
 export const columns = (
-  handleDeleteItem: (id: number) => void
+  handleDeleteItem: (id: number) => void,
+  isOrderConcluded: boolean
 ): ColumnDef<OrderItens>[] => {
   const [isOpen, setIsOpen] = useState(false);
   const [itemIdToDelete, setItemIdToDelete] = useState<number | null>(null);
@@ -114,6 +115,7 @@ export const columns = (
               onClick={() => confirmDelete(itemId)}
               variant="ghost"
               className="hover:bg-inherit p-0"
+              disabled={isOrderConcluded}
             >
               <Trash2 />
             </Button>

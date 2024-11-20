@@ -27,9 +27,10 @@ type ItemToAdd = {
 
 type ComboboxOrderProps = {
   pedidoId: number | null;
+  disabled: boolean;
 };
 
-export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
+export const ComboboxOrder = ({ pedidoId, disabled }: ComboboxOrderProps) => {
   const [produtos, setProdutos] = useState<Product[]>([]);
   const [itensToAdd, setItensToAdd] = useState<ItemToAdd[]>([]);
   const [loading, setLoading] = useState(false);
@@ -157,7 +158,7 @@ export const ComboboxOrder = ({ pedidoId }: ComboboxOrderProps) => {
       />
       <Button
         className="bg-orange hover:bg-orangeHover text-white font-semibold"
-        disabled={!selectedProductId || quantity <= 0 || loading}
+        disabled={!selectedProductId || quantity <= 0 || loading || disabled}
         onClick={handleAddItemOrder}
       >
         <Plus className="w-4 mr-1" />

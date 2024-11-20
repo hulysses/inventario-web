@@ -3,8 +3,12 @@ import {
   insertOrderS,
   updateOrderS,
   listOrderS,
+  getTotalOrder,
 } from "../database/services/orderService.js";
-import { deleteAllItensOrders, returnItensToStock } from "../database/services/orderItensService.js";
+import {
+  deleteAllItensOrders,
+  returnItensToStock,
+} from "../database/services/orderItensService.js";
 import { deleteTransactionsByOrderId } from "../database/services/transactionService.js";
 
 export const registerOrder = (req, res) => {
@@ -30,12 +34,18 @@ export const listOrder = (req, res) => {
 export const updateOrder = (req, res) => {
   try {
     const { id } = req.query;
-    const { data, clienteId, status, total } = req.body;
+    const { data, clienteId, status } = req.body;
+    const total = getTotalOrder(id);
 
-    // Fetch items count for the order
-    const order = listOrderS().find(order => order.pedidoId === parseInt(id));
+    if (total === null) {
+      return res.status(400).json({ message: "Pedido não encontrado." });
+    }
+
+    const order = listOrderS().find((order) => order.pedidoId === parseInt(id));
     if (status === "concluido" && order.itemsCount === 0) {
-      return res.status(400).json({ message: "Não é possível concluir um pedido sem itens." });
+      return res
+        .status(400)
+        .json({ message: "Não é possível concluir um pedido sem itens." });
     }
 
     updateOrderS(id, data, clienteId, status, total);

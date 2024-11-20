@@ -58,3 +58,14 @@ export const deleteOrderS = (id) => {
     return false;
   }
 };
+
+export const getTotalOrder = (id) => {
+  try {
+    const sql = "SELECT total FROM orders WHERE id = ?";
+    const result = db.prepare(sql).get(id);
+    return result ? result.total : null;
+  } catch (error) {
+    console.error("Erro ao buscar total do pedido:", error);
+    throw new Error("Erro ao buscar total do pedido");
+  }
+};
