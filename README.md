@@ -9,7 +9,7 @@
 O **Khiv Inventário** é um sistema web completo e robusto, projetado para otimizar a gestão de estoque, vendas e transações financeiras de negócios. Ele combina **desempenho**, **segurança** e uma **interface intuitiva** para simplificar o gerenciamento do seu negócio.
 
 <div align="center">
-  <video src="frontend/src/assets/video/apresentacao.mp4" controls width="600"></video>
+  <video src="https://drive.google.com/file/d/1KQRe1GZTUBXQubUFWWJPQb0bmH8pWQtA/view?usp=sharing" controls width="600"></video>
 </div>
 
 ---
